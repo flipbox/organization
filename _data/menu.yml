@@ -4,41 +4,41 @@
   - text: Introduction
     url: /
   - text: Installation / Upgrading
-    url: /install/
+    url: install/
   - text: Support
-    url: /support/
+    url: support/
   - text: Changelog
-    url: /changelog/
+    url: changelog/
 
 - text: Templating
-  url: /twig/
+  url: twig/
   subitems:
   - text: Introduction
     url: twig/
   - text: Variables
-    url: /twig/variables/
+    url: twig/variables/
     subitems:
       - text: Rating
-        url: /twig/variables/rating/
+        url: twig/variables/rating/
       - text: Collection
-        url: /twig/variables/collection/
+        url: twig/variables/collection/
       - text: Settings
-        url: /twig/variables/settings/
+        url: twig/variables/settings/
   - text: Filters
-    url: /twig/filters/
+    url: twig/filters/
 
 - text: Models
-  url: /models/
+  url: models/
   subitems:
   - text: Standard
-    url: /models/standard/
+    url: models/standard/
     subitems:
       - text: Collection
-        url: /models/standard/collection/
+        url: models/standard/collection/
       - text: Field
-        url: /models/standard/field/
+        url: models/standard/field/
   - text: Elements
-    url: /models/element/
+    url: models/element/
     subitems:
       - text: Rating
-        url: /models/element/rating/
+        url: models/element/rating/
