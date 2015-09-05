@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <title>TWIG - Rating</title>
+    
+    
+        <meta name="description" content="RATING DESCRIPTION">
+    
+    
+        <link rel="icon" type="image/x-icon" href="http://theme.flipboxfactory.com/v1/images/favicon.ico" />
+    
+    
+        <link rel="apple-touch-icon-precomposed" href="http://theme.flipboxfactory.com/v1/images/apple-touch-icon-precomposed.png">
+    
+    <link rel="stylesheet" href="http://theme.flipboxfactory.com/v1/css/style.min.css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="docs">
+
+<header>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-primary" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://flipboxfactory.com/">
+                    <img src="http://flipboxfactory.com/assets/images/theme/flipbox-factory-logo.png" alt="Rating - RATING TAGLINE" height="40px" />
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-primary">
+
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="page-header page-header-full page-header-border page-header-tabs">
+    <div class="container">
+
+        <div class="media product btm-margin-20">
+            <div class="media-left">
+                <a href="https://flipboxfactory.com/plugins/craft/rating" class="media-object icon-rating product-logo product-logo-rating"></a>
+            </div>
+            <div class="media-body">
+                <h1 class="media-heading caps"><a href="https://flipboxfactory.com/plugins/craft/rating">Rating</a></h1>
+                <h5 class="media-sub-heading">RATING TAGLINE</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-offset-6 col-sm-6">
+                <ul class="nav nav-tabs pull-right" role="tablist">
+    
+    <li role="presentation">
+        <a href="/account/profile" role="tab">Details</a>
+    </li>
+    
+    <li role="presentation">
+        <a href="/account/profile" role="tab">Change Log</a>
+    </li>
+    
+    <li role="presentation" class="active">
+        <a href="/account/profile" role="tab">Documentation</a>
+    </li>
+    
+</ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <aside class="sidebar sidebar-left col-md-3 vert-padding-30">
+            <div class="block nav">
+                
+
+    <h3 class="block-title top-padding-20 caps">Getting Started</h3>
+    
+        <ul class="list-unstyled">
+    
+    
+    
+    
+        <li>
+            <a href="/">
+                Introduction
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/install/">
+                Installation / Upgrading
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/support/">
+                Support
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/changelog/">
+                Changelog
+            </a>
+            
+        </li>
+    
+</ul>
+    
+
+    <h3 class="block-title top-padding-20 caps selected">Templating</h3>
+    
+        <ul class="list-unstyled">
+    
+    
+    
+    
+        <li class="selected">
+            <a href="/twig/">
+                Introduction
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/twig/variables/">
+                Variables
+            </a>
+            
+                <ul class="list-unstyled">
+    
+    
+    
+    
+        <li>
+            <a href="/twig/variables/rating/">
+                Rating
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/twig/variables/collection/">
+                Collection
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/twig/variables/settings/">
+                Settings
+            </a>
+            
+        </li>
+    
+</ul>
+            
+        </li>
+    
+        <li>
+            <a href="/twig/filters/">
+                Filters
+            </a>
+            
+        </li>
+    
+</ul>
+    
+
+    <h3 class="block-title top-padding-20 caps">Models</h3>
+    
+        <ul class="list-unstyled">
+    
+    
+    
+    
+        <li>
+            <a href="/models/standard/">
+                Standard
+            </a>
+            
+                <ul class="list-unstyled">
+    
+    
+    
+    
+        <li>
+            <a href="/models/standard/collection/">
+                Collection
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/models/standard/field/">
+                Field
+            </a>
+            
+        </li>
+    
+</ul>
+            
+        </li>
+    
+        <li>
+            <a href="/models/element/">
+                Elements
+            </a>
+            
+                <ul class="list-unstyled">
+    
+    
+    
+    
+        <li>
+            <a href="/models/element/rating/">
+                Rating
+            </a>
+            
+        </li>
+    
+</ul>
+            
+        </li>
+    
+</ul>
+    
+
+            </div>
+        </aside>
+
+        <section class="col-md-9 vert-padding-30 content">
+            <h1 id="twig-reference">Twig Reference</h1>
+
+<p>Rating can be accessed via Twig template language in the following ways:</p>
+
+<ul>
+    
+    
+    
+    
+        <li>
+            <a href="/twig/variables/">
+                Variables
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/twig/filters/">
+                Filters
+            </a>
+            
+        </li>
+    
+</ul>
+
+<hr />
+
+<h3 id="variables">Variables</h3>
+
+<p>Variables</p>
+
+<ul>
+    
+    
+    
+    
+        <li>
+            <a href="/twig/variables/rating/">
+                Rating
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/twig/variables/collection/">
+                Collection
+            </a>
+            
+        </li>
+    
+        <li>
+            <a href="/twig/variables/settings/">
+                Settings
+            </a>
+            
+        </li>
+    
+</ul>
+
+<hr />
+
+<h3 id="filters">Filters</h3>
+
+<p class="no-results"><i>No Filters items were found...</i></p>
+
+
+        </section>
+
+    </div>
+
+</div>
+
+<div class="page-crumbs">
+    <div class="container">
+
+        <hr />
+        <a class="btn btn-link caps first" href="https://flipboxfactory.com/plugins/craft/rating">
+            Back to Craft plugins
+        </a>
+
+        <!--<a class="btn btn-primary caps first pull-right" href="/plugins/craft">-->
+        <!--Download Plugin-->
+        <!--</a>-->
+    </div>
+</div>
+
+<footer id="footer-block" class="footer">
+    <div class="container">
+        <div class="col-sm-3">
+
+        </div>
+        <div class="col-sm-5">
+
+        </div>
+        <div class="col-sm-4">
+            <section class="block">
+                <h3 class="block-title caps">Latest Tweets</h3>
+
+            </section>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-text">
+                Copyright &copy; Flipbox Factory, a <a href="https://flipboxdigital.com" alt="Flipbox Digital">Flipbox Digital</a> Company
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+
+            </ul>
+        </div>
+    </nav>
+</footer>
+
+<script src="http://theme.flipboxfactory.com/v1/js/lib.min.js"></script>
+<script src="http://theme.flipboxfactory.com/v1/js/app.min.js"></script>
+
+
+    <script>
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','XX-XXXXXXXX-X');ga('send','pageview');
+    </script>
+
+
+</body>
+</html>
