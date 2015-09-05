@@ -14,7 +14,7 @@
   url: /twig/
   subitems:
   - text: Introduction
-    url: /twig/
+    url: twig/
   - text: Variables
     url: /twig/variables/
     subitems:
