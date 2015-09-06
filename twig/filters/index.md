@@ -6,7 +6,7 @@ permalink: twig/filters/
 
 # Twig Filters
 
-This plugin does not have any [TWIG][] [Filters][] are this time.
+This plugin does not have any [Twig][] [Filters][] at this time.
 
-[TWIG]: twig_url "TWIG"
-[Filters]: twig_filters_url "TWIG Filters"
+[TWIG]: http://twig.sensiolabs.org/ "Twig is a modern template engine for PHP"
+[Filters]: http://twig.sensiolabs.org/doc/filters/index.html "Twig Filters"

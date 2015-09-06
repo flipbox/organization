@@ -15,30 +15,31 @@
   subitems:
   - text: Introduction
     url: /twig/
-  - text: Variables
-    url: /twig/variables/
+  - text: Tags
+    url: /twig/tags/
     subitems:
       - text: Rating
-        url: /twig/variables/rating/
+        url: /twig/tags/rating/
       - text: Collection
-        url: /twig/variables/collection/
+        url: /twig/tags/collection/
       - text: Settings
-        url: /twig/variables/settings/
+        url: /twig/tags/settings/
   - text: Filters
     url: /twig/filters/
-
+- text: Elements
+  url: /elements/
+  subitems:
+    - text: Rating
+      url: /elements/rating/
+- text: Queries
+  url: /queries/
+  subitems:
+    - text: Rating
+      url: /queries/rating/
 - text: Models
   url: /models/
   subitems:
-  - text: Standard
-    url: /models/standard/
-    subitems:
-      - text: Collection
-        url: /models/standard/collection/
-      - text: Field
-        url: /models/standard/field/
-  - text: Elements
-    url: /models/element/
-    subitems:
-      - text: Rating
-        url: /models/element/rating/
+    - text: Collection
+      url: /models/collection/
+    - text: Field
+      url: /models/field/

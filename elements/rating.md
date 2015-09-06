@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Elements - Rating
-permalink: models/element/rating/
+permalink: elements/rating/
 ---
 
 # Elements - Rating
@@ -91,7 +91,7 @@ Set a single rating field post value.
 #### `getRatingContentFromPost()`
 Get an array of rating fields post values.
 
-[Collection]: /models/standard/collection "Rating Collection Model"
+[Collection]: /models/collection "Rating Collection Model"
 [ElementInterface]: element_interface_url "Craft Element Interface"
 [Element]: element_url "Craft Element"
 [ElementQuery]: element_query_url "Craft Element Query"

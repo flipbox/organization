@@ -1,12 +1,12 @@
 ---
 layout: default
-title: TWIG Variables - Rating
-permalink: twig/variables/rating/
+title: TWIG Tags - Rating
+permalink: twig/tags/rating/
 ---
 
-# Twig Variables - Rating
+# Twig Tags - Rating
 
-The `craft.rating` variable enables interaction with Rating entries.  Commonly, these variables are used to display information about a particular [Rating][] or [Collection][] of [Ratings][Rating].
+The `craft.rating` variable enables interaction with Rating entries.  Commonly, these tags are used to display information about a particular [Rating][] or [Collection][] of [Ratings][Rating].
 
 ## Methods
 
@@ -19,7 +19,7 @@ The following methods are available:
 
 ## `find( parameters )`
 
-Returns an [RatingQuery][] object.
+Returns an [Rating Query][] object.  In addition to the methods and properties available within the [Element Query][], refer to the [Rating Query][] for additional methods and properties. 
 
 {% raw %}
 ~~~twig
@@ -30,17 +30,17 @@ Returns an [RatingQuery][] object.
 ~~~
 {% endraw %}
 
-### Parameters
-In addition to the parameters found within the [ElementQuery][], `craft.rating.find` supports the following additional parameters:
+### Usage
+The following are common usage examples:
 
-* [`element`](#element-default--null)
-* [`owner`](#owner-default--null)
-* [`collection`](#collection-default--null)
-* [`name`](#name-default--null)
-* [`email`](#email-default--null)
-* [`status`](#status-default--active)
+* [`element`](#element)
+* [`owner`](#owner)
+* [`collection`](#collection)
+* [`name`](#name)
+* [`email`](#email)
+* [`status`](#status)
 
-#### `element` *(default = null)*
+#### `element`
 Only fetch Rating(s) that are associated by an [Element][](s). Accepts either an array or singular reference to: [ElementInterface][], Element ID, Element Uri.
 
 {% raw %}
@@ -50,7 +50,7 @@ Only fetch Rating(s) that are associated by an [Element][](s). Accepts either an
 ~~~
 {% endraw %}
 
-#### `owner` *(default = null)*
+#### `owner`
 Only fetch Rating(s) that are associated to a [Owner][User Element](s). Accepts either an array or singular reference to: [User Element][] object, User ID, Username or Email address.
 
 {% raw %}
@@ -60,7 +60,7 @@ Only fetch Rating(s) that are associated to a [Owner][User Element](s). Accepts 
 ~~~
 {% endraw %}
 
-#### `collection` *(default = null)*
+#### `collection`
 Only fetch Rating(s) that are associated to a [Collection][](s). Accepts either an array or singular reference to: [Collection Model][Collection] object, Collection ID, Collection Handle.
 
 {% raw %}
@@ -70,7 +70,7 @@ Only fetch Rating(s) that are associated to a [Collection][](s). Accepts either 
 ~~~
 {% endraw %}
 
-#### `name` *(default = null)*
+#### `name`
 Only fetch Rating(s) with the given name.
 
 {% raw %}
@@ -80,7 +80,7 @@ Only fetch Rating(s) with the given name.
 {% endraw %}
 
 
-#### `email` *(default = null)*
+#### `email`
 Only fetch Rating(s) with the given email.
 
 {% raw %}
@@ -89,7 +89,7 @@ Only fetch Rating(s) with the given email.
 ~~~
 {% endraw %}
 
-#### `status` *(default = active)*
+#### `status`
 Only fetch Rating(s) with the given status.  A `null` value will return all ratings regardless of status.
 
 {% raw %}
@@ -144,8 +144,8 @@ Identify the status of the [Rating][].
 
 [ElementInterface]: element_interface_url "Craft Element Interface"
 [Element]: element_url "Craft Element"
-[ElementQuery]: element_query_url "Craft Element Query"
+[Element Query]: element_query_url "Craft Element Query"
 [User Element]: user_element_url "Craft User Element"
-[Collection]: /models/standard/collection "Rating Collection Model"
+[Collection]: /models/collection "Rating Collection Model"
 [Rating]: /models/element/rating "Rating Element"
-[RatingQuery]: rating_query_url "Rating Query"
+[Rating Query]: /queries/rating "Rating Query"

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: TWIG Variables
-permalink: twig/variables/
+title: TWIG Tags
+permalink: twig/tags/
 ---
 
-# Twig Variables
+# Twig Tags
 
-The following [TWIG][] [Variables][] are available:
+The following [Twig][] [Tags][] are available:
 
 {% include tier3nav.html url=page.url recursive=false %}
 
@@ -19,5 +19,5 @@ The `craft.rating.collection` variable enables interaction with Rating collectio
 ### `craft.rating.settings`
 The `craft.rating.settings` variable enables interaction with Rating settings.
 
-[TWIG]: twig_url "TWIG"
-[Variables]: twig_variables_url "TWIG Variables"
+[Twig]: http://twig.sensiolabs.org/ "Twig is a modern template engine for PHP"
+[Tags]: http://twig.sensiolabs.org/doc/tags/index.html "Twig Tags"

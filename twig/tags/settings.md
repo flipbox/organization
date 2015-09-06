@@ -1,12 +1,12 @@
 ---
 layout: default
-title: TWIG Variables - Settings
-permalink: twig/variables/settings/
+title: TWIG Tags - Settings
+permalink: twig/tags/settings/
 ---
 
-# Twig Variables - Settings
+# Twig Tags - Settings
 
-The `craft.rating.settings` namespace variable enables interaction with [Rating][] settings.  Commonly, these variables are used to display general plugin setting information.
+The `craft.rating.settings` namespace variable enables interaction with [Rating][] settings.  Commonly, these tags are used to display general plugin setting information.
 
 ## Available Methods
 

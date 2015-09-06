@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Standard Models - Field
-permalink: models/standard/field/
+permalink: models/field/
 ---
 
 # Models - Field

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Standard Models - Collection
-permalink: /models/standard/collection/
+permalink: /models/collection/
 ---
 
 # Models - Collection
@@ -56,5 +56,5 @@ Returns an array of [FieldModel][] objects associated to this Collection.  Optio
 Sets an array of [FieldModel][] objects that are to be associated to this Collection.
 
 [Base Model]: base_model_link "Base Model"
-[FieldModel]: (/models/standard/field/) "Rating Field Model"
+[FieldModel]: (/models/field/) "Rating Field Model"
 [DateTime]: base_model_link "DateTime Class"

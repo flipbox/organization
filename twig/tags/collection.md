@@ -1,12 +1,12 @@
 ---
 layout: default
-title: TWIG Variables - Collection
-permalink: twig/variables/collection/
+title: TWIG Tags - Collection
+permalink: twig/tags/collection/
 ---
 
 # Collection
 
-The `craft.rating.collection` namespace variable enables interaction with [Rating Collections][Collection].  Commonly, these variables are used to display information about a particular [Collection] or [Collections][Collection].
+The `craft.rating.collection` namespace variable enables interaction with [Rating Collections][Collection].  Commonly, these tags are used to display information about a particular [Collection] or [Collections][Collection].
 
 ## Available Methods
 
@@ -43,4 +43,4 @@ Returns a [Collection Model][Collection] by its handle.
 ~~~
 {% endraw %}
 
-[Collection]: /models/standard/collection "Rating Collection Model"
+[Collection]: /models/collection "Rating Collection Model"
