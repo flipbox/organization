@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row hidden-xs hidden-sm">
             <div class="col-sm-offset-6 col-sm-6">
                 {% include tabs.html tabs=site.data.tabs ulClass='pull-right' %}
             </div>
@@ -76,15 +76,26 @@
 
 <div class="container">
 
-    <div class="row">
+    <div class="row row-offcanvas row-offcanvas-left">
 
-        <aside class="sidebar sidebar-left col-md-3 vert-padding-30">
+        <aside class="sidebar sidebar-left sidebar-offcanvas col-md-3 vert-padding-30" id="sidebar" role="navigation">
+
             <div class="block nav">
+                <div class="hidden-md hidden-lg">
+                    {% for tab in site.data.tabs %}
+                    <a class="btn btn-block{% if tab.url == '/' %} btn-primary{% endif %}" href="{{ tab.url }}">{{ tab.text }}</a>
+                    {% endfor %}
+                    <hr class="top-margin-30" />
+                </div>
                 {% include nav.html nav=site.data.menu ulClass='list-unstyled' %}
             </div>
+
         </aside>
 
         <section class="col-md-9 vert-padding-30 content">
+
+            <button type="button" class="btn btn-primary btn-sm visible-sm-block visible-xs-block" data-toggle="offcanvas"><span class="toggle toggle-expand">Expand</span><span class="toggle toggle-collapse">Collapse</span> Navigation</button>
+
             {{ content }}
         </section>
 
