@@ -76,30 +76,24 @@
 
 <div class="container">
 
-    <div class="row row-offcanvas row-offcanvas-left">
+    <aside id="sidebar" class="sidebar offcanvas-sm vert-padding-30" role="navigation">
 
-        <aside class="sidebar sidebar-left sidebar-offcanvas col-md-3 vert-padding-30" id="sidebar" role="navigation">
-
-            <div class="block nav">
-                <div class="hidden-md hidden-lg">
-                    {% for tab in site.data.tabs %}
-                    <a class="btn btn-block{% if tab.url == '/' %} btn-primary{% endif %}" href="{{ tab.url }}">{{ tab.text }}</a>
-                    {% endfor %}
-                    <hr class="top-margin-30" />
-                </div>
-                {% include nav.html nav=site.data.menu ulClass='list-unstyled' %}
+        <div class="block nav">
+            <div class="hidden-md hidden-lg">
+                {% for tab in site.data.tabs %}
+                <a class="btn btn-block{% if tab.url == '/' %} btn-primary{% endif %}" href="{{ tab.url }}">{{ tab.text }}</a>
+                {% endfor %}
+                <hr class="top-margin-30" />
             </div>
+            {% include nav.html nav=site.data.menu ulClass='list-unstyled' %}
+        </div>
 
-        </aside>
+    </aside>
 
-        <section class="col-md-9 vert-padding-30 content">
-
-            <button type="button" class="btn btn-primary btn-sm visible-sm-block visible-xs-block" data-toggle="offcanvas"><span class="toggle toggle-expand">Expand</span><span class="toggle toggle-collapse">Collapse</span> Navigation</button>
-
-            {{ content }}
-        </section>
-
-    </div>
+    <section class="vert-padding-30 content">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas" data-target="#sidebar" data-canvas="#sidebar"><span class="toggle toggle-expand">Expand</span> Navigation</button>
+        {{ content }}
+    </section>
 
 </div>
 
