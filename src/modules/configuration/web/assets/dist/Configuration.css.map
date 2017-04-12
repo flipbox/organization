@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "mappings": "AA4CA,mBAAmB;AA8DnB,WAAW;AAoJX,eAAe;AC3Pf;;6CAE6C",
+  "sources": [
+    "../../../../../../../../craftcms/cms/src/web/assets/_shared.scss",
+    "../src/Configuration.scss"
+  ],
+  "names": [],
+  "file": "Configuration.css"
+}

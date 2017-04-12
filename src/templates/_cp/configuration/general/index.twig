@@ -1,0 +1,104 @@
+{% extends "organization/_cp/configuration/_layout" %}
+{% import "_includes/forms" as forms %}
+
+{% set extraPageHeaderHtml %}
+    <div class="btngroup submit right">
+        <input type="submit" class="btn submit" value="{{ 'Save'|t('app') }}">
+
+        <div class="btn submit menubtn"></div>
+        <div class="menu">
+            <ul>
+                <li><a class="formsubmit" data-redirect="{{ continueEditingUrl }}">
+                        {{ "Save and continue editing"|t('app') }}
+                        {{ forms.optionShortcutLabel('S') }}
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+{% endset %}
+
+{% block content %}
+
+    <input type="hidden" name="action" value="{{ baseActionPath }}/save"/>
+    {{ redirectInput(baseCpPath) }}
+
+    {% set cols = {
+    'label' : {
+    type: 'singleline',
+    heading: 'Label',
+    width: '50'
+    },
+    'value' : {
+    type: 'singleline',
+    heading: 'Value',
+    width: '50'
+    }} %}
+
+    {% set rows = [] %}
+    {% for statusValue, statusLabel in settings.statuses %}
+        {% set rows = rows|merge([{label: statusLabel, value: statusValue}]) %}
+    {% endfor %}
+    {{ forms.editableTableField({
+        label: "Statuses"|t('organization'),
+        instructions: "Enter each status on a new row."|t('organization'),
+        id: 'statuses',
+        name: 'statuses',
+        cols: cols,
+        rows:rows,
+        errors: settings.getErrors('statuses')
+    }) }}
+
+    {% set siteRows = [] %}
+    {% set siteErrors = settings.getErrors('sites') %}
+
+    {% for site in craft.app.sites.getAllSites() %}
+        {% set siteSettings = settings.getSite(site.id) %}
+        {% for attribute, errors in siteSettings.getErrors() %}
+            {% set siteErrors = siteErrors|merge(errors) %}
+        {% endfor %}
+        {% set siteRows = siteRows|merge({
+        (site.handle): {
+        heading: site.name|t('site'),
+        uriFormat: {
+        value: siteSettings.uriFormat ?? null,
+        hasErrors: siteSettings.hasErrors('uriFormat') ?? false
+        },
+        template: {
+        value: siteSettings.template ?? null,
+        hasErrors: siteSettings.hasErrors('template') ?? false,
+        }
+        }
+        }) %}
+    {% endfor %}
+
+    {{ forms.editableTableField({
+        label: "Site Settings"|t('app'),
+        instructions: "Configure the organization type's site-specific settings."|t('app'),
+        id: 'sites',
+        name: 'sites',
+        cols: {
+            heading: {
+                type: 'heading',
+                heading: "Site"|t('app'),
+                class: 'thin'
+            },
+            uriFormat: {
+                type: 'singleline',
+                heading: "Category URI Format"|t('app'),
+                info: "What organization URIs should look like for the site."|t('app'),
+                placeholder: "Leave blank if organizations don’t have URLs"|t('app'),
+                code: true
+            },
+            template: {
+                type: 'singleline',
+                heading: "Template"|t('app'),
+                info: "Which template should be loaded when an entry’s URL is requested."|t('app'),
+                code: true
+            },
+        },
+        rows: siteRows,
+        staticRows: true,
+        errors: siteErrors|unique
+    }) }}
+
+{% endblock %}

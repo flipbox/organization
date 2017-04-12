@@ -1,0 +1,22 @@
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+    label: "Organization Name"|t('organization'),
+    id: 'title',
+    name: 'title',
+    value: element.title,
+    errors: element.getErrors('title'),
+    first: true,
+    autofocus: true,
+    required: true,
+    maxlength: 255
+}) }}
+
+{% for tab in fieldLayout.tabs %}
+    <div id="tab{{ loop.index }}"{% if not loop.first %} class="hidden"{% endif %}>
+        {% include "_includes/fields" with {
+        fields: tab.getFields(),
+        element: element
+        } only %}
+    </div>
+{% endfor %}

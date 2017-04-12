@@ -1,0 +1,36 @@
+{% extends "_layouts/elementindex" %}
+{% set title = "Organizations"|t('app') %}
+{% set elementType = 'flipbox\\organization\\elements\\Organization' %}
+{% set showStatusMenu = false %}
+
+{% if groupHandle is defined %}
+    {% js %}
+    window.defaultGroupHandle = '{{ groupHandle }}';
+    {% endjs %}
+{% endif %}
+
+{% set extraPageHeaderHtml %}
+
+    <div class="buttons">
+        {% if types|length > 1 %}
+
+            <div class="btngroup submit first">
+                <a class="btn submit add icon"
+                   href="{{ url(baseCpPath~'/new') }}">{{ "New Organization"|t('organization') }}</a>
+
+                <div class="btn submit menubtn"></div>
+                <div class="menu">
+                    <ul>
+                        {% for type in types %}
+                            <li><a href="{{ url(baseCpPath~'/new/'~type.handle) }}">{{ type.name|t('app') }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <a class="btn submit add icon"
+               href="{{ url(baseCpPath~'/new') }}">{{ "New Organization"|t('organization') }}</a>
+        {% endif %}
+    </div>
+
+{% endset %}

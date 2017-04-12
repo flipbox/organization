@@ -1,0 +1,63 @@
+{% extends "organization/_cp/configuration/_layout" %}
+{% import "_includes/forms" as forms %}
+
+{% set extraPageHeaderHtml %}
+    <div class="btngroup submit right">
+        <input type="submit" class="btn submit" value="{{ 'Save'|t('app') }}">
+
+        <div class="btn submit menubtn"></div>
+        <div class="menu">
+            <ul>
+                <li><a class="formsubmit" data-redirect="{{ continueEditingUrl }}">
+                        {{ "Save and continue editing"|t('app') }}
+                        {{ forms.optionShortcutLabel('S') }}
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+{% endset %}
+
+{% block content %}
+
+    <input type="hidden" name="action" value="{{ baseActionPath }}/save"/>
+    {{ redirectInput(baseActionPath) }}
+
+    <div class="field" id="field-layouts">
+        <div class="heading">
+            <label id="fields-label" for="field-layouts">Field Layouts</label>
+            <div class="instructions"><p>Configure the default organization's site-specific field layouts.</p>
+            </div>
+        </div>
+        <div class="input ltr">
+
+            <div id="field-layout" class="pane">
+
+                {% set tabs = [] %}
+                {% for site in craft.app.sites.getAllSites() %}
+
+                    {% set tabs = tabs|merge([{
+                    label: site.name,
+                    url: '#tab'~site.id
+                    }]) %}
+
+                {% endfor %}
+
+                {% include "_includes/tabs" with {
+                tabs: tabs
+                } only %}
+
+                {% for site in craft.app.sites.getAllSites() %}
+                    {% set siteSettings = settings.getSite(site.id) %}
+                    <div id="tab{{ site.id }}"{% if not loop.first %} class="hidden"{% endif %}>
+                        {% namespace "sites["~site.handle~"]" %}
+                        {% include "_includes/fieldlayoutdesigner" with {
+                        fieldLayout: siteSettings.getFieldLayout()
+                        } only %}
+                        {% endnamespace %}
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

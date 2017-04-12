@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @copyright  Copyright (c) Flipbox Digital Limited
+ * @license    https://flipboxfactory.com/software/organization/license
+ * @link       https://www.flipboxfactory.com/software/organization/
+ */
+
+namespace flipbox\organization\modules\configuration\controllers\view;
+
+use Craft;
+use craft\helpers\UrlHelper;
+use flipbox\organization\controllers\view\AbstractViewController as BaseViewController;
+use flipbox\organization\modules\configuration\Module;
+use flipbox\organization\modules\configuration\Module as ConfigurationModule;
+use flipbox\organization\modules\configuration\web\assets\Configuration as ConfigurationAssetBundle;
+
+/**
+ * @package flipbox\organization\modules\configuration\controllers\view
+ * @author Flipbox Factory <hello@flipboxfactory.com>
+ * @since 1.0.0
+ */
+abstract class AbstractViewController extends BaseViewController
+{
+
+    /** The template base path */
+    const TEMPLATE_BASE = BaseViewController::TEMPLATE_BASE . DIRECTORY_SEPARATOR . 'configuration';
+
+    /**
+     * @var Module
+     */
+    public $module;
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+
+        // Do parent
+        parent::init();
+
+        // Register our configuration asset bundle
+        Craft::$app->getView()->registerAssetBundle(ConfigurationAssetBundle::class);
+
+    }
+
+    /*******************************************
+     * VARIABLES
+     *******************************************/
+
+    /**
+     * @inheritdoc
+     */
+    protected function baseVariables(array &$variables = [])
+    {
+
+        parent::baseVariables($variables);
+
+        /** @var ConfigurationModule $module */
+        $module = ConfigurationModule::getInstance();
+
+        // Page title
+        $variables['title'] = Craft::t('organization', "Organization") . ' ' . Craft::t('organization', "Configuration");
+
+        // Selected tab
+        $variables['selectedTab'] = 'configuration';
+
+        // Path to controller actions
+        $variables['baseActionPath'] .= '/configuration';
+
+        // Path to CP
+        $variables['baseCpPath'] .= '/configuration';
+
+        // Set the "Continue Editing" URL
+        $variables['continueEditingUrl'] = $variables['baseCpPath'];
+
+        // Settings Breadcrumbs
+        $variables['crumbs'][] = [
+            'label' => Craft::t(
+                'organization',
+                "Configuration"
+            ),
+            'url' => UrlHelper::url(
+                $module->getUniqueId()
+            )
+        ];
+
+    }
+
+}

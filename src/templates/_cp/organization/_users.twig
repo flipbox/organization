@@ -1,0 +1,55 @@
+<div id="tabusers"{% if not element.fieldLayout.tabs|length == 0 %} class="hidden"{% endif %}>
+
+    {% if usersInputConfiguration.name is defined and usersInputConfiguration.name %}
+        <input type="hidden" name="{{ usersInputConfiguration.name }}" value="">
+    {% endif -%}
+
+    {% set users = element.getUsers({status:null}) %}
+    {% if element.id %}
+        <div id="{{ usersIndexConfiguration.id|namespaceInputId }}">
+            <div class="sidebar" style="display:none;">
+                <nav>
+                    {% include "_elements/sources" with {
+                    sources: element.sources(usersIndexConfiguration.source)
+                    } only %}
+                </nav>
+            </div>
+            <div class="elementindex">
+                {% include "_elements/indexcontainer" with {
+                elementType: usersIndexConfiguration.elementType,
+                context: usersIndexConfiguration.context,
+                showStatusMenu: usersIndexConfiguration.showStatusMenu,
+                showSiteMenu: usersIndexConfiguration.showSiteMenu
+                } only %}
+            </div>
+
+            <hr/>
+
+            <div class="btn add icon dashed">{{ "Add User"|t('app') }}</div>
+
+        </div>
+
+        {% js %}
+        var userSelect = new Craft.OrganizationUserSelectInput({{ usersInputConfiguration|json_encode|raw }});
+
+        Craft.elementIndex = new Craft.OrganizationUserIndex(
+        '{{ usersIndexConfiguration.elementType|e("js") }}',
+        $('#{{ usersIndexConfiguration.id|namespaceInputId }}'),
+        {
+        context: '{{ usersIndexConfiguration.context }}',
+        source: '{{ usersIndexConfiguration.source }}',
+        sourceElementId: '{{ usersIndexConfiguration.sourceElementId }}',
+        criteria: {{ usersIndexConfiguration.criteria|json_encode|raw }},
+        onAfterAction: function(action, params) {
+        userSelect.removeElements(params.elementIds);
+        console.log(params);
+        }
+        }
+        );
+
+        {% endjs %}
+
+    {% else %}
+        <p><i>{{ "Please save your oranization before associating any users."|t('organization') }}</i></p>
+    {% endif %}
+</div>

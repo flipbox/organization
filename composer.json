@@ -1,0 +1,69 @@
+{
+	"name": "flipboxdigital/organization",
+	"description": "Simple parent + child management",
+	"version": "1.0.0",
+	"type": "craft-plugin",
+	"keywords": [
+		"flipbox",
+		"organization",
+		"parent-child",
+		"craftcms",
+		"yii2"
+	],
+	"license": "MIT",
+	"authors": [{
+		"name": "Flipbox Factory",
+		"email": "hello@flipboxdigital.com"
+	}],
+	"support": {
+		"email": "support@flipboxdigital.com",
+		"issues": "https://github.com/flipbox/organization/issues?state=open",
+		"source": "https://github.com/flipbox/organization",
+		"docs": "https://github.com/flipbox/organization",
+		"rss": "https://github.com/flipbox/organization/commits/master.atom"
+	},
+	"require": {
+		"craftcms/cms": "~3.0.0-beta.9",
+		"flipboxdigital/spark": "^1.0"
+	},
+	"require-dev": {
+		"codeception/codeception": "^2.2"
+	},
+	"repositories": [{
+		"type": "composer",
+		"url": "https://asset-packagist.org"
+	}],
+	"autoload": {
+		"psr-4": {
+			"flipbox\\organization\\": "src/"
+		}
+	},
+	"extra": {
+		"name": "Organization",
+		"handle": "organization",
+		"class": "flipbox\\organization\\Plugin",
+		"changelogUrl": "https://raw.githubusercontent.com/flipbox/organization/master/CHANGELOG.md",
+		"downloadUrl": "https://github.com/flipbox/organization/archive/master.zip",
+		"hasCpSettings": true,
+		"hasCpSection": true,
+		"schemaVersion": "1.0.0",
+		"components": {
+			"field": "flipbox\\organization\\services\\Field",
+			"organization": "flipbox\\organization\\services\\Organization",
+			"permission": "flipbox\\organization\\services\\Permission",
+			"type": "flipbox\\organization\\services\\Type",
+			"user": "flipbox\\organization\\services\\User"
+		},
+		"modules": {
+			"configuration": {
+				"basePath": "@flipbox/organization/modules/configuration",
+				"class": "flipbox\\organization\\modules\\configuration\\Module",
+				"components": {
+					"general": "flipbox\\organization\\modules\\configuration\\services\\Organization",
+					"layout": "flipbox\\organization\\modules\\configuration\\services\\Permission",
+					"type": "flipbox\\organization\\modules\\configuration\\services\\Type"
+				}
+			}
+		}
+	}
+}

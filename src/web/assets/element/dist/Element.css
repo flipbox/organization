@@ -1,0 +1,27 @@
+/* Flexbox stuff */
+/* Other */
+/* RTL stuff */
+/* ----------------------------------------
+/* Organization
+/* ----------------------------------------*/
+.menubtn#available {
+    margin-left: -1px;
+}
+
+.menubtn#available:before, .menubtn#available:after {
+    margin: 0;
+}
+
+.menubtn#available:before {
+    margin-right: -1px;
+}
+
+.menubtn#available:after {
+    content: '' !important;
+}
+
+.tabs > ul > li.users {
+    float: right;
+}
+
+/*# sourceMappingURL=Element.css.map */

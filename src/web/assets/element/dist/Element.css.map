@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "mappings": "AA4CA,mBAAmB;AA8DnB,WAAW;AAoJX,eAAe;AC3Pf;;6CAE6C;AAK3C,kBAAY;EACV,WAAW,EAAE,IAAI;EAEjB,mDACQ;IACN,MAAM,EAAE,CAAC;EAGX,yBAAS;IACP,YAAY,EAAE,IAAI;EAIpB,wBAAQ;IACN,OAAO,EAAE,aAAa;;AActB,qBAAQ;EACN,KAAK,EAAC,KAAK",
+  "sources": [
+    "../../../../../../../craftcms/cms/src/web/assets/_shared.scss",
+    "../src/Element.scss"
+  ],
+  "names": [],
+  "file": "Element.css"
+}

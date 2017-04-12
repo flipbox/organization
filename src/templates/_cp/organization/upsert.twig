@@ -1,0 +1,200 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+{% set isTypeSet = type is defined and type %}
+{% set fullPageForm = true %}
+
+{% hook "cp.organization.edit" %}
+
+{% block saveButton %}
+    <div class="btngroup">
+        <input type="submit" class="btn submit"
+               value="{{ 'Save'|t('app') }}">
+        <div class="btn submit menubtn"></div>
+        <div class="menu">
+            <ul>
+                <li><a class="formsubmit" data-redirect="{{ baseCpPath ~ '/{id}'|hash }}">
+                        {{ forms.optionShortcutLabel('S') }}
+                        {{ "Save and continue editing"|t('app') }}
+                    </a></li>
+                <li><a class="formsubmit"
+                       data-redirect="{{ baseCpPath ~ '/new'|hash }}">{{ "Save and add another"|t('app') }}</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+
+    {{ csrfInput() }}
+    <input type="hidden" name="action" value="{{ baseActionPath~'/save' }}">
+    <input type="hidden" name="redirect" value="{{ baseCpPath|hash }}">
+    {% if element.id %}<input type="hidden" name="identifier" value="{{ element.id }}">{% endif %}
+
+    <div class="grid first" data-max-cols="3">
+        <div class="item" data-position="left" data-colspan="2">
+            <div id="fields" class="pane">
+                {% include "organization/_cp/organization/_tabs" with {
+                tabs: tabs
+                } only %}
+
+                {% include "organization/_cp/organization/_fields" with {
+                element: element,
+                fieldLayout: element.getFieldLayout()
+                } only %}
+
+                {% if element.id %}
+                    {% include "organization/_cp/organization/_users" with {
+                    element: element,
+                    usersInputConfiguration: usersInputConfiguration,
+                    usersIndexConfiguration: usersIndexConfiguration
+                    } only %}
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div class="item" data-position="right">
+            <div id="settings" class="pane meta">
+
+                {% if element.id %}
+                    {% if actions|length %}
+                        <div class="field" id="actions">
+                            <div class="heading">
+                                <label id="actions-label" for="actions">Actions</label>
+                            </div>
+                            <div class="input">
+                                <div id="action-menubtn" class="btn menubtn"
+                                     data-icon="settings"
+                                     title="{{ 'Actions'|t('app') }}"></div>
+                                <div class="menu">
+                                    {% for actionList in actions %}
+                                        {% if not loop.first %}
+                                            <hr>{% endif %}
+                                        <ul>
+                                            {% for actionItem in actionList %}
+                                                <li><a
+                                                            {%- if actionItem.id is defined %} id="{{ actionItem.id }}"{% endif %}
+                                                            {%- if actionItem.action is defined %} class="formsubmit" data-action="{{ actionItem.action }}"{% endif -%}
+                                                    >{{ actionItem.label }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endfor %}
+                                </div>
+                                <div id="action-spinner" class="spinner hidden"></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                {{ forms.selectField({
+                    label: "Status"|t('app'),
+                    name: "status",
+                    options : statusOptions,
+                    id: 'status',
+                    value: element.id ? element.getStatus() : 'pending',
+                    errors: element.getErrors('status'),
+                    autofocus: true,
+                    required: true
+                }) }}
+
+                <div class="field" id="types">
+                    {% set typeOptionIds = [] %}
+                    <div class="heading">
+                        <label id="type-label" for="typeButton">Type</label>
+                    </div>
+                    <div class="input">
+                        <div class="btngroup">
+                            <div id="active" class="btn menubtn"
+                                 title="{{ 'Types'|t('app') }}">
+                                {% set activeTypeValue = '' %}
+                                {% set activeTypeName = "Default"|t('organization') %}
+                                {% set activeType = element.activeType %}
+                                {% set types = element.getTypes() %}
+                                {% if activeType %}
+                                    {% set activeTypeValue = element.activeType.id %}
+                                    {% set activeTypeName = element.activeType.name %}
+                                {% endif %}
+                                {{ activeTypeName }}
+                                <input type="hidden" name="type" value="{{ activeTypeValue }}">
+                            </div>
+                            <div class="menu">
+                                <ul class="padded">
+                                    <li>
+                                        <a data-id=""{% if activeTypeValue == '' %} class="sel"{% endif %}>{{ "Default"|t('organization') }}</a>
+                                    </li>
+                                    <hr {% if not element.getTypes()|length %} style="display: none"{% endif %}/>
+                                    {% for type in types %}
+                                        {% set typeOptionIds = typeOptionIds|merge([type.id]) %}
+                                        <li>
+                                            <a data-id="{{ type.id }}" {% if activeTypeValue == type.id %} class="sel"{% endif %}>{{ type.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <div id="available" class="btn icon menubtn"
+                                 data-icon="settings"
+                                 title="{{ 'Available Types'|t('app') }}">
+                                {% for type in types %}
+                                    <input type="hidden" name="types[]" value="{{ type.id }}">
+                                {% endfor %}
+                            </div>
+                            <div class="menu">
+                                <ul>
+                                    {% for typeOption in typeOptions %}
+                                        <li>
+                                            <a data-organization="{{ element.id }}" data-type="{{ typeOption.value }}"
+                                               data-label="{{ typeOption.label }}">
+                                                <span class="status{{ typeOption.value in typeOptionIds ? ' active' : '' }}"></span> {{ typeOption.label }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                {{ forms.textField({
+                    label: "Slug"|t('app'),
+                    id: 'slug',
+                    name: 'slug',
+                    value: element.slug,
+                    errors: element.getErrors('slug')|merge(element.getErrors('uri'))
+                }) }}
+
+                {{ forms.dateTimeField({
+                    label: "Join Date"|t('organization'),
+                    id: 'dateJoined',
+                    name: 'dateJoined',
+                    value: (element.dateJoined ? element.dateJoined : null),
+                    errors: element.getErrors('dateJoined')
+                }) }}
+
+                {% set elementSelect %}
+                    {% include "organization/_cp/organization/_owner" with ownerInputConfiguration only %}
+                {% endset %}
+                {{ forms.field(
+                ownerInputConfiguration,
+                elementSelect
+                ) }}
+
+            </div>
+
+            {#Give plugins a chance to add other panes here#}
+            {#{% hook "cp.organization.edit.right-pane" %}#}
+
+            <hr>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% if not element.slug %}
+    {% js %}
+    window.slugGenerator = new Craft.SlugGenerator('#title', '#slug');
+    {% endjs %}
+{% endif %}

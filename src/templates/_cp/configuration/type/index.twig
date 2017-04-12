@@ -1,0 +1,41 @@
+{% extends "organization/_cp/configuration/_layout" %}
+
+{% set content %}
+    <div id="notypes"{% if types %} class="hidden"{% endif %}>
+        <p>{{ "No types exist yet."|t('organization') }}</p>
+    </div>
+
+    {% if types|length %}
+        <table id="types" class="data fullwidth collapsible">
+            <thead>
+            <th scope="col">{{ "Name"|t('organization') }}</th>
+            <th scope="col">{{ "Handle"|t('organization') }}</th>
+            <td class="thin"></td>
+            </thead>
+            <tbody>
+            {% for type in types %}
+                <tr data-id="{{ type.id }}" data-name="{{ type.name }}">
+                    <th scope="row" data-title="{{ 'Name'|t('organization') }}"><a
+                                href="{{ url(baseActionPath~'/'~type.id) }}">{{ type.name }}</a></th>
+                    <td data-title="{{ 'Handle'|t('organization') }}"><code>{{ type.handle }}</code></td>
+                    <td class="thin"><a class="delete icon" title="{{ 'Delete'|t('app') }}" role="button"></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div class="buttons">
+        <a href="{{ url(baseActionPath~'/new') }}" class="btn submit add icon">{{ "New type"|t }}</a>
+    </div>
+{% endset %}
+
+
+{% js %}
+new Craft.AdminTable({
+tableSelector: '#types',
+noItemsSelector: '#notypes',
+deleteAction: '{{ baseActionPath~'/delete' }}',
+confirmDeleteMessage: '{{ "Are you sure you want to delete '{name}' and all organizations associated to it?"|t('organization') }}',
+});
+{% endjs %}

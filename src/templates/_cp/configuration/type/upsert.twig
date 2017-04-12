@@ -1,0 +1,153 @@
+{% extends "organization/_cp/configuration/_layout" %}
+{% import "_includes/forms" as forms %}
+
+{% set extraPageHeaderHtml %}
+    <div class="btngroup submit right">
+        <input type="submit" class="btn submit" value="{{ 'Save'|t('app') }}">
+
+        <div class="btn submit menubtn"></div>
+        <div class="menu">
+            <ul>
+                <li><a class="formsubmit" data-redirect="{{ continueEditingUrl }}">
+                        {{ "Save and continue editing"|t('app') }}
+                        {{ forms.optionShortcutLabel('S') }}
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+{% endset %}
+
+{% block content %}
+    <input type="hidden" name="action" value="{{ baseActionPath }}/save">
+    {% if type.id %}<input type="hidden" name="identifier" value="{{ type.id }}">{% endif %}
+    {{ redirectInput(baseActionPath) }}
+
+    {{ forms.textField({
+        first: true,
+        label: "Name"|t('organization'),
+        instructions: "What this type will be called in the CP."|t('organization'),
+        id: 'name',
+        name: 'name',
+        value: type.name,
+        errors: type.getErrors('name'),
+        autofocus: true,
+        required: true,
+        translatable: true
+    }) }}
+
+    {{ forms.textField({
+        label: "Handle"|t('organization'),
+        instructions: "How you’ll refer to this type in the templates."|t('organization'),
+        id: 'handle',
+        class: 'code',
+        name: 'handle',
+        value: type.handle,
+        errors: type.getErrors('handle'),
+        required: true
+    }) }}
+
+    <hr>
+
+    {% set siteRows = [] %}
+    {% set siteErrors = type.getErrors('settings') %}
+
+    {% for site in craft.app.sites.getAllSites() %}
+        {% set siteSettings = type.getSite(site.id) %}
+        {% for attribute, errors in siteSettings.getErrors() %}
+            {% set siteErrors = siteErrors|merge(errors) %}
+        {% endfor %}
+        {% set siteRows = siteRows|merge({
+        (site.handle): {
+        heading: site.name|t('site'),
+        uriFormat: {
+        value: siteSettings.uriFormat ?? null,
+        hasErrors: siteSettings.hasErrors('uriFormat') ?? false
+        },
+        template: {
+        value: siteSettings.template ?? null,
+        hasErrors: siteSettings.hasErrors('template') ?? false,
+        }
+        }
+        }) %}
+    {% endfor %}
+
+    {{ forms.editableTableField({
+        label: "Site Settings"|t('app'),
+        instructions: "Configure the organization type's site-specific settings."|t('app'),
+        id: 'sites',
+        name: 'sites',
+        cols: {
+            heading: {
+                type: 'heading',
+                heading: "Site"|t('app'),
+                class: 'thin'
+            },
+            uriFormat: {
+                type: 'singleline',
+                heading: "Category URI Format"|t('app'),
+                info: "What organization URIs should look like for the site."|t('app'),
+                placeholder: "Leave blank if organizations don’t have URLs"|t('app'),
+                code: true
+            },
+            template: {
+                type: 'singleline',
+                heading: "Template"|t('app'),
+                info: "Which template should be loaded when an entry’s URL is requested."|t('app'),
+                code: true
+            },
+        },
+        rows: siteRows,
+        staticRows: true,
+        errors: siteErrors|unique
+    }) }}
+
+    <div class="field" id="field-layouts">
+        <div class="heading">
+            <label id="fields-label" for="field-layouts">Field Layouts</label>
+            <div class="instructions"><p>Configure the organization type's site-specific field layouts.</p>
+            </div>
+        </div>
+        <div class="input ltr">
+            <div id="field-layout" class="pane">
+
+                {% set tabs = [] %}
+                {% for site in craft.app.sites.getAllSites() %}
+                    {% set siteSettings = type.getSite(site.id) %}
+
+                    {% set tabs = tabs|merge([{
+                    label: site.name,
+                    url: '#tab'~site.id,
+                    class: siteSettings.hasErrors() ? 'error' : null
+                    }]) %}
+
+                {% endfor %}
+
+                {% include "_includes/tabs" with {
+                tabs: tabs
+                } only %}
+
+                {% for site in craft.app.sites.getAllSites() %}
+                    <div id="tab{{ site.id }}"{% if not loop.first %} class="hidden"{% endif %}>
+                        {% namespace "sites["~site.handle~"]" %}
+                        {% include "_includes/fieldlayoutdesigner" with {
+                        fieldLayout: type.getSite(site.id).getFieldLayout()
+                        } only %}
+                        {% endnamespace %}
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% if not type.id %}
+    {% js %}
+    new Craft.HandleGenerator('#name', '#handle');
+    {% for site in craft.app.sites.getAllSites() %}
+        new Craft.UriFormatGenerator('#name', '#sites tr[data-id="{{ site.handle }}"] textarea[name$="[uriFormat]"]', { suffix: '/{handle}' });
+        new Craft.UriFormatGenerator('#name', '#sites tr[data-id="{{ site.handle }}"] textarea[name$="[template]"]', { suffix: '/_organization' });
+    {% endfor %}
+    {% endjs %}
+{% endif %}
+

@@ -1,0 +1,14 @@
+<nav id="tabs" class="tabs">
+    <ul>
+        {% for tabId, tab in tabs %}
+            {% set isUserTab = tabId is same as("users") %}
+            {% if tab %}
+                {% set tabIsSelected = ((selectedTab is not defined and loop.first) or (selectedTab is defined and selectedTab == tabId)) -%}
+                <li{% if isUserTab %} class="{{ tabId }}"{% endif %}><a id="tab-{{ tabId }}"
+                                                                        class="tab{% if tabIsSelected %} sel{% endif %}{% if tab.class is defined %} {{ tab.class }}{% endif %}"
+                                                                        href="{{ tab.url }}">{% if isUserTab %}<span
+                                data-icon="users"></span> {% endif %}{{ tab.label }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>

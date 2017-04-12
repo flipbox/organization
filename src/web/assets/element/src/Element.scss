@@ -1,0 +1,49 @@
+@charset "UTF-8";
+@import "../../../../../../../craftcms/cms/src/web/assets/shared";
+
+/* ----------------------------------------
+/* Organization
+/* ----------------------------------------*/
+
+.menubtn {
+
+  &#available {
+    margin-left: -1px;
+
+    &:before,
+    &:after {
+      margin: 0;
+    }
+
+    &:before {
+      margin-right: -1px;
+
+    }
+
+    &:after {
+      content: '' !important;
+
+    }
+
+  }
+
+}
+
+.tabs {
+
+  > ul {
+
+    > li {
+
+      &.users {
+        float: right;
+
+      }
+
+    }
+
+  }
+
+}
+
+
