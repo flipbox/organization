@@ -26,7 +26,7 @@ use flipbox\spark\helpers\ArrayHelper;
 use flipbox\spark\helpers\RecordHelper;
 use flipbox\spark\helpers\SiteHelper;
 use flipbox\spark\services\Element as ElementService;
-use flipbox\spark\services\traits\ElementRecordBehavior;
+use flipbox\spark\services\traits\ElementTrait;
 use yii\base\Exception;
 
 /**
@@ -37,7 +37,7 @@ use yii\base\Exception;
 class Organization extends ElementService
 {
 
-    use ElementRecordBehavior;
+    use ElementTrait;
 
     /**
      * @inheritdoc

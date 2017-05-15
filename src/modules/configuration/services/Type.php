@@ -50,14 +50,6 @@ class Type extends ModelByHandle
     }
 
     /**
-     * @inheritdoc
-     */
-    protected function modelToRecord(TypeModel $model, bool $mirrorScenario = true)
-    {
-        return $this->toRecord($model, $mirrorScenario);
-    }
-
-    /**
      * @param ModelEvent $event
      * @return bool
      * @throws Exception
