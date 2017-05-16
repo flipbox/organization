@@ -6,7 +6,7 @@
  * @link       https://www.flipboxfactory.com/software/organization/
  */
 
-namespace flipbox\meta\migrations;
+namespace flipbox\organization\migrations;
 
 use craft\db\Migration;
 use flipbox\organization\records\Organization;
