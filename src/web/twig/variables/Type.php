@@ -10,7 +10,6 @@ namespace flipbox\organization\web\twig\variables;
 
 use flipbox\organization\models\Type as TypeModel;
 use flipbox\organization\Plugin as OrganizationPlugin;
-use flipbox\spark\models\Model;
 
 /**
  * @package flipbox\organization\web\twig\variables
@@ -22,7 +21,7 @@ class Type
 
     /**
      * @param null $criteria
-     * @return Model|TypeModel|null
+     * @return TypeModel|null
      */
     public function find($criteria = null)
     {
@@ -31,7 +30,7 @@ class Type
 
     /**
      * @param array $criteria
-     * @return Model[]|TypeModel[]
+     * @return TypeModel[]
      */
     public function findAll($criteria = [])
     {

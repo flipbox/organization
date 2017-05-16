@@ -15,14 +15,14 @@ use flipbox\organization\models\TypeSettings as TypeSettingsModel;
 use flipbox\organization\Plugin;
 use flipbox\organization\records\Type as TypeRecord;
 use flipbox\spark\helpers\SiteHelper;
-use flipbox\spark\models\ModelWithHandle;
+use flipbox\spark\models\ModelWithIdAndHandle;
 
 /**
  * @package flipbox\organization\models
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class Type extends ModelWithHandle
+class Type extends ModelWithIdAndHandle
 {
 
     /**

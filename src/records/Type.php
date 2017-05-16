@@ -8,11 +8,10 @@
 
 namespace flipbox\organization\records;
 
-use flipbox\spark\records\RecordWithHandle;
+use flipbox\spark\records\RecordWithIdAndHandle;
 use yii\db\ActiveQueryInterface;
 
 /**
- * @package flipbox\organization\records
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  *
@@ -20,7 +19,7 @@ use yii\db\ActiveQueryInterface;
  * @property TypeSettings[] $settings
  * @property Organization[] $organizations
  */
-class Type extends RecordWithHandle
+class Type extends RecordWithIdAndHandle
 {
 
     const TABLE_ALIAS = Organization::TABLE_ALIAS . '_types';

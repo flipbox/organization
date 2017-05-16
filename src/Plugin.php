@@ -10,12 +10,8 @@ namespace flipbox\organization;
 
 use Craft;
 use craft\base\Plugin as BasePlugin;
-use craft\elements\db\UserQuery;
-use craft\events\CancelableEvent;
 use craft\events\RegisterComponentTypesEvent;
 use craft\events\RegisterUrlRulesEvent;
-use craft\helpers\Db;
-use craft\helpers\StringHelper;
 use craft\helpers\UrlHelper;
 use craft\models\FieldLayout as FieldLayoutModel;
 use craft\services\Elements;
@@ -27,8 +23,6 @@ use flipbox\organization\fields\Organization as OrganizationField;
 use flipbox\organization\fields\User as UserField;
 use flipbox\organization\models\Settings as OrganizationSettings;
 use flipbox\organization\models\Type as OrganizationType;
-use flipbox\organization\records\Organization as OrganizationRecord;
-use flipbox\organization\records\User as OrganizationUsersRecord;
 use flipbox\organization\web\twig\variables\Organization as OrganizationVariable;
 use yii\base\Event;
 
@@ -122,7 +116,7 @@ class Plugin extends BasePlugin
         );
 
     }
-    
+
     /**
      * Returns the component definition that should be registered on the
      * [[\craft\web\twig\variables\CraftVariable]] instance for this plugin’s handle.

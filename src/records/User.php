@@ -11,7 +11,7 @@ namespace flipbox\organization\records;
 use craft\models\Site;
 use craft\records\User as UserRecord;
 use flipbox\organization\validators\UserAssociation;
-use flipbox\spark\records\Record;
+use flipbox\spark\records\RecordWithId;
 use yii\db\ActiveQueryInterface;
 
 /**
@@ -28,7 +28,7 @@ use yii\db\ActiveQueryInterface;
  * @property Organization $organization
  * @property Site $site
  */
-class User extends Record
+class User extends RecordWithId
 {
 
     const TABLE_ALIAS = Organization::TABLE_ALIAS . '_users';

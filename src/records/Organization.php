@@ -17,7 +17,7 @@ use flipbox\organization\records\OrganizationType as OrganizationTypeRecord;
 use flipbox\organization\records\User as OrganizationUserRecord;
 use flipbox\organization\validators\Owner;
 use flipbox\organization\validators\UserAssociation;
-use flipbox\spark\records\Record;
+use flipbox\spark\records\RecordWithId;
 use yii\db\ActiveQueryInterface;
 
 /**
@@ -34,7 +34,7 @@ use yii\db\ActiveQueryInterface;
  * @property Type[] $types
  * @property UserRecord[] $users
  */
-class Organization extends Record
+class Organization extends RecordWithId
 {
 
     /**

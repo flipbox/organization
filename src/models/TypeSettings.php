@@ -15,7 +15,7 @@ use craft\validators\SiteIdValidator;
 use craft\validators\UriFormatValidator;
 use flipbox\organization\elements\Organization as OrganizationElement;
 use flipbox\organization\Plugin;
-use flipbox\spark\models\Model;
+use flipbox\spark\models\ModelWithId;
 use yii\base\InvalidConfigException;
 
 /**
@@ -23,7 +23,7 @@ use yii\base\InvalidConfigException;
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class TypeSettings extends Model
+class TypeSettings extends ModelWithId
 {
 
     // Properties

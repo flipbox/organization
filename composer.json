@@ -1,7 +1,7 @@
 {
 	"name": "flipboxdigital/organization",
 	"description": "Simple parent + child management",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"type": "craft-plugin",
 	"keywords": [
 		"flipbox",
@@ -24,7 +24,7 @@
 	},
 	"require": {
 		"craftcms/cms": "~3.0.0-beta.17",
-		"flipboxdigital/spark": "^1.1"
+		"flipboxdigital/spark": "^2.0"
 	},
 	"require-dev": {
 		"codeception/codeception": "^2.2"
@@ -59,8 +59,8 @@
 				"basePath": "@flipbox/organization/modules/configuration",
 				"class": "flipbox\\organization\\modules\\configuration\\Module",
 				"components": {
-					"general": "flipbox\\organization\\modules\\configuration\\services\\Organization",
-					"layout": "flipbox\\organization\\modules\\configuration\\services\\Permission",
+					"general": "flipbox\\organization\\modules\\configuration\\services\\General",
+					"layout": "flipbox\\organization\\modules\\configuration\\services\\Layout",
 					"type": "flipbox\\organization\\modules\\configuration\\services\\Type"
 				}
 			}

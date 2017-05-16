@@ -8,11 +8,10 @@
 
 namespace flipbox\organization\records;
 
-use flipbox\spark\records\Record;
+use flipbox\spark\records\RecordWithId;
 use yii\db\ActiveQueryInterface;
 
 /**
- * @package flipbox\organization\records
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  *
@@ -22,7 +21,7 @@ use yii\db\ActiveQueryInterface;
  * @property Type $type
  * @property Organization $organization
  */
-class OrganizationType extends Record
+class OrganizationType extends RecordWithId
 {
 
     const TABLE_ALIAS = Organization::TABLE_ALIAS . '_types_organizations';

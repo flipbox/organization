@@ -12,7 +12,7 @@ use craft\models\FieldLayout as FieldLayoutModel;
 use craft\records\FieldLayout;
 use craft\records\Site;
 use craft\validators\UriFormatValidator;
-use flipbox\spark\records\Record;
+use flipbox\spark\records\RecordWithId;
 use yii\db\ActiveQueryInterface;
 
 /**
@@ -31,7 +31,7 @@ use yii\db\ActiveQueryInterface;
  * @property Type $type
  * @property Site $site
  */
-class TypeSettings extends Record
+class TypeSettings extends RecordWithId
 {
 
     const TABLE_ALIAS = Type::TABLE_ALIAS . '_i18n';
