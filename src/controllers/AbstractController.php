@@ -10,21 +10,17 @@ namespace flipbox\organization\controllers;
 
 use Craft;
 use craft\web\Controller;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization;
 use yii\web\HttpException;
 
 /**
- * @package flipbox\organization\controllers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
+ *
+ * @property Organization $module
  */
 abstract class AbstractController extends Controller
 {
-
-    /**
-     * @var Plugin
-     */
-    public $module;
 
     /**
      * Throws a 400 error if this isn’t a POST, PUT, or PATCH request

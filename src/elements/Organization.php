@@ -25,8 +25,7 @@ use flipbox\organization\elements\actions\DeleteOrganization as DeleteAction;
 use flipbox\organization\elements\db\Organization as OrganizationQuery;
 use flipbox\organization\helpers\User as UserHelper;
 use flipbox\organization\models\Type as TypeModel;
-use flipbox\organization\Plugin;
-use flipbox\organization\Plugin as OrganizationPlugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\Organization as OrganizationRecord;
 use flipbox\organization\records\User as OrganizationUsersRecord;
 use flipbox\organization\validators\Owner;
@@ -34,7 +33,6 @@ use flipbox\spark\helpers\QueryHelper;
 use yii\base\ErrorException as Exception;
 
 /**
- * @package flipbox\organization\elements
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -1339,7 +1337,7 @@ class Organization extends Element
     public function beforeSave(bool $isNew): bool
     {
 
-        Plugin::getInstance()->getOrganization()->beforeSave($this, $isNew);
+        OrganizationPlugin::getInstance()->getOrganization()->beforeSave($this, $isNew);
 
         return parent::beforeSave($isNew);
 
@@ -1355,7 +1353,7 @@ class Organization extends Element
         // Do parent
         parent::afterSave($isNew);
 
-        Plugin::getInstance()->getOrganization()->afterSave($this, $isNew);
+        OrganizationPlugin::getInstance()->getOrganization()->afterSave($this, $isNew);
 
     }
 

@@ -12,7 +12,6 @@ use Craft;
 use craft\helpers\UrlHelper as UrlHelper;
 
 /**
- * @package flipbox\organization\modules\configuration\controllers\view
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

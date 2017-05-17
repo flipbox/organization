@@ -24,14 +24,13 @@ use craft\validators\ArrayValidator;
 use flipbox\organization\elements\db\Organization as OrganizationQuery;
 use flipbox\organization\elements\Organization as OrganizationElement;
 use flipbox\organization\helpers\Query as QueryHelper;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\User as OrganizationUserRecord;
 use flipbox\organization\tasks\LocalizeRelations;
 use flipbox\organization\validators\User as UserValidator;
 use yii\base\Exception;
 
 /**
- * @package flipbox\organization\fields
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -175,7 +174,7 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
         }
 
 //        // Restrict limits
-//        if(Plugin::getInstance()->getSettings()->singleUser) {
+//        if(OrganizationPlugin::getInstance()->getSettings()->singleUser) {
 //            $this->allowLimit = true;
 //            $this->limit = 1;
 //        }
@@ -484,7 +483,7 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
         }
 
         // Save relations
-        Plugin::getInstance()->getField()->beforeSaveUserRelations(
+        OrganizationPlugin::getInstance()->getField()->beforeSaveUserRelations(
             $this,
             $element,
             $element->getFieldValue($this->handle)
@@ -506,7 +505,7 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
         }
 
         // Save relations
-        Plugin::getInstance()->getField()->afterSaveUserRelations(
+        OrganizationPlugin::getInstance()->getField()->afterSaveUserRelations(
             $this,
             $element,
             $element->getFieldValue($this->handle)

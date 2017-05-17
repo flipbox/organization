@@ -15,14 +15,12 @@ use flipbox\organization\elements\Organization as OrganizationElement;
 use flipbox\organization\elements\User as UserElement;
 use flipbox\organization\events\RegisterOrganizationActions;
 use flipbox\organization\models\Type;
-use flipbox\organization\Plugin;
-use flipbox\organization\Plugin as OrganizationPlugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\web\assets\element\Element;
 use flipbox\spark\helpers\SiteHelper;
 use yii\web\Response;
 
 /**
- * @package flipbox\organization\controllers\view
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -321,7 +319,7 @@ class OrganizationController extends AbstractViewController
         ];
 
         // Association restrictions
-        if (Plugin::getInstance()->getSettings()->hasAssociationRestriction()) {
+        if (OrganizationPlugin::getInstance()->getSettings()->hasAssociationRestriction()) {
 
             $organizationCriteria = [
                 ':empty:'
@@ -338,13 +336,13 @@ class OrganizationController extends AbstractViewController
                 );
             }
 
-            if (Plugin::getInstance()->getSettings()->memberAssociationRestriction()) {
+            if (OrganizationPlugin::getInstance()->getSettings()->memberAssociationRestriction()) {
 
                 $selectionCriteria['organization'] = [
                     'member' => $organizationCriteria
                 ];
 
-            } elseif (Plugin::getInstance()->getSettings()->userAssociationRestriction()) {
+            } elseif (OrganizationPlugin::getInstance()->getSettings()->userAssociationRestriction()) {
 
                 $selectionCriteria['organization'] = [
                     'user' => $organizationCriteria
@@ -355,7 +353,7 @@ class OrganizationController extends AbstractViewController
         }
 
         // Disable everyone already associated
-        $disabledIds = Plugin::getInstance()->getOrganization()->getMemberQuery($organization, ['status' => null])->ids();
+        $disabledIds = OrganizationPlugin::getInstance()->getOrganization()->getMemberQuery($organization, ['status' => null])->ids();
 
         return [
             'elementType' => UserElement::class,
@@ -387,8 +385,8 @@ class OrganizationController extends AbstractViewController
         ];
 
         // Association restrictions
-        if (Plugin::getInstance()->getSettings()->hasAssociationRestriction() ||
-            Plugin::getInstance()->getSettings()->uniqueOwner
+        if (OrganizationPlugin::getInstance()->getSettings()->hasAssociationRestriction() ||
+            OrganizationPlugin::getInstance()->getSettings()->uniqueOwner
         ) {
 
             $organizationCriteria = [
@@ -407,7 +405,7 @@ class OrganizationController extends AbstractViewController
             }
 
             // Association restrictions
-            if (Plugin::getInstance()->getSettings()->hasAssociationRestriction()) {
+            if (OrganizationPlugin::getInstance()->getSettings()->hasAssociationRestriction()) {
 
                 $selectionCriteria['organization'] = [
                     'member' => $organizationCriteria
@@ -424,7 +422,7 @@ class OrganizationController extends AbstractViewController
         }
 
         // Disable everyone already associated
-        $disabledIds = Plugin::getInstance()->getOrganization()->getUserQuery($organization, ['status' => null])->ids();
+        $disabledIds = OrganizationPlugin::getInstance()->getOrganization()->getUserQuery($organization, ['status' => null])->ids();
 
         return [
             'label' => Craft::t('organization', "Owner"),

@@ -14,12 +14,11 @@ use craft\models\FieldLayout;
 use craft\validators\SiteIdValidator;
 use craft\validators\UriFormatValidator;
 use flipbox\organization\elements\Organization as OrganizationElement;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\spark\models\ModelWithId;
 use yii\base\InvalidConfigException;
 
 /**
- * @package flipbox\organization\models
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -139,7 +138,7 @@ class TypeSettings extends ModelWithId
                 throw new InvalidConfigException('Type Id is missing');
             }
 
-            $this->_type = Plugin::getInstance()->getType()->getById($this->_typeId);
+            $this->_type = OrganizationPlugin::getInstance()->getType()->getById($this->_typeId);
 
         }
 

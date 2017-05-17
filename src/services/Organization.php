@@ -20,7 +20,7 @@ use flipbox\organization\elements\db\Organization as OrganizationQuery;
 use flipbox\organization\elements\Organization as OrganizationElement;
 use flipbox\organization\events\ChangeOwner as ChangeOwnerEvent;
 use flipbox\organization\events\ChangeStatus as ChangeStatusEvent;
-use flipbox\organization\Plugin as OrganizationPlugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\Organization as OrganizationRecord;
 use flipbox\spark\helpers\ArrayHelper;
 use flipbox\spark\helpers\RecordHelper;
@@ -30,7 +30,6 @@ use flipbox\spark\services\traits\Element;
 use yii\base\Exception;
 
 /**
- * @package flipbox\organization\services
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

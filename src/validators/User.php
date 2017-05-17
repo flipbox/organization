@@ -13,7 +13,6 @@ use craft\elements\User as UserElement;
 use yii\validators\Validator;
 
 /**
- * @package flipbox\organization\validators
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

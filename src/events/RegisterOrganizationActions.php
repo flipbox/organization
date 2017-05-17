@@ -12,7 +12,6 @@ use flipbox\organization\elements\Organization;
 use yii\base\Event;
 
 /**
- * @package flipbox\organization\events
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

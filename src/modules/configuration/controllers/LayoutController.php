@@ -10,10 +10,8 @@ namespace flipbox\organization\modules\configuration\controllers;
 
 use Craft;
 use flipbox\organization\models\Settings;
-use flipbox\organization\Plugin as OrganizationPlugin;
 
 /**
- * @package flipbox\organization\modules\configuration\controllers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -34,7 +32,7 @@ class LayoutController extends AbstractController
         $session = Craft::$app->getSession();
 
         /** @var Settings $model */
-        $model = OrganizationPlugin::getInstance()->getSettings();
+        $model = $this->module->module->getSettings();
 
         // Handle each site's url/template settings
         foreach (Craft::$app->getSites()->getAllSites() as $site) {

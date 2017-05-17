@@ -29,7 +29,6 @@ use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 
 /**
- * @package flipbox\organization\controllers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

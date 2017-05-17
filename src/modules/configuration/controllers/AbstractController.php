@@ -12,16 +12,12 @@ use flipbox\organization\controllers\AbstractController as BaseAbstractControlle
 use flipbox\organization\modules\configuration\Module;
 
 /**
- * @package flipbox\organization\modules\configuration\controllers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
+ *
+ * @property Module $module
  */
 abstract class AbstractController extends BaseAbstractController
 {
-
-    /**
-     * @var Module
-     */
-    public $module;
 
 }

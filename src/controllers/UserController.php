@@ -11,10 +11,9 @@ namespace flipbox\organization\controllers;
 use Craft;
 use flipbox\organization\elements\Organization;
 use flipbox\organization\helpers\User as UserHelper;
-use flipbox\organization\Plugin as OrganizationPlugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 
 /**
- * @package flipbox\organization\controllers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

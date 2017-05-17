@@ -13,11 +13,10 @@ use craft\base\ElementAction;
 use craft\elements\db\ElementQueryInterface;
 use craft\elements\User;
 use flipbox\organization\elements\Organization;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use yii\base\Exception;
 
 /**
- * @package flipbox\organization\elements\actions
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -69,12 +68,12 @@ class RemoveUsers extends ElementAction
         }
 
         /** @var Organization $organization */
-        $organization = Plugin::getInstance()->getOrganization()->get($this->organization);
+        $organization = OrganizationPlugin::getInstance()->getOrganization()->get($this->organization);
 
         /** @var User $user */
         foreach ($query->all() as $user) {
 
-            if (!Plugin::getInstance()->getUser()->dissociate($user, $organization)) {
+            if (!OrganizationPlugin::getInstance()->getUser()->dissociate($user, $organization)) {
                 throw new Exception("Unable to disassociate user “{$user->getId()}” from organization “{$organization->getId()}”");
             }
 

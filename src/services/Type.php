@@ -16,7 +16,6 @@ use flipbox\organization\records\OrganizationType as OrganizationTypeRecord;
 use flipbox\spark\helpers\RecordHelper;
 
 /**
- * @package flipbox\organization\services
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

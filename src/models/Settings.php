@@ -14,7 +14,6 @@ use flipbox\spark\helpers\ArrayHelper;
 use flipbox\spark\helpers\SiteHelper;
 
 /**
- * @package flipbox\organization\models
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

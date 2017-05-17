@@ -9,7 +9,6 @@
 namespace flipbox\organization\modules\configuration\controllers\view;
 
 /**
- * @package flipbox\organization\modules\configuration\controllers\view
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

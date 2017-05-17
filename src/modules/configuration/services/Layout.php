@@ -12,12 +12,11 @@ use Craft;
 use craft\helpers\Json as JsonHelper;
 use craft\records\Plugin as PluginRecord;
 use flipbox\organization\models\Settings;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
 
 /**
- * @package flipbox\organization\modules\configuration\services
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -50,7 +49,7 @@ class Layout extends Component
         }
 
         return Craft::$app->getPlugins()->savePluginSettings(
-            Plugin::getInstance(),
+            OrganizationPlugin::getInstance(),
             $settingsModel->toArray()
         );
 

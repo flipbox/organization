@@ -13,7 +13,6 @@ use flipbox\organization\helpers\Query as QueryHelper;
 use flipbox\spark\helpers\ArrayHelper;
 
 /**
- * @package flipbox\organization\elements\db
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

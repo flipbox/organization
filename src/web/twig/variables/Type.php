@@ -9,10 +9,9 @@
 namespace flipbox\organization\web\twig\variables;
 
 use flipbox\organization\models\Type as TypeModel;
-use flipbox\organization\Plugin as OrganizationPlugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 
 /**
- * @package flipbox\organization\web\twig\variables
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

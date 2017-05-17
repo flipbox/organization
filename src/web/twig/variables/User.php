@@ -9,10 +9,9 @@
 namespace flipbox\organization\web\twig\variables;
 
 use flipbox\organization\elements\Organization;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 
 /**
- * @package flipbox\organization\web\twig\variables
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -25,7 +24,7 @@ class User
      */
     public function getQuery($criteria = [])
     {
-        return Plugin::getInstance()->getUser()->getQuery($criteria);
+        return OrganizationPlugin::getInstance()->getUser()->getQuery($criteria);
     }
 
     /**
@@ -45,7 +44,7 @@ class User
      */
     public function getByOrganization(Organization $organization, $criteria = [], bool $match = true)
     {
-        return Plugin::getInstance()->getOrganization()->getMemberQuery(
+        return OrganizationPlugin::getInstance()->getOrganization()->getMemberQuery(
             $organization,
             $criteria,
             $match
@@ -60,7 +59,7 @@ class User
      */
     public function getByOrganizationOwner(Organization $organization, $criteria = [], bool $match = true)
     {
-        return Plugin::getInstance()->getOrganization()->getOwnerQuery(
+        return OrganizationPlugin::getInstance()->getOrganization()->getOwnerQuery(
             $organization,
             $criteria,
             $match
@@ -75,7 +74,7 @@ class User
      */
     public function getByOrganizationUsers(Organization $organization, $criteria = [], bool $match = true)
     {
-        return Plugin::getInstance()->getOrganization()->getUserQuery(
+        return OrganizationPlugin::getInstance()->getOrganization()->getUserQuery(
             $organization,
             $criteria,
             $match

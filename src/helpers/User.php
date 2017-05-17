@@ -13,7 +13,6 @@ use craft\elements\User as UserElement;
 use yii\base\ErrorException as Exception;
 
 /**
- * @package flipbox\organization\helpers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

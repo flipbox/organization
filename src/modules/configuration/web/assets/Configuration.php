@@ -12,7 +12,6 @@ use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
 
 /**
- * @package flipbox\organization\modules\configuration\web\assets
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

@@ -16,14 +16,13 @@ use flipbox\organization\elements\db\User as UserQuery;
 use flipbox\organization\elements\Organization as OrganizationElement;
 use flipbox\organization\events\ManageOrganizationUser;
 use flipbox\organization\helpers\Query as QueryHelper;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\User as OrganizationUserRecord;
 use flipbox\spark\helpers\RecordHelper;
 use yii\base\Component;
 use yii\base\ErrorException as Exception;
 
 /**
- * @package flipbox\organization\services
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -325,16 +324,16 @@ class User extends Component
         }
 
         // Restrictions
-        if (Plugin::getInstance()->getSettings()->hasAssociationRestriction()) {
+        if (OrganizationPlugin::getInstance()->getSettings()->hasAssociationRestriction()) {
 
-            if (Plugin::getInstance()->getSettings()->memberAssociationRestriction()) {
+            if (OrganizationPlugin::getInstance()->getSettings()->memberAssociationRestriction()) {
                 $criteria = ['member' => $userElement->id];
             } else {
                 $criteria = ['user' => $userElement->id];
             }
 
             // Ignore the current organization
-            $query = Plugin::getInstance()->getOrganization()->getQuery(
+            $query = OrganizationPlugin::getInstance()->getOrganization()->getQuery(
                 array_merge([
                     'id' => 'not ' . $organizationElement->id,
                     'status' => null

@@ -14,7 +14,6 @@ use craft\db\Query;
 use flipbox\organization\records\User;
 
 /**
- * @package flipbox\organization\tasks
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

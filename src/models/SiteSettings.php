@@ -14,7 +14,6 @@ use craft\models\FieldLayout;
 use flipbox\organization\elements\Organization as OrganizationElement;
 
 /**
- * @package flipbox\organization\models
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

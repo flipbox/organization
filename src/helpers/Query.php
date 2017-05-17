@@ -19,7 +19,6 @@ use flipbox\spark\helpers\ArrayHelper;
 use flipbox\spark\helpers\QueryHelper;
 
 /**
- * @package flipbox\organization\helpers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

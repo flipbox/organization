@@ -8,15 +8,14 @@
 
 namespace flipbox\organization\modules\configuration;
 
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization;
 use yii\base\Module as BaseModule;
 
 /**
- * @package flipbox\organization\modules\configuration
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  *
- * @property Plugin $module
+ * @property Organization $module
  */
 class Module extends BaseModule
 {

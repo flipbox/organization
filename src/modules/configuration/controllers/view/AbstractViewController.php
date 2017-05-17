@@ -12,11 +12,9 @@ use Craft;
 use craft\helpers\UrlHelper;
 use flipbox\organization\controllers\view\AbstractViewController as BaseViewController;
 use flipbox\organization\modules\configuration\Module;
-use flipbox\organization\modules\configuration\Module as ConfigurationModule;
 use flipbox\organization\modules\configuration\web\assets\Configuration as ConfigurationAssetBundle;
 
 /**
- * @package flipbox\organization\modules\configuration\controllers\view
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -57,9 +55,6 @@ abstract class AbstractViewController extends BaseViewController
 
         parent::baseVariables($variables);
 
-        /** @var ConfigurationModule $module */
-        $module = ConfigurationModule::getInstance();
-
         // Page title
         $variables['title'] = Craft::t('organization', "Organization") . ' ' . Craft::t('organization', "Configuration");
 
@@ -82,7 +77,7 @@ abstract class AbstractViewController extends BaseViewController
                 "Configuration"
             ),
             'url' => UrlHelper::url(
-                $module->getUniqueId()
+                $this->module->getUniqueId()
             )
         ];
 

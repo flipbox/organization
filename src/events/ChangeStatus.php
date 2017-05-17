@@ -12,7 +12,6 @@ use craft\events\CancelableEvent;
 use flipbox\organization\elements\Organization;
 
 /**
- * @package flipbox\organization\events
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

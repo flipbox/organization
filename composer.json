@@ -1,7 +1,7 @@
 {
 	"name": "flipboxdigital/organization",
 	"description": "Simple parent + child management",
-	"version": "1.0.0-beta.3",
+	"version": "1.0.0-beta.4",
 	"type": "craft-plugin",
 	"keywords": [
 		"flipbox",
@@ -41,7 +41,7 @@
 	"extra": {
 		"name": "Organization",
 		"handle": "organization",
-		"class": "flipbox\\organization\\Plugin",
+		"class": "flipbox\\organization\\Organization",
 		"changelogUrl": "https://raw.githubusercontent.com/flipbox/organization/master/CHANGELOG.md",
 		"downloadUrl": "https://github.com/flipbox/organization/archive/master.zip",
 		"hasCpSettings": true,

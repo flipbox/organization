@@ -13,7 +13,6 @@ use flipbox\organization\elements\Organization;
 use flipbox\organization\models\Type;
 
 /**
- * @package flipbox\organization\events
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

@@ -12,13 +12,12 @@ use Craft;
 use craft\helpers\ArrayHelper;
 use craft\validators\UniqueValidator;
 use flipbox\organization\models\TypeSettings as TypeSettingsModel;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\Type as TypeRecord;
 use flipbox\spark\helpers\SiteHelper;
 use flipbox\spark\models\ModelWithIdAndHandle;
 
 /**
- * @package flipbox\organization\models
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -165,7 +164,7 @@ class Type extends ModelWithIdAndHandle
         if (is_null($this->_settings)) {
 
             $this->setSites(
-                Plugin::getInstance()->getType()->findAllSettings($this)
+                OrganizationPlugin::getInstance()->getType()->findAllSettings($this)
             );
 
         }

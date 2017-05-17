@@ -8,9 +8,7 @@
 
 namespace flipbox\organization\services;
 
-use Craft;
 use flipbox\organization\elements\Organization as OrganizationElement;
-use flipbox\organization\events\ManageOrganizationType;
 use flipbox\organization\models\Type as TypeModel;
 use flipbox\organization\models\TypeSettings as TypeSettingsModel;
 use flipbox\organization\records\OrganizationType as OrganizationTypeRecord;
@@ -18,12 +16,10 @@ use flipbox\organization\records\Type as TypeRecord;
 use flipbox\organization\records\TypeSettings as TypeSettingsRecord;
 use flipbox\spark\helpers\ModelHelper;
 use flipbox\spark\helpers\QueryHelper;
-use flipbox\spark\helpers\RecordHelper;
 use flipbox\spark\services\ModelByIdOrHandle;
 use yii\db\ActiveQuery;
 
 /**
- * @package flipbox\organization\services
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

@@ -9,13 +9,11 @@
 namespace flipbox\organization\controllers;
 
 use Craft;
-use flipbox\organization\elements\Organization;
 use flipbox\organization\elements\Organization as OrganizationElement;
-use flipbox\organization\Plugin as OrganizationPlugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use yii\web\ForbiddenHttpException;
 
 /**
- * @package flipbox\organization\controllers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -127,7 +125,7 @@ class OrganizationController extends AbstractController
         // Optional attributes
         $organizationId = Craft::$app->getRequest()->getRequiredBodyParam('id');
 
-        /** @var Organization $organizationElement */
+        /** @var OrganizationElement $organizationElement */
         $organizationElement = OrganizationPlugin::getInstance()->getOrganization()->getById($organizationId);
 
         // Delete

@@ -14,7 +14,6 @@ use flipbox\organization\elements\db\User as UserQuery;
 
 
 /**
- * @package flipbox\organization\elements
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

@@ -27,11 +27,10 @@ use flipbox\organization\web\twig\variables\Organization as OrganizationVariable
 use yii\base\Event;
 
 /**
- * @package flipbox\organization
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class Plugin extends BasePlugin
+class Organization extends BasePlugin
 {
 
     /**

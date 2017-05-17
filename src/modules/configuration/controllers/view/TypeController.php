@@ -11,10 +11,8 @@ namespace flipbox\organization\modules\configuration\controllers\view;
 use Craft;
 use craft\helpers\UrlHelper as UrlHelper;
 use flipbox\organization\models\Type as OrganizationType;
-use flipbox\organization\Plugin as OrganizationPlugin;
 
 /**
- * @package flipbox\organization\modules\configuration\controllers\view
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -46,7 +44,7 @@ class TypeController extends AbstractViewController
         $this->baseVariables($variables);
 
         // Find all organization types
-        $variables['types'] = OrganizationPlugin::getInstance()->getType()->findAll();
+        $variables['types'] = $this->module->module->getType()->findAll();
 
         return $this->renderTemplate(static::TEMPLATE_INDEX, $variables);
 
@@ -74,11 +72,11 @@ class TypeController extends AbstractViewController
             // Look for type id
             if (!empty($typeIdentifier)) {
 
-                $organizationType = OrganizationPlugin::getInstance()->getType()->get($typeIdentifier);
+                $organizationType = $this->module->module->getType()->get($typeIdentifier);
 
             } else {
 
-                $organizationType = OrganizationPlugin::getInstance()->getType()->create();
+                $organizationType = $this->module->module->getType()->create();
 
                 $variables['brandNew'] = true;
 

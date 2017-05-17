@@ -16,16 +16,13 @@ use flipbox\organization\elements\db\Organization;
 use flipbox\organization\elements\Organization as OrganizationElement;
 use flipbox\organization\models\Type as TypeModel;
 use flipbox\organization\models\TypeSettings as TypeSettingsModel;
-use flipbox\organization\records\Type as TypeRecord;
 use flipbox\organization\records\TypeSettings as TypeSettingsRecord;
 use flipbox\organization\services\AbstractType;
-use flipbox\spark\services\ModelByIdOrHandle;
 use flipbox\spark\services\traits\ModelDelete;
 use flipbox\spark\services\traits\ModelSave;
 use yii\base\Exception;
 
 /**
- * @package flipbox\organization\modules\configuration\services
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

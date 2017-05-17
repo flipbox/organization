@@ -10,10 +10,9 @@ namespace flipbox\organization\controllers\view;
 
 use Craft;
 use flipbox\organization\controllers\AbstractController;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 
 /**
- * @package flipbox\organization\controllers\view
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -34,7 +33,7 @@ abstract class AbstractViewController extends AbstractController
      */
     protected function getBaseActionPath(): string
     {
-        return Plugin::getInstance()->getUniqueId();
+        return OrganizationPlugin::getInstance()->getUniqueId();
     }
 
     /**
@@ -42,7 +41,7 @@ abstract class AbstractViewController extends AbstractController
      */
     protected function getBaseCpPath(): string
     {
-        return Plugin::getInstance()->getUniqueId();
+        return OrganizationPlugin::getInstance()->getUniqueId();
     }
 
     /**
@@ -51,10 +50,9 @@ abstract class AbstractViewController extends AbstractController
     protected function baseVariables(array &$variables = [])
     {
 
-        /** @var Plugin $module */
-        $module = Plugin::getInstance();
+        $module = OrganizationPlugin::getInstance();
 
-        // Plugin settings
+        // Settings
         $variables['settings'] = $module->getSettings();
 
         // Page title

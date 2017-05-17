@@ -16,7 +16,6 @@ use flipbox\spark\records\RecordWithId;
 use yii\db\ActiveQueryInterface;
 
 /**
- * @package flipbox\organization\records
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  *

@@ -12,7 +12,6 @@ use Craft;
 use flipbox\organization\models\Type;
 
 /**
- * @package flipbox\organization\modules\configuration\controllers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

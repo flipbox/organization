@@ -9,12 +9,11 @@
 namespace flipbox\organization\validators;
 
 use Craft;
-use flipbox\organization\Plugin as OrganizationPlugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\Organization;
 use yii\validators\Validator;
 
 /**
- * @package flipbox\organization\validators
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

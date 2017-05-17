@@ -12,7 +12,7 @@ use craft\base\ElementInterface;
 use craft\helpers\Db;
 use craft\records\Element as ElementRecord;
 use craft\records\User as UserRecord;
-use flipbox\organization\Plugin as OrganizationPlugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\OrganizationType as OrganizationTypeRecord;
 use flipbox\organization\records\User as OrganizationUserRecord;
 use flipbox\organization\validators\Owner;
@@ -21,7 +21,6 @@ use flipbox\spark\records\RecordWithId;
 use yii\db\ActiveQueryInterface;
 
 /**
- * @package flipbox\organization\records
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  *

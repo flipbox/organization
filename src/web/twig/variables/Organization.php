@@ -11,11 +11,10 @@ namespace flipbox\organization\web\twig\variables;
 use craft\elements\User;
 use flipbox\organization\elements\db\Organization as OrganizationQuery;
 use flipbox\organization\elements\Organization as OrganizationElement;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use yii\di\ServiceLocator;
 
 /**
- * @package flipbox\organization\web\twig\variables
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -50,7 +49,7 @@ class Organization extends ServiceLocator
      */
     public function getQuery($criteria = null)
     {
-        return Plugin::getInstance()->getOrganization()->getQuery($criteria);
+        return OrganizationPlugin::getInstance()->getOrganization()->getQuery($criteria);
     }
 
     /**
@@ -70,7 +69,7 @@ class Organization extends ServiceLocator
      */
     public function create(array $config = [])
     {
-        return Plugin::getInstance()->getOrganization()->create($config);
+        return OrganizationPlugin::getInstance()->getOrganization()->create($config);
     }
 
     /**

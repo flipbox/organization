@@ -21,7 +21,6 @@ use flipbox\organization\records\TypeSettings as OrganizationTypeSettingsRecord;
 use flipbox\organization\records\User as OrganizationUserRecord;
 
 /**
- * @package flipbox\organization\migrations
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

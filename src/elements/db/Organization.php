@@ -20,13 +20,12 @@ use craft\records\UserGroup_User as UserGroupUsersRecord;
 use flipbox\organization\elements\Organization as OrganizationElement;
 use flipbox\organization\helpers\Query as QueryHelper;
 use flipbox\organization\models\Type;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\Organization as OrganizationRecord;
 use flipbox\organization\records\OrganizationType as OrganizationTypeOrganizationRecord;
 use flipbox\organization\records\User as OrganizationUserRecord;
 
 /**
- * @package flipbox\organization\elements\db
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  *
@@ -404,7 +403,7 @@ class Organization extends ElementQuery
     protected function statusCondition(string $status)
     {
 
-        $statuses = Plugin::getInstance()->getSettings()->getStatuses();
+        $statuses = OrganizationPlugin::getInstance()->getSettings()->getStatuses();
 
         if (array_key_exists($status, $statuses)) {
             return [OrganizationRecord::tableAlias() . '.status' => $status];
@@ -508,7 +507,7 @@ class Organization extends ElementQuery
 
                     // create new query
                     if (is_string($v)) {
-                        if ($model = Plugin::getInstance()->getType()->find($v)) {
+                        if ($model = OrganizationPlugin::getInstance()->getType()->find($v)) {
                             $v = $model;
                         }
                     }

@@ -12,7 +12,6 @@ use flipbox\organization\models\Type;
 use yii\base\Event;
 
 /**
- * @package flipbox\organization\modules\configuration\events
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

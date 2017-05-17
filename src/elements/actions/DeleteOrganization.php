@@ -12,7 +12,6 @@ use Craft;
 use craft\base\ElementAction;
 
 /**
- * @package flipbox\organization\elements\actions
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

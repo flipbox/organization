@@ -12,7 +12,6 @@ use craft\db\Migration;
 use flipbox\organization\records\Organization;
 
 /**
- * @package flipbox\organization\migrations
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

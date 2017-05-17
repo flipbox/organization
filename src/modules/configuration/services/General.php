@@ -11,11 +11,10 @@ namespace flipbox\organization\modules\configuration\services;
 use Craft;
 use flipbox\organization\migrations\AlterOrganizationStatus;
 use flipbox\organization\models\Settings;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use yii\base\Component;
 
 /**
- * @package flipbox\organization\modules\configuration\services
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -33,7 +32,7 @@ class General extends Component
 
         // Save plugin settings
         if (Craft::$app->getPlugins()->savePluginSettings(
-            Plugin::getInstance(),
+            OrganizationPlugin::getInstance(),
             $settingsModel->toArray()
         )
         ) {
@@ -55,7 +54,7 @@ class General extends Component
     {
 
         $migration = new AlterOrganizationStatus([
-            'statuses' => array_keys(Plugin::getInstance()->getSettings()->getStatuses())
+            'statuses' => array_keys(OrganizationPlugin::getInstance()->getSettings()->getStatuses())
         ]);
 
         ob_start();

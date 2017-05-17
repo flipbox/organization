@@ -11,10 +11,8 @@ namespace flipbox\organization\modules\configuration\controllers;
 use Craft;
 use craft\helpers\ArrayHelper;
 use flipbox\organization\models\Settings;
-use flipbox\organization\Plugin as OrganizationPlugin;
 
 /**
- * @package flipbox\organization\modules\configuration\controllers
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -35,7 +33,7 @@ class GeneralController extends AbstractController
         $session = Craft::$app->getSession();
 
         /** @var Settings $model */
-        $model = OrganizationPlugin::getInstance()->getSettings();
+        $model = $this->module->module->getSettings();
 
         // Statuses from post
         if ($rawStatuses = $request->getBodyParam('statuses', [])) {

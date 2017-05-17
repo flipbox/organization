@@ -14,7 +14,6 @@ use flipbox\organization\elements\Organization as OrganizationElement;
 use yii\base\Component;
 
 /**
- * @package flipbox\organization\services
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */

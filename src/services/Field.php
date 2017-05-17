@@ -14,14 +14,13 @@ use craft\helpers\ArrayHelper;
 use flipbox\organization\elements\db\Organization as OrganizationQuery;
 use flipbox\organization\elements\Organization as OrganizationElement;
 use flipbox\organization\fields\User as OrganizationUserField;
-use flipbox\organization\Plugin;
+use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\User;
 use flipbox\spark\helpers\RecordHelper;
 use yii\base\Component;
 use yii\base\Exception;
 
 /**
- * @package flipbox\organization\services
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
@@ -80,7 +79,7 @@ class Field extends Component
         /** @var OrganizationElement[]|null $targets */
         if (null === ($targets = $organizationQuery->getCachedResult())) {
             if (null !== $organizationQuery->id) {
-                $targets = Plugin::getInstance()->getOrganization()->getQuery([
+                $targets = OrganizationPlugin::getInstance()->getOrganization()->getQuery([
                     'status' => null,
                     'id' => $organizationQuery->id
                 ])->all();
@@ -123,13 +122,13 @@ class Field extends Component
             }
 
             /** @var OrganizationElement[] $organizations */
-            $organizations = Plugin::getInstance()->getOrganization()->getQuery()
+            $organizations = OrganizationPlugin::getInstance()->getOrganization()->getQuery()
                 ->id($oldTargetIds)
                 ->status(null)
                 ->all();
 
             foreach ($organizations as $organization) {
-                Plugin::getInstance()->getUser()->dissociate($user, $organization);
+                OrganizationPlugin::getInstance()->getUser()->dissociate($user, $organization);
             }
 
             // Add the new ones
@@ -142,7 +141,7 @@ class Field extends Component
                 }
 
                 foreach ($targets as $organizationQuery) {
-                    if (!Plugin::getInstance()->getUser()->associate($user, $organizationQuery, $siteId, 0)) {
+                    if (!OrganizationPlugin::getInstance()->getUser()->associate($user, $organizationQuery, $siteId, 0)) {
                         throw new Exception('Unable to associate user to organization');
                     }
                 }
