@@ -1126,7 +1126,6 @@ class Organization extends Element
         return [
             'title' => Craft::t('organization', 'Name'),
             'ownerId' => Craft::t('organization', 'Owner'),
-            'userCount' => Craft::t('organization', 'User Count'),
             'dateJoined' => Craft::t('organization', 'Join Date'),
             'status' => Craft::t('organization', 'Status'),
             'type' => Craft::t('organization', 'Type')
@@ -1247,7 +1246,6 @@ class Organization extends Element
             'uri' => ['label' => Craft::t('app', 'URI')],
             'title' => ['label' => Craft::t('organization', 'Name')],
             'owner' => ['label' => Craft::t('organization', 'Owner')],
-            'userCount' => ['label' => Craft::t('organization', 'User Count')],
             'status' => ['label' => Craft::t('organization', 'Status')],
             'types' => ['label' => Craft::t('organization', 'Type(s)')],
             'dateJoined' => ['label' => Craft::t('organization', 'Join Date')],
@@ -1284,9 +1282,6 @@ class Organization extends Element
                 }
 
                 return '';
-
-            case 'userCount' :
-                return count($this->getUsers(['status' => 'not :anything:']));
 
             case 'types' :
 
