@@ -23,12 +23,14 @@ use DateTime;
 use flipbox\organization\elements\actions\ChangeOrganizationStatus as StatusAction;
 use flipbox\organization\elements\actions\DeleteOrganization as DeleteAction;
 use flipbox\organization\elements\db\Organization as OrganizationQuery;
+use flipbox\organization\helpers\Type as TypeHelper;
 use flipbox\organization\helpers\User as UserHelper;
 use flipbox\organization\models\Type as TypeModel;
 use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\Organization as OrganizationRecord;
 use flipbox\organization\records\User as OrganizationUsersRecord;
 use flipbox\organization\validators\Owner;
+use flipbox\spark\helpers\ElementHelper;
 use flipbox\spark\helpers\QueryHelper;
 use yii\base\ErrorException as Exception;
 
@@ -119,7 +121,7 @@ class Organization extends Element
                 'types',
                 'activeType',
                 'primaryType',
-                'users'
+                'users',
             ]
         );
     }
@@ -152,7 +154,24 @@ class Organization extends Element
                         'dateJoined'
                     ],
                     DateTimeValidator::class
-                ]
+                ],
+                [
+                    [
+                        'activeType',
+                        'primaryType',
+                        'ownerId',
+                        'owner',
+                        'types',
+                        'users',
+                        'members',
+                        'status'
+                    ],
+                    'safe',
+                    'on' => [
+                        ElementHelper::SCENARIO_DEFAULT
+                    ]
+
+                ],
             ]
         );
 
@@ -472,15 +491,10 @@ class Organization extends Element
             $types = [$types];
         }
 
-        foreach ($types as $key => $type) {
-
-            // Ensure we have a model
-            if (!$type instanceof TypeModel) {
-                $type = OrganizationPlugin::getInstance()->getType()->get($type);
+        foreach ($types as $type) {
+            if ($type = TypeHelper::resolve($type)) {
+                $this->addType($type);
             }
-
-            $this->addType($type);
-
         }
 
         return $this;

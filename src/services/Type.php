@@ -18,6 +18,9 @@ use flipbox\spark\helpers\RecordHelper;
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
+ *
+ * @method TypeModel|null find($identifier, string $toScenario = null)
+ * @method TypeModel get($identifier, string $toScenario = null)
  */
 class Type extends AbstractType
 {
