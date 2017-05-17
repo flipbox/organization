@@ -109,7 +109,8 @@ class Organization extends BasePlugin
                 'organization' => 'organization/view/organization/index',
                 'organization/new/<typeIdentifier:{handle}>' => 'organization/view/organization/upsert',
                 'organization/new' => 'organization/view/organization/upsert',
-                'organization/<identifier:\d+>' => 'organization/view/organization/upsert'
+                'organization/<identifier:\d+>' => 'organization/view/organization/upsert',
+                'organization/<identifier:\d+>/<typeIdentifier:{handle}>' => 'organization/view/organization/upsert'
 
             ]
         );

@@ -70,10 +70,11 @@ class OrganizationController extends AbstractViewController
 
     /**
      * @param null $identifier
+     * @param null $typeIdentifier
      * @param OrganizationElement|null $organization
      * @return string
      */
-    public function actionUpsert($identifier = null, OrganizationElement $organization = null)
+    public function actionUpsert($identifier = null, $typeIdentifier = null, OrganizationElement $organization = null)
     {
 
         // Register our asset bundle
@@ -99,6 +100,12 @@ class OrganizationController extends AbstractViewController
 
         }
 
+        if(null !== $typeIdentifier) {
+            if($type = OrganizationPlugin::getInstance()->getType()->find($typeIdentifier)) {
+                $organization->setActiveType($type);
+            }
+        }
+
         if ($variables['types']) {
             $this->getView()->registerJs('new Craft.OrganizationTypeSwitcher();');
         }
@@ -109,6 +116,10 @@ class OrganizationController extends AbstractViewController
             // Set the "Continue Editing" URL
             $variables['continueEditingUrl'] = $variables['baseCpPath'] . '/' . $organization->id;
 
+            if($activeType = $organization->getActiveType()) {
+                $variables['continueEditingUrl'] .= '/' . $activeType->handle;
+            }
+            
             // Append title
             $variables['title'] .= ': ' . Craft::t('organization', 'Edit');
 
