@@ -222,10 +222,9 @@ class Organization extends ElementService
         // Transfer id to the new records
         if ($isNew) {
             $organization->id = $record->id;
-            $organization->dateCreated = $record->dateCreated;
+            $organization->dateCreated = DateTimeHelper::toDateTime($record->dateCreated);
         }
-
-        $organization->dateUpdated = $record->dateUpdated;
+        $organization->dateUpdated = DateTimeHelper::toDateTime($record->dateUpdated);
 
         if (!$isNew) {
 
