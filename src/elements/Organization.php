@@ -1359,10 +1359,9 @@ class Organization extends Element
     public function afterSave(bool $isNew)
     {
 
-        // Do parent
-        parent::afterSave($isNew);
-
         OrganizationPlugin::getInstance()->getOrganization()->afterSave($this, $isNew);
+
+        parent::afterSave($isNew);
 
     }
 
