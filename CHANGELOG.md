@@ -1,5 +1,8 @@
 Changelog
 =========
+## Unreleased
+### Changed
+- Changed icons
 
 ## [1.0.0-beta.4] - 2017-05-17
 ### Changed
