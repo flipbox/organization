@@ -30,35 +30,31 @@ class Owner extends Validator
      */
     public function validateAttribute($object, $attribute)
     {
-
         $value = $object->{$attribute};
 
-        if ($this->isEmpty($value)) {
-
+        if (OrganizationPlugin::getInstance()->getSettings()->requireOwner && $this->isEmpty($value)) {
             // Invalid status message
             $message = Craft::t('organization', 'Owner is required.');
 
             // Add error
             $this->addError($object, $attribute, $message);
+        }
 
+        if($this->isEmpty($value)) {
             return;
-
         }
 
         // If a user doesn't exist, than this means we have an invalid owner element
         if (!$userModel = Craft::$app->getUsers()->getUserById($value)) {
-
             // Invalid status message
             $message = Craft::t('organization', 'Owner is of invalid type.');
 
             // Add error
             $this->addError($object, $attribute, $message);
-
         }
 
         // Are they already a member of another organization?
         if (OrganizationPlugin::getInstance()->getSettings()->uniqueOwner) {
-
             $query = OrganizationPlugin::getInstance()->getOrganization()->getQuery([
                 'id' => 'not ' . $object->id,
                 'status' => null,
@@ -74,9 +70,6 @@ class Owner extends Validator
                 $this->addError($object, $attribute, $message);
 
             }
-
         }
-
     }
-
 }
