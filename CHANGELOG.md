@@ -1,8 +1,9 @@
 Changelog
 =========
-## Unreleased
+## [1.0.0-beta.5] - 2017-06-5
 ### Changed
 - Changed icons
+- Required owner is determined via settings
 
 ## [1.0.0-beta.4] - 2017-05-17
 ### Changed
