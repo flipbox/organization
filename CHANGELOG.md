@@ -1,5 +1,16 @@
 Changelog
 =========
+
+=========
+## Unreleased
+### Fixed
+- Issues where an organization could not be deleted via the element index action
+- Issues where an organization could not be deleted via the element action
+- Issues where an organization status could not be changed via the element index action
+
+### Added
+- Prompt to transfer organization user to new organization upon deletion via element index action
+
 ## [1.0.0-beta.5] - 2017-06-5
 ### Changed
 - Changed icons

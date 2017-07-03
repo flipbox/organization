@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import "../../../../../../../craftcms/cms/src/web/assets/shared";
+@import "../../../../../vendor/craftcms/cms/src/web/assets/shared";
 
 /* ----------------------------------------
 /* Organization
@@ -46,4 +46,29 @@
 
 }
 
+/* delete organization modal */
+.deleteorganizationmodal,
+.changeorganizationstatusmodal {
+  .options {
+    label {
+      display: inline-block;
+      line-height: 30px;
 
+    }
+
+  }
+
+  .elementselect {
+    @include margin-left(10px);
+    display: inline-block;
+    vertical-align: middle;
+
+  }
+
+  .buttons .spinner {
+    @include floatright;
+    @include margin-right(-20px);
+    @include margin-left(-4px);
+
+  }
+}

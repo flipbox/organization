@@ -249,15 +249,7 @@ class Organization extends Element
      */
     public static function statuses(): array
     {
-        return array_merge(
-            [
-                self::STATUS_ENABLED => Craft::t('organization', 'Active')
-            ],
-            OrganizationPlugin::getInstance()->getSettings()->getStatuses(),
-            [
-                self::STATUS_DISABLED => Craft::t('organization', 'Disabled')
-            ]
-        );
+        return OrganizationPlugin::getInstance()->getOrganization()->getStatuses();
     }
 
     /**

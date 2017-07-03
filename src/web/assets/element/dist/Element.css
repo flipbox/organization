@@ -5,23 +5,49 @@
 /* Organization
 /* ----------------------------------------*/
 .menubtn#available {
-    margin-left: -1px;
-}
-
-.menubtn#available:before, .menubtn#available:after {
-    margin: 0;
-}
-
-.menubtn#available:before {
-    margin-right: -1px;
-}
-
-.menubtn#available:after {
-    content: '' !important;
-}
+  margin-left: -1px; }
+  .menubtn#available:before, .menubtn#available:after {
+    margin: 0; }
+  .menubtn#available:before {
+    margin-right: -1px; }
+  .menubtn#available:after {
+    content: '' !important; }
 
 .tabs > ul > li.users {
-    float: right;
-}
+  float: right; }
+
+/* delete organization modal */
+.deleteorganizationmodal .options label,
+.changeorganizationstatusmodal .options label {
+  display: inline-block;
+  line-height: 30px; }
+.deleteorganizationmodal .elementselect,
+.changeorganizationstatusmodal .elementselect {
+  display: inline-block;
+  vertical-align: middle; }
+  body.ltr .deleteorganizationmodal .elementselect, body.ltr
+  .changeorganizationstatusmodal .elementselect {
+    margin-left: 10px; }
+  body.rtl .deleteorganizationmodal .elementselect, body.rtl
+  .changeorganizationstatusmodal .elementselect {
+    margin-right: 10px; }
+body.ltr .deleteorganizationmodal .buttons .spinner, body.ltr
+.changeorganizationstatusmodal .buttons .spinner {
+  float: right; }
+body.rtl .deleteorganizationmodal .buttons .spinner, body.rtl
+.changeorganizationstatusmodal .buttons .spinner {
+  float: left; }
+body.ltr .deleteorganizationmodal .buttons .spinner, body.ltr
+.changeorganizationstatusmodal .buttons .spinner {
+  margin-right: -20px; }
+body.rtl .deleteorganizationmodal .buttons .spinner, body.rtl
+.changeorganizationstatusmodal .buttons .spinner {
+  margin-left: -20px; }
+body.ltr .deleteorganizationmodal .buttons .spinner, body.ltr
+.changeorganizationstatusmodal .buttons .spinner {
+  margin-left: -4px; }
+body.rtl .deleteorganizationmodal .buttons .spinner, body.rtl
+.changeorganizationstatusmodal .buttons .spinner {
+  margin-right: -4px; }
 
 /*# sourceMappingURL=Element.css.map */

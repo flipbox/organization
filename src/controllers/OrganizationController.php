@@ -123,7 +123,7 @@ class OrganizationController extends AbstractController
         $this->requirePostDeleteRequest();
 
         // Optional attributes
-        $organizationId = Craft::$app->getRequest()->getRequiredBodyParam('id');
+        $organizationId = Craft::$app->getRequest()->getRequiredBodyParam('identifier');
 
         /** @var OrganizationElement $organizationElement */
         $organizationElement = OrganizationPlugin::getInstance()->getOrganization()->getById($organizationId);
@@ -170,5 +170,4 @@ class OrganizationController extends AbstractController
         return null;
 
     }
-
 }

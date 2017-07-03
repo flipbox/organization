@@ -51,6 +51,9 @@ class OrganizationController extends AbstractViewController
     public function actionIndex()
     {
 
+        // Register our asset bundle
+        Craft::$app->getView()->registerAssetBundle(Element::class);
+        
         // Empty variables for template
         $variables = [];
 
@@ -155,7 +158,7 @@ class OrganizationController extends AbstractViewController
         $destructiveActions = [];
         if (Craft::$app->getUser()->checkPermission('deleteOrganizations')) {
             $destructiveActions[] = [
-                'id' => 'delete-btn',
+                'action' => 'organization/delete',
                 'label' => Craft::t('app', 'Delete')
             ];
         }

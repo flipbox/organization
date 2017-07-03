@@ -32,6 +32,11 @@ use yii\base\Exception;
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
+ *
+ * @method OrganizationElement|null find($identifier, int $siteId = null)
+ * @method OrganizationElement get($identifier, int $siteId = null)
+ * @method OrganizationElement|null findById(int $id, int $siteId = null)
+ * @method OrganizationElement getById(int $id, int $siteId = null)
  */
 class Organization extends ElementService
 {
@@ -92,6 +97,22 @@ class Organization extends ElementService
      * STATUS
      *******************************************/
 
+    /**
+     * @return array
+     */
+    public function getStatuses(): array
+    {
+        return array_merge(
+            [
+                OrganizationElement::STATUS_ENABLED => Craft::t('organization', 'Active')
+            ],
+            OrganizationPlugin::getInstance()->getSettings()->getStatuses(),
+            [
+                OrganizationElement::STATUS_DISABLED => Craft::t('organization', 'Disabled')
+            ]
+        );
+
+    }
     /**
      * @param $status
      * @return bool
