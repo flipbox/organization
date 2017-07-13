@@ -236,6 +236,11 @@ class Organization extends ElementService
 
             $organization->addErrors($record->getErrors());
 
+            Craft::error(
+                $organization->getErrors(),
+                __CLASS__
+            );
+
             throw new Exception('Unable to save record');
 
         }
