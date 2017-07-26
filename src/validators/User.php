@@ -8,8 +8,10 @@
 
 namespace flipbox\organization\validators;
 
+use Craft;
 use craft\elements\db\UserQuery;
 use craft\elements\User as UserElement;
+use craft\helpers\Json;
 use yii\validators\Validator;
 
 /**
@@ -18,34 +20,32 @@ use yii\validators\Validator;
  */
 class User extends Validator
 {
-
     /**
      * @inheritdoc
+     * @param UserQuery $value
      */
     protected function validateValue($value)
     {
-
-        /** @var UserQuery $value */
-
-        $errors = [];
+        $hasError = false;
 
         /** @var UserElement[] $users */
         if (null !== ($users = $value->getCachedResult())) {
-
             foreach ($users as $user) {
-
                 if (!$user->id && !$user->validate()) {
+                    $hasError = true;
 
-                    $errors[] = $user->getFirstErrors();
-
+                    Craft::warning(sprintf(
+                        "Invalid user: '%s'",
+                        Json::encode($user->getFirstErrors())
+                    ), __METHOD__);
                 }
-
             }
-
         }
 
-        return $errors;
+        if($hasError) {
+            return [Craft::t('organization', 'Invalid users.'), []];
+        }
 
+        return null;
     }
-
 }

@@ -1,7 +1,14 @@
 Changelog
 =========
 
-=========
+## 1.0.0-beta.8 - 2017-7-25
+### Fixed
+- Bug with User validator not returning a proper response.
+
+## 1.0.0-beta.7 - 2017-7-13
+### Added
+- Logging when unable to save Organization
+
 ## 1.0.0-beta.6 - 2017-7-5
 ### Fixed
 - Issues where an organization could not be deleted via the element index action
