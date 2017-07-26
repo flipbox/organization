@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## Unreleased
+### Fixed
+- Issue where field layout would get deleted without saving a new one.
+
 ## 1.0.0-beta.8 - 2017-7-25
 ### Fixed
 - Bug with User validator not returning a proper response.
