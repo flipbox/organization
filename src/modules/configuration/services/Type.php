@@ -9,7 +9,6 @@
 namespace flipbox\organization\modules\configuration\services;
 
 use Craft;
-use craft\events\ModelEvent;
 use craft\helpers\App;
 use craft\helpers\ArrayHelper;
 use flipbox\organization\elements\db\Organization;
@@ -29,19 +28,19 @@ use yii\base\Exception;
 class Type extends AbstractType
 {
 
-    use ModelSave, ModelDelete;
+    use ModelSave, ModelDelete {
+        ModelSave::beforeSave as _beforeSave;
+        ModelSave::afterSave as _afterSave;
+    }
 
     /**
-     * @param ModelEvent $event
+     * @param TypeModel $type
+     * @param bool $isNew
      * @return bool
      * @throws Exception
      */
-    public function onBeforeSave(ModelEvent $event)
+    public function beforeSave(TypeModel $type, bool $isNew): bool
     {
-
-        /** @var TypeModel $type */
-        $type = $event->sender;
-
         // Get the site settings (indexed by siteId)
         $allSettings = $type->getSites();
 
@@ -52,23 +51,16 @@ class Type extends AbstractType
             }
         }
 
-        return $event->isValid;
-
+        return $this->_beforeSave($type, $isNew);
     }
 
     /**
-     * @param ModelEvent $event
+     * @param TypeModel $type
+     * @param bool $isNew
      * @return bool
      */
-    public function onAfterSave(ModelEvent $event)
+    public function afterSave(TypeModel $type, bool $isNew)
     {
-
-        /** @var TypeModel $type */
-        $type = $event->sender;
-
-        /** @var bool $isNew */
-        $isNew = $event->isNew;
-
         // Update the site settings
         // -----------------------------------------------------------------
 
@@ -79,18 +71,15 @@ class Type extends AbstractType
         $allOldSettingsRecords = [];
 
         if (!$isNew) {
-
             // Get the old category group site settings
             $allOldSettingsRecords = TypeSettingsRecord::find()
                 ->where(['typeId' => $type->id])
                 ->indexBy('siteId')
                 ->all();
-
         }
 
         /** @var TypeSettingsModel $setting */
         foreach ($type->getSites() as $settings) {
-
             // Existing settings?
             if (!$settingsRecord = ArrayHelper::remove($allOldSettingsRecords, $settings->siteId)) {
 
@@ -98,15 +87,12 @@ class Type extends AbstractType
                 $settingsRecord = new TypeSettingsRecord();
                 $settingsRecord->typeId = $settings->getTypeId();
                 $settingsRecord->siteId = $settings->siteId;
-
             }
 
             // Handle the field layout
             if (!$settings->fieldLayoutId || $settingsRecord->fieldLayoutId != $settings->fieldLayoutId) {
-
                 // Delete existing field layout
                 Craft::$app->getFields()->deleteLayoutById($settingsRecord->fieldLayoutId);
-
             }
 
             // Get new field layout
@@ -124,7 +110,6 @@ class Type extends AbstractType
             $settingsRecord->fieldLayoutId = $settings->fieldLayoutId;
 
             if (!$settingsRecord->getIsNewRecord()) {
-
                 // Did it used to have URLs, but not anymore?
                 if ($settingsRecord->isAttributeChanged('hasUrls', false) && !$settings->hasUrls) {
                     $sitesNowWithoutUrls[] = $settings->siteId;
@@ -134,14 +119,12 @@ class Type extends AbstractType
                 if ($settings->hasUrls && $settingsRecord->isAttributeChanged('uriFormat', false)) {
                     $sitesWithNewUriFormats[] = $settings->siteId;
                 }
-
             }
 
             $settingsRecord->save();
 
             // Set the ID on the model
             $settings->id = $settingsRecord->id;
-
         }
 
         // Delete old settings records
@@ -153,7 +136,6 @@ class Type extends AbstractType
         // -----------------------------------------------------------------
 
         if (!$isNew) {
-
             // Get all of the category IDs in this group
             $ids = OrganizationElement::find()
                 ->andWhere(['type' => [$type->id]])
@@ -163,7 +145,6 @@ class Type extends AbstractType
 
             // Drop the old URIs for any site settings that don't have URLs
             if (!empty($sitesNowWithoutUrls)) {
-
                 Craft::$app->getDb()->createCommand()
                     ->update(
                         '{{%elements_i18n}}',
@@ -173,13 +154,9 @@ class Type extends AbstractType
                             'siteId' => $sitesNowWithoutUrls,
                         ])
                     ->execute();
-
             } else if (!empty($sitesWithNewUriFormats)) {
-
                 foreach ($ids as $id) {
-
                     App::maxPowerCaptain();
-
                     foreach ($sitesWithNewUriFormats as $siteId) {
 
                         /** @var Organization $query */
@@ -190,20 +167,13 @@ class Type extends AbstractType
                             ->status(null)
                             ->one()
                         ) {
-
                             Craft::$app->getElements()->updateElementSlugAndUri($organization, false, false);
-
                         }
-
                     }
-
                 }
-
             }
-
         }
 
-        return $event->isValid;
+        $this->_afterSave($type, $isNew);
     }
-
 }
