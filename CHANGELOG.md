@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 1.0.0-beta.9 - 2017-7-27
 ### Fixed
 - Issue where field layout would get deleted without saving a new one.
 - Issue where type specific field layout was not getting saved.
