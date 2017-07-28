@@ -1,7 +1,7 @@
-*.idea/*
-*.log
-*.DS_Store
-*Thumbs.db
-tests/_output/*
-vendor/
-/composer.lock
+/build
+/vendor
+/docs/_site/*
+composer.phar
+composer.lock
+.DS_Store
+.idea

@@ -3,6 +3,11 @@
 	"description": "Simple parent + child management",
 	"version": "1.0.0-beta.9",
 	"type": "craft-plugin",
+	"minimum-stability": "beta",
+	"prefer-stable": true,
+	"config": {
+		"optimize-autoloader": true
+	},
 	"keywords": [
 		"flipbox",
 		"organization",
@@ -27,20 +32,25 @@
 		"flipboxdigital/spark": "~1.0.0-beta.2"
 	},
 	"require-dev": {
+		"phpunit/phpunit": "^5.0",
+		"squizlabs/php_codesniffer": "^2.0",
 		"codeception/codeception": "^2.2"
 	},
-	"repositories": [{
-		"type": "composer",
-		"url": "https://asset-packagist.org"
-	}],
 	"autoload": {
 		"psr-4": {
 			"flipbox\\organization\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"flipbox\\organization\\tests\\": "tests/src/"
+		}
+	},
 	"extra": {
 		"name": "Organization",
 		"handle": "organization",
+		"developer": "Flipbox Digital",
+		"developerUrl": "https://www.flipboxdigital.com",
 		"class": "flipbox\\organization\\Organization",
 		"changelogUrl": "https://raw.githubusercontent.com/flipbox/organization/master/CHANGELOG.md",
 		"downloadUrl": "https://github.com/flipbox/organization/archive/master.zip",
@@ -65,5 +75,14 @@
 				}
 			}
 		}
-	}
+	},
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://packagist.org"
+		},{
+			"type": "composer",
+			"url": "https://asset-packagist.org"
+		}
+	]
 }
