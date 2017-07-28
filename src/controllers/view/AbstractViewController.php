@@ -69,7 +69,5 @@ abstract class AbstractViewController extends AbstractController
 
         // Set the "Continue Editing" URL
         $variables['continueEditingUrl'] = $this->getBaseCpPath();
-
     }
-
 }

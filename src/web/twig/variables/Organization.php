@@ -38,7 +38,6 @@ class Organization extends ServiceLocator
                 ]
             ]
         ));
-
     }
 
     /**
@@ -101,5 +100,4 @@ class Organization extends ServiceLocator
     {
         return $this->get('user');
     }
-
 }

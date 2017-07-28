@@ -48,15 +48,12 @@ class Organization extends RecordWithId
     {
 
         if ($this->getIsNewRecord()) {
-
             if (!$this->dateJoined) {
                 $this->dateJoined = Db::prepareDateForDb(new \DateTime());
             }
-
         }
 
         return parent::beforeSave($insert);
-
     }
 
     /**
@@ -89,7 +86,6 @@ class Organization extends RecordWithId
                 ]
             ]
         );
-
     }
 
     /**
@@ -133,5 +129,4 @@ class Organization extends RecordWithId
         return $this->hasMany(UserRecord::class, ['id' => 'userId'])
             ->viaTable(OrganizationUserRecord::tableName(), ['organizationId' => 'id']);
     }
-
 }

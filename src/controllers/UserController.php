@@ -48,18 +48,15 @@ class UserController extends AbstractController
 
         // Action successful
         if ($success) {
-
             // Success message
             $message = Craft::t('organization', 'Successfully removed user from organization.');
 
             // Ajax request
             if (Craft::$app->getRequest()->isAjax) {
-
                 return $this->asJson([
                     'success' => true,
                     'message' => $message
                 ]);
-
             }
 
             // Flash success message
@@ -67,7 +64,6 @@ class UserController extends AbstractController
 
             // Redirect
             return $this->redirectToPostedUrl();
-
         }
 
         // Fail message
@@ -75,16 +71,13 @@ class UserController extends AbstractController
 
         // Ajax request
         if (Craft::$app->getRequest()->isAjax) {
-
             return $this->asErrorJson($message);
-
         }
 
         // Flash fail message
         Craft::$app->getSession()->setError($message);
 
         return null;
-
     }
 
     /**
@@ -111,18 +104,15 @@ class UserController extends AbstractController
 
         // Action successful
         if (OrganizationPlugin::getInstance()->getUser()->associate($userElement, $organizationElement, $siteId, $sortOrder)) {
-
             // Success message
             $message = Craft::t('organization', 'Successfully associated user to organization.');
 
             // Ajax request
             if (Craft::$app->getRequest()->isAjax) {
-
                 return $this->asJson([
                     'success' => true,
                     'message' => $message
                 ]);
-
             }
 
             // Flash success message
@@ -130,7 +120,6 @@ class UserController extends AbstractController
 
             // Redirect
             return $this->redirectToPostedUrl();
-
         }
 
         // Fail message
@@ -138,16 +127,12 @@ class UserController extends AbstractController
 
         // Ajax request
         if (Craft::$app->getRequest()->isAjax) {
-
             return $this->asErrorJson($message);
-
         }
 
         // Flash fail message
         Craft::$app->getSession()->setError($message);
 
         return null;
-
     }
-
 }

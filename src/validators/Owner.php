@@ -40,7 +40,7 @@ class Owner extends Validator
             $this->addError($object, $attribute, $message);
         }
 
-        if($this->isEmpty($value)) {
+        if ($this->isEmpty($value)) {
             return;
         }
 
@@ -62,13 +62,11 @@ class Owner extends Validator
             ]);
 
             if ($query->count()) {
-
                 // Invalid status message
                 $message = Craft::t('organization', 'Owner is already in use.');
 
                 // Add error
                 $this->addError($object, $attribute, $message);
-
             }
         }
     }

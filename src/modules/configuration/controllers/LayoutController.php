@@ -36,7 +36,6 @@ class LayoutController extends AbstractController
 
         // Handle each site's url/template settings
         foreach (Craft::$app->getSites()->getAllSites() as $site) {
-
             $namespace = 'sites.' . $site->handle;
 
             $siteSettings = $model->getSite($site->id);
@@ -46,15 +45,12 @@ class LayoutController extends AbstractController
             $siteSettings->setFieldLayout(
                 Craft::$app->getFields()->assembleLayoutFromPost($namespace)
             );
-
         }
 
         // Save settings
         if (!$this->module->getLayout()->save($model)) {
-
             // Ajax request
             if (!$request->getAcceptsJson()) {
-
                 // Fail message
                 $message = Craft::t('organization', 'Settings NOT saved successfully.');
 
@@ -68,19 +64,16 @@ class LayoutController extends AbstractController
 
                 // Redirect
                 return $this->redirectToPostedUrl($model);
-
             }
 
             return $this->asJson([
                 'success' => false,
                 'errors' => $model->getErrors(),
             ]);
-
         }
 
         // Ajax request
         if (!$request->getAcceptsJson()) {
-
             // Success message
             $message = Craft::t('organization', 'Settings saved successfully.');
 
@@ -88,11 +81,8 @@ class LayoutController extends AbstractController
             $session->setNotice($message);
 
             return $this->redirectToPostedUrl($model);
-
         }
 
         return $this->asJson($model);
-
     }
-
 }

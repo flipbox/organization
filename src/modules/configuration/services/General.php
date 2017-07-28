@@ -36,14 +36,11 @@ class General extends Component
             $settingsModel->toArray()
         )
         ) {
-
             // Alter table
             return $this->_alterStatusColumn();
-
         }
 
         return false;
-
     }
 
     /**
@@ -62,7 +59,5 @@ class General extends Component
         ob_end_clean();
 
         return true;
-
     }
-
 }

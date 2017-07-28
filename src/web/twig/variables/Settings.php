@@ -41,5 +41,4 @@ class Settings
     {
         return OrganizationPlugin::getInstance()->getSettings()->publicRegistration;
     }
-
 }

@@ -68,7 +68,6 @@ class OrganizationController extends AbstractViewController
             static::TEMPLATE_INDEX,
             $variables
         );
-
     }
 
     /**
@@ -90,21 +89,15 @@ class OrganizationController extends AbstractViewController
         $this->baseVariables($variables);
 
         if (is_null($organization)) {
-
             if (is_null($identifier)) {
-
                 $organization = OrganizationPlugin::getInstance()->getOrganization()->create();
-
             } else {
-
                 $organization = OrganizationPlugin::getInstance()->getOrganization()->get($identifier);
-
             }
-
         }
 
-        if(null !== $typeIdentifier) {
-            if($type = OrganizationPlugin::getInstance()->getType()->find($typeIdentifier)) {
+        if (null !== $typeIdentifier) {
+            if ($type = OrganizationPlugin::getInstance()->getType()->find($typeIdentifier)) {
                 $organization->setActiveType($type);
             }
         }
@@ -115,11 +108,10 @@ class OrganizationController extends AbstractViewController
 
         // Template variables
         if ($organization->id) {
-
             // Set the "Continue Editing" URL
             $variables['continueEditingUrl'] = $variables['baseCpPath'] . '/' . $organization->id;
 
-            if($activeType = $organization->getActiveType()) {
+            if ($activeType = $organization->getActiveType()) {
                 $variables['continueEditingUrl'] .= '/' . $activeType->handle;
             }
             
@@ -129,16 +121,14 @@ class OrganizationController extends AbstractViewController
             // Breadcrumbs
             $variables['crumbs'][] = [
                 'label' => Craft::t(
-                        'organization',
-                        "Edit"
-                    ) . ": " . $organization->title,
+                    'organization',
+                    "Edit"
+                ) . ": " . $organization->title,
                 'url' => UrlHelper::url(
                     $variables['baseCpPath'] . '/' . $organization->id
                 )
             ];
-
         } else {
-
             // Set the "Continue Editing" URL
             $variables['continueEditingUrl'] = $variables['baseCpPath'] . '/{id}';
 
@@ -150,7 +140,6 @@ class OrganizationController extends AbstractViewController
                 'label' => Craft::t('organization', 'New'),
                 'url' => UrlHelper::url($variables['baseCpPath'] . '/new')
             ];
-
         }
 
         $variables['element'] = $organization;
@@ -196,7 +185,6 @@ class OrganizationController extends AbstractViewController
             static::TEMPLATE_UPSERT,
             $variables
         );
-
     }
 
     /**
@@ -217,13 +205,9 @@ class OrganizationController extends AbstractViewController
 
         /** @var OrganizationElement $organizationElement */
         if ($identifier) {
-
             $organizationElement = $organizationService->get($identifier);
-
         } else {
-
             $organizationElement = $organizationService->create();
-
         }
 
         // Populate
@@ -231,17 +215,17 @@ class OrganizationController extends AbstractViewController
 
         // Assemble html (tabs / tab content)
         $paneHtml = $this->getView()->renderTemplate(
-                'organization/_cp/organization/_tabs',
-                [
+            'organization/_cp/organization/_tabs',
+            [
                     'tabs' => $this->getTabs($organizationElement, false)
                 ]
-            ) . $this->getView()->renderTemplate(
-                'organization/_cp/organization/_fields',
-                [
+        ) . $this->getView()->renderTemplate(
+            'organization/_cp/organization/_fields',
+            [
                     'element' => $organizationElement,
                     'fieldLayout' => $organizationElement->getFieldLayout()
                 ]
-            );
+        );
 
         $view = $this->getView();
 
@@ -289,7 +273,6 @@ class OrganizationController extends AbstractViewController
         }
 
         return $tabs;
-
     }
 
     /**
@@ -334,7 +317,6 @@ class OrganizationController extends AbstractViewController
 
         // Association restrictions
         if (OrganizationPlugin::getInstance()->getSettings()->hasAssociationRestriction()) {
-
             $organizationCriteria = [
                 ':empty:'
             ];
@@ -351,19 +333,14 @@ class OrganizationController extends AbstractViewController
             }
 
             if (OrganizationPlugin::getInstance()->getSettings()->memberAssociationRestriction()) {
-
                 $selectionCriteria['organization'] = [
                     'member' => $organizationCriteria
                 ];
-
             } elseif (OrganizationPlugin::getInstance()->getSettings()->userAssociationRestriction()) {
-
                 $selectionCriteria['organization'] = [
                     'user' => $organizationCriteria
                 ];
-
             }
-
         }
 
         // Disable everyone already associated
@@ -383,7 +360,6 @@ class OrganizationController extends AbstractViewController
             'selectionLabel' => Craft::t('organization', "Add a user"),
             'addAction' => $this->getBaseActionPath() . '/user/associate'
         ];
-
     }
 
     /**
@@ -402,7 +378,6 @@ class OrganizationController extends AbstractViewController
         if (OrganizationPlugin::getInstance()->getSettings()->hasAssociationRestriction() ||
             OrganizationPlugin::getInstance()->getSettings()->uniqueOwner
         ) {
-
             $organizationCriteria = [
                 ':empty:'
             ];
@@ -420,19 +395,14 @@ class OrganizationController extends AbstractViewController
 
             // Association restrictions
             if (OrganizationPlugin::getInstance()->getSettings()->hasAssociationRestriction()) {
-
                 $selectionCriteria['organization'] = [
                     'member' => $organizationCriteria
                 ];
-
             } else {
-
                 $selectionCriteria['organization'] = [
                     'owner' => $organizationCriteria
                 ];
-
             }
-
         }
 
         // Disable everyone already associated
@@ -456,7 +426,6 @@ class OrganizationController extends AbstractViewController
             'selectionLabel' => Craft::t('organization', "Add an owner"),
             'errors' => $organization->getErrors('ownerId')
         ];
-
     }
 
 
@@ -489,7 +458,5 @@ class OrganizationController extends AbstractViewController
             'label' => $variables['title'],
             'url' => UrlHelper::url($variables['baseCpPath'])
         ];
-
     }
-
 }

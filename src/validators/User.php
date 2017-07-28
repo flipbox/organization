@@ -42,7 +42,7 @@ class User extends Validator
             }
         }
 
-        if($hasError) {
+        if ($hasError) {
             return [Craft::t('organization', 'Invalid users.'), []];
         }
 

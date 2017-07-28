@@ -73,17 +73,13 @@ abstract class AbstractType extends ModelByIdOrHandle
 
             /** @var TypeModel $model */
             if ($model = $this->findByRecord($record->type)) {
-
                 if ($scenario) {
                     $model->setScenario($scenario);
                 }
-
             }
-
         }
 
         return $model;
-
     }
 
     /**
@@ -110,19 +106,15 @@ abstract class AbstractType extends ModelByIdOrHandle
 
             /** @var TypeModel $model */
             if ($model = $this->findByRecord($record->type)) {
-
                 if ($scenario) {
                     $model->setScenario($scenario);
                 }
 
                 $models[] = $model;
-
             }
-
         }
 
         return $models;
-
     }
 
     /**
@@ -144,15 +136,12 @@ abstract class AbstractType extends ModelByIdOrHandle
 
         /** @var TypeModel $model */
         if ($model = $this->findByRecord($record->type)) {
-
             if ($scenario) {
                 $model->setScenario($scenario);
             }
-
         }
 
         return $model;
-
     }
 
     /**
@@ -167,12 +156,10 @@ abstract class AbstractType extends ModelByIdOrHandle
         $query = OrganizationTypeRecord::find();
 
         if ($criteria) {
-
             QueryHelper::configure(
                 $query,
                 $criteria
             );
-
         }
 
         $query->with('type')
@@ -181,7 +168,6 @@ abstract class AbstractType extends ModelByIdOrHandle
             ]);
 
         return $query;
-
     }
 
     /*******************************************
@@ -200,7 +186,6 @@ abstract class AbstractType extends ModelByIdOrHandle
         }
 
         if (!array_key_exists($type->id, $this->_cacheSettingsById)) {
-
             $this->_cacheSettingsById[$type->id] = [];
 
             /** @var TypeSettingsRecord[] $settings */
@@ -221,11 +206,8 @@ abstract class AbstractType extends ModelByIdOrHandle
                     'dateUpdated',
                 ]));
             }
-
         }
 
         return $this->_cacheSettingsById[$type->id];
-
     }
-
 }

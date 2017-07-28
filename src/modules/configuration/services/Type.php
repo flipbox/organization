@@ -152,9 +152,10 @@ class Type extends AbstractType
                         [
                             'elementId' => $ids,
                             'siteId' => $sitesNowWithoutUrls,
-                        ])
+                        ]
+                    )
                     ->execute();
-            } else if (!empty($sitesWithNewUriFormats)) {
+            } elseif (!empty($sitesWithNewUriFormats)) {
                 foreach ($ids as $id) {
                     App::maxPowerCaptain();
                     foreach ($sitesWithNewUriFormats as $siteId) {

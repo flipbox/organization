@@ -105,9 +105,9 @@ EOD;
 
         // Transfer the users
         foreach ($organizations as $organization) {
-            if($transferUsersTo) {
+            if ($transferUsersTo) {
                 $users = $organization->getMembers(['status' => null]);
-                foreach($users as $user) {
+                foreach ($users as $user) {
                     // Remove current association
                     OrganizationPlugin::getInstance()->getUser()->dissociate(
                         $user,

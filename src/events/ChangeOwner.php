@@ -33,5 +33,4 @@ class ChangeOwner extends CancelableEvent
      * @var User
      */
     public $toOwner;
-
 }

@@ -36,30 +36,22 @@ class OrganizationController extends AbstractController
 
         // Organization Id
         if ($organizationIdentifier = Craft::$app->getRequest()->getBodyParam('identifier')) {
-
             $organizationElement = $organizationService->get($organizationIdentifier);
-
         } else {
-
             $organizationElement = $organizationService->create();
-
         }
 
         /** @var OrganizationElement $organizationElement */
         $userElement = Craft::$app->getUser()->getIdentity();
 
         if ($organizationElement->getId()) {
-
             if (!OrganizationPlugin::getInstance()->getPermission()->canCreateOrganization($userElement)) {
                 throw new ForbiddenHttpException("You do not have permission to create an organization.");
             }
-
         } else {
-
             if (!OrganizationPlugin::getInstance()->getPermission()->canUpdateOrganization($userElement, $organizationElement)) {
                 throw new ForbiddenHttpException("You do not have permission to update an organization.");
             }
-
         }
 
         // Populate element
@@ -67,18 +59,15 @@ class OrganizationController extends AbstractController
 
         // Save
         if (Craft::$app->getElements()->saveElement($organizationElement)) {
-
             // Success message
             $message = Craft::t('organization', 'Successfully saved organization.');
 
             // Ajax request
             if (Craft::$app->getRequest()->isAjax) {
-
                 return $this->asJson([
                     'success' => true,
                     'message' => $message
                 ]);
-
             }
 
             // Flash success message
@@ -86,7 +75,6 @@ class OrganizationController extends AbstractController
 
             // Redirect
             return $this->redirectToPostedUrl($organizationElement);
-
         }
 
         // Fail message
@@ -94,11 +82,9 @@ class OrganizationController extends AbstractController
 
         // Ajax request
         if (Craft::$app->getRequest()->isAjax) {
-
             return $this->asErrorJson(
                 $organizationElement->getErrors()
             );
-
         }
 
         // Flash fail message
@@ -110,7 +96,6 @@ class OrganizationController extends AbstractController
         ]);
 
         return null;
-
     }
 
     /**
@@ -130,18 +115,15 @@ class OrganizationController extends AbstractController
 
         // Delete
         if (Craft::$app->getElements()->deleteElement($organizationElement)) {
-
             // Success message
             $message = Craft::t('organization', 'Successfully deleted organization.');
 
             // Ajax request
             if (Craft::$app->getRequest()->isAjax) {
-
                 return $this->asJson([
                     'success' => true,
                     'message' => $message
                 ]);
-
             }
 
             // Flash success message
@@ -149,7 +131,6 @@ class OrganizationController extends AbstractController
 
             // Redirect
             return $this->redirectToPostedUrl($organizationElement);
-
         }
 
         // Fail message
@@ -157,17 +138,14 @@ class OrganizationController extends AbstractController
 
         // Ajax request
         if (Craft::$app->getRequest()->isAjax) {
-
             return $this->asErrorJson(
                 $organizationElement->getErrors()
             );
-
         }
 
         // Flash fail message
         Craft::$app->getSession()->setError($message);
 
         return null;
-
     }
 }

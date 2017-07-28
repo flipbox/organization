@@ -32,5 +32,4 @@ class ChangeStatus extends CancelableEvent
      * @var string
      */
     public $toStatus;
-
 }

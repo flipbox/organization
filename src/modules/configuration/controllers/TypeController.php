@@ -46,7 +46,6 @@ class TypeController extends AbstractController
 
         // Handle each site's settings
         foreach (Craft::$app->getSites()->getAllSites() as $site) {
-
             $namespace = 'sites.' . $site->handle;
 
             $postedSettings = $request->getBodyParam($namespace);
@@ -65,15 +64,12 @@ class TypeController extends AbstractController
             $siteSettings->setFieldLayout(
                 Craft::$app->getFields()->assembleLayoutFromPost($namespace)
             );
-
         }
 
         // Save
         if (!$this->module->getType()->save($model)) {
-
             /// Ajax request
             if (!$request->getAcceptsJson()) {
-
                 // Fail message
                 $message = Craft::t('organization', 'Organization type NOT saved successfully.');
 
@@ -87,19 +83,16 @@ class TypeController extends AbstractController
 
                 // Redirect
                 return $this->redirectToPostedUrl($model);
-
             }
 
             return $this->asJson([
                 'success' => false,
                 'errors' => $model->getErrors(),
             ]);
-
         }
 
         // Ajax request
         if (!$request->getAcceptsJson()) {
-
             // Success message
             $message = Craft::t('organization', 'Organization type saved successfully.');
 
@@ -107,11 +100,9 @@ class TypeController extends AbstractController
             $session->setNotice($message);
 
             return $this->redirectToPostedUrl($model);
-
         }
 
         return $this->asJson($model);
-
     }
 
     /**
@@ -133,10 +124,8 @@ class TypeController extends AbstractController
 
         // Delete
         if (!$this->module->getType()->delete($model)) {
-
             /// Ajax request
             if (!$request->getAcceptsJson()) {
-
                 // Fail message
                 $message = Craft::t('organization', 'Organization type NOT deleted successfully.');
 
@@ -150,19 +139,16 @@ class TypeController extends AbstractController
 
                 // Redirect
                 return $this->redirectToPostedUrl($model);
-
             }
 
             return $this->asJson([
                 'success' => false,
                 'errors' => $model->getErrors(),
             ]);
-
         }
 
         // Ajax request
         if (!$request->getAcceptsJson()) {
-
             // Success message
             $message = Craft::t('organization', 'Organization type deleted successfully.');
 
@@ -170,11 +156,8 @@ class TypeController extends AbstractController
             $session->setNotice($message);
 
             return $this->redirectToPostedUrl($model);
-
         }
 
         return $this->asJson($model);
-
     }
-
 }

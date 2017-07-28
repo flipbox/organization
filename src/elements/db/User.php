@@ -31,12 +31,10 @@ class User extends UserQuery
     {
 
         if (null !== $this->_organization) {
-
             QueryHelper::applyOrganizationParam(
                 $this,
                 $this->_organization
             );
-
         }
 
         return parent::afterPrepare();
@@ -68,7 +66,6 @@ class User extends UserQuery
         );
 
         return $this;
-
     }
 
     /**
@@ -79,5 +76,4 @@ class User extends UserQuery
     {
         return $this->setOrganization($organization);
     }
-
 }

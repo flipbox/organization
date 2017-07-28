@@ -92,5 +92,4 @@ class SiteSettings extends Model
         $this->ensureBehaviors();
         return $this->getBehavior('fieldLayout');
     }
-
 }

@@ -78,7 +78,8 @@ class LocalizeRelations extends Task
                 ->update(
                     User::tableName(),
                     ['siteId' => $this->_workingSiteId],
-                    ['id' => $this->_relations[$step]['id']])
+                    ['id' => $this->_relations[$step]['id']]
+                )
                 ->execute();
 
             $totalSiteIds = count($this->_allSiteIds);
@@ -93,7 +94,8 @@ class LocalizeRelations extends Task
                             'siteId' => $this->_workingSiteId,
                             'organizationId' => $this->_relations[$step]['organizationId'],
                             'sortOrder' => $this->_relations[$step]['sortOrder'],
-                        ])
+                        ]
+                    )
                     ->execute();
             }
 

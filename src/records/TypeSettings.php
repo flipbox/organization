@@ -97,7 +97,6 @@ class TypeSettings extends RecordWithId
         }
 
         return parent::beforeSave($insert);
-
     }
 
     /**
@@ -129,5 +128,4 @@ class TypeSettings extends RecordWithId
     {
         return $this->hasOne(FieldLayout::class, ['id' => 'fieldLayoutId']);
     }
-
 }

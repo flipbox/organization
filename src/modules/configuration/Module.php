@@ -47,5 +47,4 @@ class Module extends BaseModule
     {
         return $this->get('type');
     }
-
 }

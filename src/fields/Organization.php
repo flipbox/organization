@@ -42,5 +42,4 @@ class Organization extends BaseRelationField
     {
         return Craft::t('organization', 'Add an organization');
     }
-
 }

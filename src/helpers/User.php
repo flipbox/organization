@@ -33,24 +33,19 @@ class User
     {
 
         if ($user instanceof UserElement) {
-
             return $user;
 
             // Current
         } elseif ('CURRENT_USER' === $user) {
-
             return Craft::$app->getUser()->getIdentity();
 
             // Model
         } elseif (is_numeric($user)) {
-
             return Craft::$app->getUsers()->getUserById($user);
-
         }
 
         // String
         return Craft::$app->getUsers()->getUserByUsernameOrEmail($user);
-
     }
 
     /**
@@ -64,16 +59,13 @@ class User
         $userElement = static::resolve($user);
 
         if (is_null($userElement)) {
-
-            throw new Exception(Craft::t('organization',
+            throw new Exception(Craft::t(
+                'organization',
                 'No user exists with the attribute "{attribute}".',
                 ['attribute' => $user]
             ));
-
         }
 
         return $userElement;
-
     }
-
 }

@@ -72,5 +72,4 @@ class Type extends RecordWithIdAndHandle
         return $this->hasMany(Organization::class, ['id' => 'organizationId'])
             ->viaTable(OrganizationType::tableName(), ['typeId' => 'id']);
     }
-
 }

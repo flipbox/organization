@@ -94,7 +94,6 @@ class Organization extends ElementQuery
             default:
                 parent::__set($name, $value);
         }
-
     }
 
 
@@ -111,7 +110,6 @@ class Organization extends ElementQuery
         $this->typeId = $this->parseTypeValue($value);
 
         return $this;
-
     }
 
     /**
@@ -127,7 +125,6 @@ class Organization extends ElementQuery
         $this->setType($type);
 
         return $this;
-
     }
 
     /**
@@ -140,7 +137,6 @@ class Organization extends ElementQuery
         $this->setType($typeId);
 
         return $this;
-
     }
 
     /**
@@ -156,7 +152,6 @@ class Organization extends ElementQuery
         $this->setType($type);
 
         return $this;
-
     }
 
     /**
@@ -173,7 +168,6 @@ class Organization extends ElementQuery
         $this->ownerId = $this->parseUserValue($value);
 
         return $this;
-
     }
 
     /**
@@ -189,7 +183,6 @@ class Organization extends ElementQuery
         $this->setOwner($owner);
 
         return $this;
-
     }
 
     /**
@@ -202,7 +195,6 @@ class Organization extends ElementQuery
         $this->setOwner($ownerId);
 
         return $this;
-
     }
 
     /**
@@ -218,7 +210,6 @@ class Organization extends ElementQuery
         $this->setOwner($owner);
 
         return $this;
-
     }
 
 
@@ -233,7 +224,7 @@ class Organization extends ElementQuery
     {
         if ($value instanceof UserGroup) {
             $this->ownerGroupId = $value->id;
-        } else if ($value !== null) {
+        } elseif ($value !== null) {
             $this->ownerGroupId = (new Query())
                 ->select(['id'])
                 ->from([UserGroupRecord::tableName()])
@@ -274,7 +265,6 @@ class Organization extends ElementQuery
         $this->userId = $this->parseUserValue($value);
 
         return $this;
-
     }
 
     /**
@@ -290,7 +280,6 @@ class Organization extends ElementQuery
         $this->setUser($users);
 
         return $this;
-
     }
 
     /**
@@ -303,7 +292,6 @@ class Organization extends ElementQuery
         $this->setUser($userIds);
 
         return $this;
-
     }
 
     /**
@@ -319,7 +307,6 @@ class Organization extends ElementQuery
         $this->setUser($user);
 
         return $this;
-
     }
 
     /**
@@ -335,7 +322,6 @@ class Organization extends ElementQuery
         $this->memberId = $this->parseUserValue($value);
 
         return $this;
-
     }
 
     /**
@@ -351,7 +337,6 @@ class Organization extends ElementQuery
         $this->setMember($members);
 
         return $this;
-
     }
 
     /**
@@ -364,7 +349,6 @@ class Organization extends ElementQuery
         $this->setMember($memberIds);
 
         return $this;
-
     }
 
     /**
@@ -380,7 +364,6 @@ class Organization extends ElementQuery
         $this->setMember($member);
 
         return $this;
-
     }
 
     /**
@@ -410,7 +393,6 @@ class Organization extends ElementQuery
         }
 
         return parent::statusCondition($status);
-
     }
 
     /**
@@ -483,7 +465,6 @@ class Organization extends ElementQuery
         }
 
         return parent::beforePrepare();
-
     }
 
     /**
@@ -498,13 +479,10 @@ class Organization extends ElementQuery
 
         // Parse as single param?
         if (false === QueryHelper::parseBaseParam($value, $join)) {
-
             // Add one by one
             foreach ($value as $operator => &$v) {
-
                 // attempt to assemble value (return false if it's a handle)
                 if (false === QueryHelper::findParamValue($v, $operator)) {
-
                     // create new query
                     if (is_string($v)) {
                         if ($model = OrganizationPlugin::getInstance()->getType()->find($v)) {
@@ -519,16 +497,12 @@ class Organization extends ElementQuery
                     if ($v) {
                         $v = QueryHelper::assembleParamValue($v, $operator);
                     }
-
                 }
-
             }
-
         }
 
         // parse param to allow for mixed variables
         return array_merge([$join], ArrayHelper::filterEmptyStringsFromArray($value));
-
     }
 
     /**
@@ -543,13 +517,10 @@ class Organization extends ElementQuery
 
         // Parse as single param?
         if (false === QueryHelper::parseBaseParam($value, $join)) {
-
             // Add one by one
             foreach ($value as $operator => &$v) {
-
                 // attempt to assemble value (return false if it's a handle)
                 if (false === QueryHelper::findParamValue($v, $operator)) {
-
                     // get element by string
                     if (is_string($v)) {
                         if ($element = Craft::$app->getUsers()->getUserByUsernameOrEmail($v)) {
@@ -564,16 +535,11 @@ class Organization extends ElementQuery
                     if ($v) {
                         $v = QueryHelper::assembleParamValue($v, $operator);
                     }
-
                 }
-
             }
-
         }
 
         // parse param to allow for mixed variables
         return array_merge([$join], ArrayHelper::filterEmptyStringsFromArray($value));
-
     }
-
 }

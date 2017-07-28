@@ -81,7 +81,6 @@ class Settings extends Model
                 'uniqueAssociation'
             ]
         );
-
     }
 
     /**
@@ -117,7 +116,6 @@ class Settings extends Model
         }
 
         return $this->statuses;
-
     }
 
     /**
@@ -143,17 +141,14 @@ class Settings extends Model
         $siteId = SiteHelper::resolveSiteId($siteId);
 
         if (!$settings = ArrayHelper::getValue($this->getSites(), $siteId)) {
-
             $settings = new SiteSettings([
                 'siteId' => $siteId
             ]);
 
             $this->_sites[$siteId] = $settings;
-
         }
 
         return $this->_sites[$siteId];
-
     }
 
     /**
@@ -194,15 +189,13 @@ class Settings extends Model
                 self::UNIQUE_ASSOCIATION_USER,
                 self::UNIQUE_ASSOCIATION_MEMBER,
             ],
-            true)
+            true
+        )
         ) {
-
             $this->_uniqueAssociation = $uniqueAssociation;
-
         }
 
         return $this;
-
     }
 
     /**
@@ -258,17 +251,13 @@ class Settings extends Model
         $this->_sites = [];
 
         foreach ($siteSettings as $settings) {
-
             if (!$settings instanceof SiteSettings) {
                 $settings = new SiteSettings($settings);
             }
 
             $this->addSite($settings);
-
         }
 
         return $this;
-
     }
-
 }

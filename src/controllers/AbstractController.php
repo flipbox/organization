@@ -47,5 +47,4 @@ abstract class AbstractController extends Controller
             throw new HttpException(400);
         }
     }
-
 }

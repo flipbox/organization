@@ -39,21 +39,17 @@ class UserAssociation extends Validator
 
         // Do we have a value?
         if (!empty($value)) {
-
             // If a user doesn't exist, than this means we have an invalid owner element
             if (!$userModel = Craft::$app->getUsers()->getUserById($value)) {
-
                 // Invalid status message
                 $message = Craft::t('organization', 'User is of invalid type.');
 
                 // Add error
                 $this->addError($object, $attribute, $message);
-
             }
 
             // Are they already a member of another organization?
             if (OrganizationPlugin::getInstance()->getSettings()->userAssociationRestriction()) {
-
                 $query = OrganizationPlugin::getInstance()->getOrganization()->getQuery([
                     'id' => 'not ' . $object->id,
                     'status' => null,
@@ -61,20 +57,16 @@ class UserAssociation extends Validator
                 ]);
 
                 if ($query->count()) {
-
                     // Invalid status message
                     $message = Craft::t('organization', 'Owner is a member of another organization.');
 
                     // Add error
                     $this->addError($object, $attribute, $message);
-
                 }
-
             }
 
             // Are they already a member of another organization?
             if (OrganizationPlugin::getInstance()->getSettings()->memberAssociationRestriction()) {
-
                 $query = OrganizationPlugin::getInstance()->getOrganization()->getQuery([
                     'id' => 'not ' . $object->id,
                     'status' => null,
@@ -82,19 +74,13 @@ class UserAssociation extends Validator
                 ]);
 
                 if ($query->count()) {
-
                     // Invalid status message
                     $message = Craft::t('organization', 'Owner is a member of another organization.');
 
                     // Add error
                     $this->addError($object, $attribute, $message);
-
                 }
-
             }
-
         }
-
     }
-
 }

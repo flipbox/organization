@@ -41,29 +41,21 @@ class Field extends Component
 
             /** @var OrganizationElement $target */
             foreach ($targets as $target) {
-
                 // New organization?
                 if (!$target->id) {
-
                     if (!Craft::$app->getElements()->saveElement($target)) {
-
                         $source->addError(
                             $field->handle,
                             Craft::t('organization', 'Unable to save organization.')
                         );
 
                         return false;
-
                     }
-
                 }
-
             }
-
         }
 
         return true;
-
     }
 
     /**
@@ -94,7 +86,6 @@ class Field extends Component
         $transaction = RecordHelper::beginTransaction();
 
         try {
-
             // Delete the existing relations
             $oldRelationConditions = [
                 'and',
@@ -133,7 +124,6 @@ class Field extends Component
 
             // Add the new ones
             if (!empty($targets)) {
-
                 $siteId = null;
 
                 if ($field->localizeRelations) {
@@ -145,19 +135,13 @@ class Field extends Component
                         throw new Exception('Unable to associate user to organization');
                     }
                 }
-
             }
 
             $transaction->commit();
-
         } catch (\Exception $e) {
-
             $transaction->rollBack();
 
             throw $e;
-
         }
-
     }
-
 }

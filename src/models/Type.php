@@ -115,18 +115,15 @@ class Type extends ModelWithIdAndHandle
         $siteId = SiteHelper::resolveSiteId($siteId);
 
         if (!$settings = ArrayHelper::getValue($this->getSites(), $siteId)) {
-
             $settings = (new TypeSettingsModel([
                 'siteId' => $siteId
             ]))
                 ->setType($this);
 
             $this->_settings[$siteId] = $settings;
-
         }
 
         return $this->_settings[$siteId];
-
     }
 
     /**
@@ -152,7 +149,6 @@ class Type extends ModelWithIdAndHandle
         $this->ensureSites();
 
         return $this->_settings;
-
     }
 
     /**
@@ -162,13 +158,10 @@ class Type extends ModelWithIdAndHandle
     {
 
         if (is_null($this->_settings)) {
-
             $this->setSites(
                 OrganizationPlugin::getInstance()->getType()->findAllSettings($this)
             );
-
         }
-
     }
 
     /**
@@ -184,17 +177,13 @@ class Type extends ModelWithIdAndHandle
         $this->_settings = [];
 
         foreach ($siteSettings as $settings) {
-
             if (!$settings instanceof TypeSettingsModel) {
                 $settings = new TypeSettingsModel($settings);
             }
 
             $this->addSite($settings);
-
         }
 
         return $this;
-
     }
-
 }

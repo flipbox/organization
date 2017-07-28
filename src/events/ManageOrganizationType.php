@@ -28,5 +28,4 @@ class ManageOrganizationType extends CancelableEvent
      * @var Type
      */
     public $type;
-
 }

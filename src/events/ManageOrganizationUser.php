@@ -28,5 +28,4 @@ class ManageOrganizationUser extends CancelableEvent
      * @var User
      */
     public $user;
-
 }

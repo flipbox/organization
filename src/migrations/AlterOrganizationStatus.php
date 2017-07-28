@@ -34,7 +34,6 @@ class AlterOrganizationStatus extends Migration
             'status',
             $this->enum('status', $this->statuses)
         );
-
     }
 
     /**
@@ -44,5 +43,4 @@ class AlterOrganizationStatus extends Migration
     {
         return false;
     }
-
 }

@@ -51,7 +51,6 @@ class OrganizationType extends RecordWithId
 
         // if primary, add unique rule
         if ($this->primary) {
-
             $rules[] = [
                 [
                     'primary'
@@ -62,11 +61,9 @@ class OrganizationType extends RecordWithId
                     'organizationId'
                 ]
             ];
-
         }
 
         return $rules;
-
     }
 
     /**
@@ -81,7 +78,6 @@ class OrganizationType extends RecordWithId
         }
 
         return parent::beforeSave($insert);
-
     }
 
 
@@ -104,5 +100,4 @@ class OrganizationType extends RecordWithId
     {
         return $this->hasOne(Organization::class, ['id' => 'organizationId']);
     }
-
 }

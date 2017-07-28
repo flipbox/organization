@@ -80,5 +80,4 @@ class User
             $match
         );
     }
-
 }

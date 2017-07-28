@@ -59,7 +59,6 @@ class User extends RecordWithId
                 ]
             ]
         );
-
     }
 
     /**
@@ -91,5 +90,4 @@ class User extends RecordWithId
     {
         return $this->hasOne(Site::class, ['id' => 'siteId']);
     }
-
 }

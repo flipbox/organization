@@ -37,26 +37,22 @@ class GeneralController extends AbstractController
 
         // Statuses from post
         if ($rawStatuses = $request->getBodyParam('statuses', [])) {
-
             $statusArray = [];
 
             foreach (ArrayHelper::toArray($rawStatuses) as $rawStatus) {
-
                 // Make sure we have a label and value
                 if (empty($rawStatus['label']) || empty($rawStatus['value'])) {
-
-                    $model->addError('statuses',
-                        Craft::t('organization', 'Each status must have a valid label and value.'));
+                    $model->addError(
+                        'statuses',
+                        Craft::t('organization', 'Each status must have a valid label and value.')
+                    );
 
                     break;
-
                 }
 
                 // Add status
                 $statusArray[$rawStatus['value']] = $rawStatus['label'];
-
             }
-
         }
 
         // Set settings array
@@ -64,7 +60,6 @@ class GeneralController extends AbstractController
 
         // Handle each site's url/template settings
         foreach (Craft::$app->getSites()->getAllSites() as $site) {
-
             $namespace = 'sites.' . $site->handle;
 
             $postedSettings = $request->getBodyParam($namespace);
@@ -79,15 +74,12 @@ class GeneralController extends AbstractController
                 $siteSettings->uriFormat = null;
                 $siteSettings->template = null;
             }
-
         }
 
         // Save settings
         if (!$this->module->getGeneral()->save($model)) {
-
             // Ajax request
             if (!$request->getAcceptsJson()) {
-
                 // Fail message
                 $message = Craft::t('organization', 'Settings NOT saved successfully.');
 
@@ -101,19 +93,16 @@ class GeneralController extends AbstractController
 
                 // Redirect
                 return $this->redirectToPostedUrl($model);
-
             }
 
             return $this->asJson([
                 'success' => false,
                 'errors' => $model->getErrors(),
             ]);
-
         }
 
         // Ajax request
         if (!$request->getAcceptsJson()) {
-
             // Success message
             $message = Craft::t('organization', 'Settings saved successfully.');
 
@@ -121,11 +110,8 @@ class GeneralController extends AbstractController
             $session->setNotice($message);
 
             return $this->redirectToPostedUrl($model);
-
         }
 
         return $this->asJson($model);
-
     }
-
 }

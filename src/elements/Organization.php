@@ -174,7 +174,6 @@ class Organization extends Element
                 ],
             ]
         );
-
     }
 
     /**
@@ -191,7 +190,6 @@ class Organization extends Element
                 'dateJoined'
             ]
         );
-
     }
 
 
@@ -211,7 +209,6 @@ class Organization extends Element
         }
 
         return $type->getFieldLayout($siteId);
-
     }
 
 
@@ -268,11 +265,8 @@ class Organization extends Element
             $this->enabledForSite = 1;
 
             $this->_status = $status;
-
         } else {
-
             switch ($status) {
-
                 case Element::STATUS_ENABLED:
                     $this->enabled = 1;
                     $this->enabledForSite = 1;
@@ -285,13 +279,10 @@ class Organization extends Element
                 case Element::STATUS_ARCHIVED:
                     $this->archived = 1;
                     break;
-
             }
-
         }
 
         return $this;
-
     }
 
     /**
@@ -305,7 +296,6 @@ class Organization extends Element
         }
 
         return $this->_status;
-
     }
 
     /************************************************************
@@ -334,21 +324,16 @@ class Organization extends Element
     {
 
         if (null === $this->_activeType) {
-
             // Default to the primary type
             if (!$activeType = $this->getPrimaryType()) {
-
                 // Set false vs null to indicate population has taken place
                 $activeType = false;
-
             }
 
             $this->_activeType = $activeType;
-
         }
 
         return (false === $this->_activeType) ? null : $this->_activeType;
-
     }
 
 
@@ -363,19 +348,14 @@ class Organization extends Element
     {
 
         if (null === $this->_primaryType) {
-
             if (!$primaryType = OrganizationPlugin::getInstance()->getType()->findPrimaryByOrganization($this)) {
-
                 // Set false vs null to indicate population has taken place
                 $primaryType = false;
-
             }
 
             // Set cache
             $this->_primaryType = $primaryType;
-
         }
-
     }
 
     /**
@@ -389,7 +369,6 @@ class Organization extends Element
         $this->ensurePrimaryType();
 
         return $this->_primaryType instanceof TypeModel;
-
     }
 
     /**
@@ -406,7 +385,6 @@ class Organization extends Element
         }
 
         return false;
-
     }
 
     /**
@@ -424,7 +402,6 @@ class Organization extends Element
         }
 
         return $this;
-
     }
 
     /**
@@ -440,7 +417,6 @@ class Organization extends Element
         }
 
         return $this->_primaryType;
-
     }
 
     /************************************************************
@@ -464,7 +440,6 @@ class Organization extends Element
         }
 
         return $this;
-
     }
 
     /**
@@ -490,7 +465,6 @@ class Organization extends Element
         }
 
         return $this;
-
     }
 
     /**
@@ -504,7 +478,6 @@ class Organization extends Element
         $this->ensureTypes();
 
         return $this->_types;
-
     }
 
     /**
@@ -516,16 +489,13 @@ class Organization extends Element
     {
 
         if (null === $this->_types) {
-
             $this->_types = ArrayHelper::index(
                 OrganizationPlugin::getInstance()->getType()->findAllByOrganization($this),
                 'id'
             );
-
         }
 
         return $this;
-
     }
 
     /**
@@ -547,7 +517,6 @@ class Organization extends Element
         );
 
         return array_key_exists($identifier, $allTypes) ? $allTypes[$identifier] : null;
-
     }
 
     /**
@@ -565,7 +534,6 @@ class Organization extends Element
         }
 
         return null !== $this->getType($type->id);
-
     }
 
     /**
@@ -582,7 +550,6 @@ class Organization extends Element
         );
 
         return $this->hasType($type);
-
     }
 
 
@@ -603,16 +570,13 @@ class Organization extends Element
         }
 
         if (!empty($criteria)) {
-
             QueryHelper::configure(
                 $this->_members,
                 $criteria
             );
-
         }
 
         return $this->_members;
-
     }
 
     /**
@@ -633,7 +597,6 @@ class Organization extends Element
         $this->addMembers($members);
 
         return $this;
-
     }
 
     /**
@@ -651,18 +614,15 @@ class Organization extends Element
         }
 
         foreach ($members as $key => $user) {
-
             // Ensure we have a model
             if (!$user instanceof User) {
                 $user = UserHelper::resolve($user);
             }
 
             $this->addMember($user);
-
         }
 
         return $this;
-
     }
 
     /**
@@ -684,10 +644,8 @@ class Organization extends Element
 
         // Does the user already exist?
         if (!array_key_exists($user->email, $userElementsByEmail)) {
-
             $currentUsers[] = $user;
             $this->getMembers()->setCachedResult($currentUsers);
-
         }
 
         // Add as a 'user' as well?
@@ -696,7 +654,6 @@ class Organization extends Element
         }
 
         return $this;
-
     }
 
 
@@ -718,16 +675,13 @@ class Organization extends Element
         }
 
         if (!empty($criteria)) {
-
             QueryHelper::configure(
                 $this->_users,
                 $criteria
             );
-
         }
 
         return $this->_users;
-
     }
 
     /**
@@ -744,7 +698,6 @@ class Organization extends Element
         );
 
         return OrganizationPlugin::getInstance()->getOrganization()->isUser($user, $this, $criteria);
-
     }
 
     /**
@@ -765,7 +718,6 @@ class Organization extends Element
         $this->addUsers($users);
 
         return $this;
-
     }
 
     /**
@@ -783,18 +735,15 @@ class Organization extends Element
         }
 
         foreach ($users as $key => $user) {
-
             // Ensure we have a model
             if (!$user instanceof User) {
                 $user = UserHelper::resolve($user);
             }
 
             $this->addUser($user);
-
         }
 
         return $this;
-
     }
 
     /**
@@ -816,10 +765,8 @@ class Organization extends Element
 
         // Does the user already exist?
         if (!array_key_exists($user->email, $userElementsByEmail)) {
-
             $currentUsers[] = $user;
             $this->getUsers()->setCachedResult($currentUsers);
-
         }
 
         if ($addAsMember) {
@@ -827,7 +774,6 @@ class Organization extends Element
         }
 
         return $this;
-
     }
 
     /**
@@ -845,18 +791,15 @@ class Organization extends Element
         }
 
         foreach ($users as $key => $user) {
-
             // Ensure we have a model
             if (!$user instanceof User) {
                 $user = UserHelper::resolve($user);
             }
 
             $this->removeUser($user);
-
         }
 
         return $this;
-
     }
 
     /**
@@ -875,17 +818,14 @@ class Organization extends Element
 
         // Does the user already exist?
         if (array_key_exists($user->email, $userElementsByEmail)) {
-
             unset($userElementsByEmail[$user->email]);
 
             $this->getUsers()->setCachedResult(
                 array_values($userElementsByEmail)
             );
-
         }
 
         return $this;
-
     }
 
     /**
@@ -903,7 +843,6 @@ class Organization extends Element
         );
 
         return $this;
-
     }
 
     /**
@@ -916,14 +855,11 @@ class Organization extends Element
     {
 
         if ($users = Craft::$app->getRequest()->getBodyParam($identifier, [])) {
-
             // Set users array
             $this->setUsers($users);
-
         }
 
         return $this;
-
     }
 
 
@@ -946,7 +882,6 @@ class Organization extends Element
     {
 
         switch ($context) {
-
             case 'user':
                 return self::defineUserSources();
 
@@ -955,9 +890,7 @@ class Organization extends Element
 
             default:
                 return self::defineTypeSources();
-
         }
-
     }
 
     /**
@@ -974,7 +907,6 @@ class Organization extends Element
                 'hasThumbs' => true
             ]
         ];
-
     }
 
     /**
@@ -992,18 +924,15 @@ class Organization extends Element
 
         /** @var TypeModel $organizationType */
         foreach ($organizationTypes as $organizationType) {
-
             $sources[] = [
                 'key' => 'type:' . $organizationType->id,
                 'label' => $organizationType->name,
                 'criteria' => ['status' => null, 'typeId' => $organizationType->id],
                 'hasThumbs' => true
             ];
-
         }
 
         return $sources;
-
     }
 
     /**
@@ -1021,7 +950,6 @@ class Organization extends Element
 
         /** @var User $organizationUser */
         foreach ($organizationUsers as $organizationUser) {
-
             $sources[] = [
                 'key' => 'user:' . $organizationUser->id,
                 'label' => $organizationUser->getFullName(),
@@ -1031,11 +959,9 @@ class Organization extends Element
                 ],
                 'hasThumbs' => true
             ];
-
         }
 
         return $sources;
-
     }
 
     /**
@@ -1053,7 +979,6 @@ class Organization extends Element
 
         /** @var User $organizationOwner */
         foreach ($organizationOwners as $organizationOwner) {
-
             $sources[] = [
                 'key' => 'owner:' . $organizationOwner->id,
                 'label' => $organizationOwner->getFullName(),
@@ -1063,11 +988,9 @@ class Organization extends Element
                 ],
                 'hasThumbs' => true
             ];
-
         }
 
         return $sources;
-
     }
 
     /**
@@ -1095,7 +1018,6 @@ class Organization extends Element
         }
 
         return $actions;
-
     }
 
     /**
@@ -1122,7 +1044,6 @@ class Organization extends Element
             'status' => Craft::t('organization', 'Status'),
             'type' => Craft::t('organization', 'Type')
         ];
-
     }
 
     /**
@@ -1132,7 +1053,6 @@ class Organization extends Element
     {
 
         switch ($handle) {
-
             case 'owner':
                 return self::eagerLoadingOwnerMap($sourceElements);
 
@@ -1144,11 +1064,9 @@ class Organization extends Element
                     self::eagerLoadingUsersMap($sourceElements),
                     self::eagerLoadingOwnerMap($sourceElements)
                 );
-
         }
 
         return parent::eagerLoadingMap($sourceElements, $handle);
-
     }
 
     /**
@@ -1171,7 +1089,6 @@ class Organization extends Element
             'elementType' => User::class,
             'map' => $map
         ];
-
     }
 
     /**
@@ -1194,7 +1111,6 @@ class Organization extends Element
             'elementType' => User::class,
             'map' => $map
         ];
-
     }
 
 
@@ -1205,7 +1121,6 @@ class Organization extends Element
     {
 
         switch ($handle) {
-
             case 'owner':
                 $owner = $elements[0] ?? null;
                 $this->setOwner($owner);
@@ -1223,9 +1138,7 @@ class Organization extends Element
 
             default:
                 parent::setEagerLoadedElements($handle, $elements);
-
         }
-
     }
 
     /**
@@ -1244,7 +1157,6 @@ class Organization extends Element
             'dateCreated' => ['label' => Craft::t('app', 'Date Created')],
             'dateUpdated' => ['label' => Craft::t('app', 'Date Updated')],
         ];
-
     }
 
 
@@ -1259,8 +1171,7 @@ class Organization extends Element
     {
 
         switch ($attribute) {
-
-            case 'status' :
+            case 'status':
                 $value = $this->getStatus();
                 $availableStatuses = self::statuses();
                 if (array_key_exists($value, $availableStatuses)) {
@@ -1268,15 +1179,14 @@ class Organization extends Element
                 }
                 return $value . $availableStatuses;
 
-            case 'owner' :
+            case 'owner':
                 if ($this->hasOwner()) {
                     return '<span class="status ' . $this->getOwner()->getStatus() . '"></span>' . $this->getOwner()->getFullName();
                 }
 
                 return '';
 
-            case 'types' :
-
+            case 'types':
                 // Get all configured types
                 $types = $this->getTypes();
 
@@ -1285,11 +1195,9 @@ class Organization extends Element
                 }
 
                 return !empty($typeHtmlParts) ? StringHelper::toString($typeHtmlParts, ', ') : '';
-
         }
 
         return parent::tableAttributeHtml($attribute);
-
     }
 
 
@@ -1325,7 +1233,6 @@ class Organization extends Element
                 ]
             ]
         ];
-
     }
 
     // Events
@@ -1341,7 +1248,6 @@ class Organization extends Element
         OrganizationPlugin::getInstance()->getOrganization()->beforeSave($this, $isNew);
 
         return parent::beforeSave($isNew);
-
     }
 
     /**
@@ -1354,7 +1260,6 @@ class Organization extends Element
         OrganizationPlugin::getInstance()->getOrganization()->afterSave($this, $isNew);
 
         parent::afterSave($isNew);
-
     }
 
     /**
@@ -1370,7 +1275,6 @@ class Organization extends Element
         }
 
         return $this->_owner instanceof User;
-
     }
 
     /**
@@ -1381,50 +1285,35 @@ class Organization extends Element
 
         // Check cache
         if (is_null($this->_owner)) {
-
             // Check property
             if (!empty($this->ownerId)) {
-
                 // Find element
                 if ($ownerElement = Craft::$app->getUsers()->getUserById($this->ownerId)) {
-
                     // Set
                     $this->setOwner($ownerElement);
-
                 } else {
-
                     // Clear property (it's invalid)
                     $this->ownerId = null;
 
                     // Prevent subsequent look-ups
                     $this->_owner = false;
-
                 }
-
             } else {
-
                 // Prevent subsequent look-ups
                 $this->_owner = false;
-
             }
-
         } else {
-
             // Cache changed?
             if ($this->ownerId && (($this->_owner === false) || ($this->ownerId !== $this->_owner->getId()))) {
-
                 // Clear cache
                 $this->_owner = null;
 
                 // Again
                 return $this->getOwner();
-
             }
-
         }
 
         return $this->hasOwner() ? $this->_owner : null;
-
     }
 
     /**
@@ -1441,22 +1330,17 @@ class Organization extends Element
 
         // Find element
         if (!$owner = $this->findUserElement($owner)) {
-
             // Clear property / cache
             $this->ownerId = $this->_owner = null;
-
         } else {
-
             // Set property
             $this->ownerId = $owner->getId();
 
             // Set cache
             $this->_owner = $owner;
-
         }
 
         return $this;
-
     }
 
     /**
@@ -1467,19 +1351,14 @@ class Organization extends Element
     {
 
         if ('CURRENT_USER' === $user) {
-
             // Current user
             $element = Craft::$app->getUser()->getIdentity();
-
         } else {
-
             // Find element
             $element = $this->findUserElement($user);
-
         }
 
         return ($element && $element->getId() == $this->ownerId);
-
     }
 
     /**
@@ -1500,23 +1379,17 @@ class Organization extends Element
 
         // Element
         if ($user instanceof User) {
-
             return $user;
 
             // Id
         } elseif (is_numeric($user)) {
-
             return Craft::$app->getUsers()->getUserById($user);
 
             // Username / Email
         } elseif (!is_null($user)) {
-
             return Craft::$app->getUsers()->getUserByUsernameOrEmail($user);
-
         }
 
         return null;
-
     }
-
 }

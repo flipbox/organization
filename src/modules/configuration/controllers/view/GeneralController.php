@@ -38,7 +38,6 @@ class GeneralController extends AbstractViewController
         $variables['fullPageForm'] = true;
 
         return $this->renderTemplate(static::TEMPLATE_INDEX, $variables);
-
     }
 
 
@@ -57,7 +56,5 @@ class GeneralController extends AbstractViewController
 
         // Path to controller actions
         $variables['baseActionPath'] .= '/general';
-
     }
-
 }

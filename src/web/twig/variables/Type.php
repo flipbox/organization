@@ -35,5 +35,4 @@ class Type
     {
         return OrganizationPlugin::getInstance()->getType()->findAllByCriteria($criteria);
     }
-
 }

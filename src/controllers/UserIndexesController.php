@@ -122,7 +122,6 @@ class UserIndexesController extends BaseElementsController
         if ($this->_context === 'index' && $this->_sourceKey !== null) {
             $this->_actions = $this->_availableActions();
         }
-
     }
 
     /**
@@ -498,5 +497,4 @@ class UserIndexesController extends BaseElementsController
 
         return $actionData;
     }
-
 }

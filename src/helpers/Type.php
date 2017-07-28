@@ -36,7 +36,6 @@ class Type
         }
 
         return OrganizationPlugin::getInstance()->getType()->find($type);
-
     }
 
     /**
@@ -54,6 +53,5 @@ class Type
                 'handle'
             )
         );
-
     }
 }

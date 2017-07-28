@@ -29,7 +29,6 @@ class Configuration extends AssetBundle
         ];
 
         parent::init();
-
     }
 
     /**
@@ -43,5 +42,4 @@ class Configuration extends AssetBundle
     public $depends = [
         CpAsset::class,
     ];
-
 }

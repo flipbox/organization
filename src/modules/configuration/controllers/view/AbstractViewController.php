@@ -40,7 +40,6 @@ abstract class AbstractViewController extends BaseViewController
 
         // Register our configuration asset bundle
         Craft::$app->getView()->registerAssetBundle(ConfigurationAssetBundle::class);
-
     }
 
     /*******************************************
@@ -80,7 +79,5 @@ abstract class AbstractViewController extends BaseViewController
                 $this->module->getUniqueId()
             )
         ];
-
     }
-
 }

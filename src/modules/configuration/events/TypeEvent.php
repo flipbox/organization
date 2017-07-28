@@ -26,5 +26,4 @@ class TypeEvent extends Event
      * @var bool
      */
     public $isNew = false;
-
 }

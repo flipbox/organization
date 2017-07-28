@@ -111,7 +111,6 @@ class Organization extends ElementService
                 OrganizationElement::STATUS_DISABLED => Craft::t('organization', 'Disabled')
             ]
         );
-
     }
     /**
      * @param $status
@@ -125,7 +124,6 @@ class Organization extends ElementService
         }
 
         return array_key_exists($status, OrganizationPlugin::getInstance()->getSettings()->getStatuses());
-
     }
 
 
@@ -170,7 +168,6 @@ class Organization extends ElementService
 
             // Quick logic to determine the status
             if (empty($existingStatus)) {
-
                 $existingStatus = (!empty($query['archived']) ?
                     OrganizationElement::STATUS_ARCHIVED :
                     ($query['enabled'] ?
@@ -178,7 +175,6 @@ class Organization extends ElementService
                         OrganizationElement::STATUS_DISABLED
                     )
                 );
-
             }
 
             // If they don't match, store it and set the original.
@@ -187,9 +183,7 @@ class Organization extends ElementService
                 $this->_statusesByOrganization[$organization->getId()] = $currentStatus;
                 $organization->setStatus($existingStatus);
             }
-
         }
-
     }
 
     /**
@@ -216,7 +210,6 @@ class Organization extends ElementService
         $record->dateJoined = $organization->dateJoined;
 
         if ($isNew) {
-
             // Transfer element attribute(s) to record
             $record->status = $organization->getStatus();
 
@@ -228,12 +221,10 @@ class Organization extends ElementService
             }
 
             $record->ownerId = $organization->ownerId;
-
         }
 
         // Save the record
         if (!$record->save()) {
-
             $organization->addErrors($record->getErrors());
 
             Craft::error(
@@ -242,7 +233,6 @@ class Organization extends ElementService
             );
 
             throw new Exception('Unable to save record');
-
         }
 
         // Transfer id to the new records
@@ -253,7 +243,6 @@ class Organization extends ElementService
         $organization->dateUpdated = DateTimeHelper::toDateTime($record->dateUpdated);
 
         if (!$isNew) {
-
             // Change status
             $status = $organization->getStatus();
 
@@ -264,64 +253,58 @@ class Organization extends ElementService
             );
 
             if ($status !== $toStatus) {
-
                 // Change status
                 if (!$this->changeStatus($organization, $toStatus)) {
-
                     // Add error
-                    $organization->addError('status',
-                        Craft::t('organization', 'Unable to change status.'));
+                    $organization->addError(
+                        'status',
+                        Craft::t('organization', 'Unable to change status.')
+                    );
 
                     throw new Exception("Unable to change status.");
-
                 }
-
             }
 
             // The owner we're changing to
             $toOwner = $organization->ownerId;
             if ($record->ownerId !== $toOwner) {
-
                 // Revert element to old owner
                 $organization->ownerId = $record->ownerId;
 
                 // Change owner
                 if (!$this->transferOwner($organization, $toOwner)) {
-
                     // Add error
-                    $organization->addError('ownerId',
-                        Craft::t('organization', 'Unable to change owner.'));
+                    $organization->addError(
+                        'ownerId',
+                        Craft::t('organization', 'Unable to change owner.')
+                    );
 
                     throw new Exception("Unable to change owner.");
-
                 }
-
             }
-
         }
 
         // Save organization types
         if (!$this->associateTypes($organization)) {
-
             // Add error
-            $organization->addError('types',
-                Craft::t('organization', 'Unable to save types.'));
+            $organization->addError(
+                'types',
+                Craft::t('organization', 'Unable to save types.')
+            );
 
             throw new Exception("Unable to save types.");
-
         }
 
         // Save organization users
         if (!$this->associateUsers($organization)) {
-
             // Add error
-            $organization->addError('users',
-                Craft::t('organization', 'Unable to save users.'));
+            $organization->addError(
+                'users',
+                Craft::t('organization', 'Unable to save users.')
+            );
 
             throw new Exception("Unable to save users.");
-
         }
-
     }
 
 
@@ -383,7 +366,6 @@ class Organization extends ElementService
             ->column();
 
         return in_array($user->email, $emails);
-
     }
 
     /**
@@ -402,7 +384,6 @@ class Organization extends ElementService
             ->column();
 
         return in_array($user->email, $emails);
-
     }
 
     /**
@@ -421,7 +402,6 @@ class Organization extends ElementService
             ->column();
 
         return in_array($user->email, $emails);
-
     }
 
 
@@ -490,7 +470,6 @@ class Organization extends ElementService
         $organization->setFieldValuesFromRequest(
             $request->getParam('fieldsLocation', 'fields')
         );
-
     }
 
 
@@ -510,7 +489,6 @@ class Organization extends ElementService
         $transaction = RecordHelper::beginTransaction();
 
         try {
-
             // Primary type (previously saved?)
             $primaryType = $organizationElement->getPrimaryType();
 
@@ -532,7 +510,6 @@ class Organization extends ElementService
 
             $count = 0;
             foreach ($currentTypes as $currentType) {
-
                 if (null !== ArrayHelper::remove($existingTypes, $currentType->id)) {
                     continue;
                 }
@@ -547,47 +524,37 @@ class Organization extends ElementService
                     $isPrimary
                 )
                 ) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
-
             }
 
             foreach ($existingTypes as $currentType) {
-
                 // Dissociate
                 if (!OrganizationPlugin::getInstance()->getType()->dissociate(
                     $currentType,
-                    $organizationElement)
+                    $organizationElement
+                )
                 ) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
-
             }
-
         } catch (\Exception $e) {
-
             // Roll back on failures
             $transaction->rollBack();
 
             throw $e;
-
         }
 
         // commit db actions (success)
         $transaction->commit();
 
         return true;
-
     }
 
     /*******************************************
@@ -615,7 +582,6 @@ class Organization extends ElementService
         $transaction = Craft::$app->getDb()->beginTransaction();
 
         try {
-
             // Find all currently associated and index by userId
             $existingUsers = $this->getUserQuery(
                 $organizationElement,
@@ -641,16 +607,13 @@ class Organization extends ElementService
              * @var UserElement $currentUser
              */
             foreach ($currentUsers as $key => $currentUser) {
-
                 if (!$currentUser->getId() &&
                     !Craft::$app->getElements()->saveElement($currentUser)
                 ) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
 
                 // Only associate if they are new
@@ -665,48 +628,37 @@ class Organization extends ElementService
                     $siteId
                 )
                 ) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
-
             }
 
             foreach ($existingUsers as $key => $existingUser) {
-
                 // Dissociate
                 if (!OrganizationPlugin::getInstance()->getUser()->dissociate(
                     $existingUser,
                     $organizationElement
                 )
                 ) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
-
             }
-
         } catch (\Exception $e) {
-
             // Roll back on failures
             $transaction->rollBack();
 
             throw $e;
-
         }
 
         // commit db actions (success)
         $transaction->commit();
 
         return true;
-
     }
 
 
@@ -724,8 +676,8 @@ class Organization extends ElementService
     public function changeStatus(
         OrganizationElement $element,
         $status
-    )
-    {
+    ) {
+    
 
         // The before event
         $event = new ChangeStatusEvent([
@@ -760,7 +712,6 @@ class Organization extends ElementService
 
             // Validate record (status only)
             if (!$record->validate('status')) {
-
                 // Transfer errors
                 $element->addErrors($record->getErrors());
 
@@ -768,7 +719,6 @@ class Organization extends ElementService
                 $transaction->rollBack();
 
                 return false;
-
             }
 
             // Organization status
@@ -780,7 +730,6 @@ class Organization extends ElementService
 
             // Element status
             switch ($status) {
-
                 case OrganizationElement::STATUS_ARCHIVED:
                     $condition = [
                         'enabled' => 0,
@@ -801,7 +750,6 @@ class Organization extends ElementService
                         'archived' => 0,
                     ];
                     break;
-
             }
 
             Craft::$app->getDb()->createCommand()->update(
@@ -821,28 +769,22 @@ class Organization extends ElementService
 
             // Green light?
             if (!$event->isValid) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
-
         } catch (\Exception $e) {
-
             // Roll back on failures
             $transaction->rollBack();
 
             throw $e;
-
         }
 
         // Commit db transaction
         $transaction->commit();
 
         return true;
-
     }
 
     /*******************************************
@@ -859,8 +801,8 @@ class Organization extends ElementService
     public function transferOwner(
         OrganizationElement $element,
         $newOwnerId
-    )
-    {
+    ) {
+    
 
         // The event
         $event = new ChangeOwnerEvent([
@@ -884,7 +826,6 @@ class Organization extends ElementService
         $transaction = Craft::$app->getDb()->beginTransaction();
 
         try {
-
             // Get record (or throw an Exception)
             /** @var OrganizationRecord $record */
             $record = $this->getRecordByCondition([
@@ -896,7 +837,6 @@ class Organization extends ElementService
 
             // Validate record (status only)
             if (!$record->save(true, ['ownerId'])) {
-
                 // Transfer errors
                 $element->addErrors($record->getErrors());
 
@@ -904,7 +844,6 @@ class Organization extends ElementService
                 $transaction->rollBack();
 
                 return false;
-
             }
 
             // Transfer record attribute(s) to element
@@ -918,28 +857,22 @@ class Organization extends ElementService
 
             // Green light?
             if (!$event->isValid) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
-
         } catch (\Exception $e) {
-
             // Roll back on failures
             $transaction->rollBack();
 
             throw $e;
-
         }
 
         // Commit db transaction
         $transaction->commit();
 
         return true;
-
     }
 
     /*******************************************
@@ -956,5 +889,4 @@ class Organization extends ElementService
             SiteHelper::resolveSiteId($siteId)
         )->getFieldLayout();
     }
-
 }

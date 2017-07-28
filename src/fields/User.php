@@ -178,7 +178,6 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
 //            $this->allowLimit = true;
 //            $this->limit = 1;
 //        }
-
     }
 
     /**
@@ -249,7 +248,7 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
             $query
                 ->id(array_values(array_filter($value)))
                 ->fixedOrder();
-        } else if ($value !== '' && !empty($element->id)) {
+        } elseif ($value !== '' && !empty($element->id)) {
             $query->user($element);
 
             if ($this->sortable) {
@@ -296,7 +295,6 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
         );
 
         return null;
-
     }
 
     /**
@@ -348,10 +346,12 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
             $html = '<div class="elementselect"><div class="elements">';
 
             foreach ($value as $relatedElement) {
-                $html .= Craft::$app->getView()->renderTemplate('_elements/element',
+                $html .= Craft::$app->getView()->renderTemplate(
+                    '_elements/element',
                     [
                         'element' => $relatedElement
-                    ]);
+                    ]
+                );
             }
 
             $html .= '</div></div>';
@@ -479,7 +479,6 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
             );
 
             return false;
-
         }
 
         // Save relations
@@ -490,7 +489,6 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
         );
 
         return parent::beforeElementSave($element, $isNew);
-
     }
 
     /**
@@ -512,7 +510,6 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
         );
 
         parent::afterElementSave($element, $isNew);
-
     }
 
     /**
@@ -564,7 +561,9 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
                 ];
             }
 
-            return Craft::$app->getView()->renderTemplateMacro('_includes/forms', 'selectField',
+            return Craft::$app->getView()->renderTemplateMacro(
+                '_includes/forms',
+                'selectField',
                 [
                     [
                         'label' => Craft::t('app', 'Target Site'),
@@ -574,7 +573,8 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
                         'options' => $siteOptions,
                         'value' => $this->targetSiteId
                     ]
-                ]);
+                ]
+            );
         }
 
         return null;
@@ -628,7 +628,7 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
             $value
                 ->status(null)
                 ->enabledForSite(false);
-        } else if (!is_array($value)) {
+        } elseif (!is_array($value)) {
             /** @var Element $class */
             $class = static::elementType();
             $value = $class::find()

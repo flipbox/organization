@@ -95,8 +95,7 @@ EOD;
 
         // Transfer the users
         foreach ($organizations as $organization) {
-
-            if(!OrganizationPlugin::getInstance()->getOrganization()->changeStatus(
+            if (!OrganizationPlugin::getInstance()->getOrganization()->changeStatus(
                 $organization,
                 $this->status
             )) {
@@ -104,7 +103,7 @@ EOD;
             }
         }
 
-        if($successful) {
+        if ($successful) {
             $this->setMessage(Craft::t('organization', 'Organization statuses were changed.'));
             return true;
         }

@@ -107,7 +107,6 @@ class TypeSettings extends ModelWithId
         }
 
         return $this;
-
     }
 
     /**
@@ -120,7 +119,6 @@ class TypeSettings extends ModelWithId
         }
 
         return $this->_typeId;
-
     }
 
     /**
@@ -133,17 +131,14 @@ class TypeSettings extends ModelWithId
     {
 
         if ($this->_type === null) {
-
             if (!$this->_typeId) {
                 throw new InvalidConfigException('Type Id is missing');
             }
 
             $this->_type = OrganizationPlugin::getInstance()->getType()->getById($this->_typeId);
-
         }
 
         return $this->_type;
-
     }
 
     /**
@@ -158,7 +153,6 @@ class TypeSettings extends ModelWithId
             $this->_typeId = $type->id;
         }
         return $this;
-
     }
 
     /**
@@ -258,5 +252,4 @@ class TypeSettings extends ModelWithId
         $this->ensureBehaviors();
         return $this->getBehavior('fieldLayout');
     }
-
 }

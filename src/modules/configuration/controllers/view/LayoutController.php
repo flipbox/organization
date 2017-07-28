@@ -39,7 +39,6 @@ class LayoutController extends AbstractViewController
         $variables['fullPageForm'] = true;
 
         return $this->renderTemplate(static::TEMPLATE_INDEX, $variables);
-
     }
 
 
@@ -73,7 +72,5 @@ class LayoutController extends AbstractViewController
             'label' => Craft::t('organization', 'Layout'),
             'url' => UrlHelper::url($variables['baseCpPath'])
         ];
-
     }
-
 }

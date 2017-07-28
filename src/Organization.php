@@ -81,7 +81,6 @@ class Organization extends BasePlugin
             UrlManager::EVENT_REGISTER_CP_URL_RULES,
             [self::class, 'onRegisterCpUrlRules']
         );
-
     }
 
 
@@ -114,7 +113,6 @@ class Organization extends BasePlugin
 
             ]
         );
-
     }
 
     /**
@@ -158,7 +156,6 @@ class Organization extends BasePlugin
         );
 
         Craft::$app->end();
-
     }
 
     /**
@@ -192,7 +189,6 @@ class Organization extends BasePlugin
 
         // Do parent
         parent::afterInstall();
-
     }
 
     /**
@@ -209,7 +205,6 @@ class Organization extends BasePlugin
 
         // Do parent
         parent::afterUninstall();
-
     }
 
     /*******************************************
@@ -267,5 +262,4 @@ class Organization extends BasePlugin
     {
         return $this->get('user');
     }
-
 }

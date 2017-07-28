@@ -94,7 +94,6 @@ class User extends Component
         );
 
         return $query;
-
     }
 
     /**
@@ -109,7 +108,6 @@ class User extends Component
             ->organization(['owner' => $ownerCriteria]);
 
         return $query;
-
     }
 
     /**
@@ -124,7 +122,6 @@ class User extends Component
             ->organization(['user' => $userCriteria]);
 
         return $query;
-
     }
 
     /**
@@ -139,7 +136,6 @@ class User extends Component
             ->organization(['member' => $memberCriteria]);
 
         return $query;
-
     }
 
     /*******************************************
@@ -161,7 +157,6 @@ class User extends Component
 
         return $this->getUserQuery($criteria, ['id' => $user->id])
                 ->count() > 0;
-
     }
 
     /**
@@ -179,7 +174,6 @@ class User extends Component
 
         return $this->getOwnerQuery($criteria, ['id' => $user->id])
                 ->count() > 0;
-
     }
 
     /**
@@ -197,7 +191,6 @@ class User extends Component
 
         return $this->getMemberQuery($criteria, ['id' => $user->id])
                 ->count() > 0;
-
     }
 
     /**
@@ -234,7 +227,6 @@ class User extends Component
 
         // Last
         if (0 === $sortOrder || $sortOrder > $items) {
-
             // Set to last
             Craft::$app->getDb()->createCommand()->update(
                 OrganizationUserRecord::tableName(),
@@ -245,16 +237,12 @@ class User extends Component
             )->execute();
 
             return;
-
         }
 
         // First
         if (1 === $sortOrder) {
-
             $newOrder = [$userElement->id => $target] + $currentOrder;
-
         } else {
-
             $offset = $sortOrder - 1;
 
             // Split at sortOrder / offset
@@ -263,12 +251,10 @@ class User extends Component
 
             // Merge them all back together
             $newOrder = $preOrder + [$userElement->id => $target] + $postOrder;
-
         }
 
         $ct = 1;
         foreach ($newOrder as $userId => $condition) {
-
             // Update
             Craft::$app->getDb()->createCommand()->update(
                 OrganizationUserRecord::tableName(),
@@ -277,9 +263,7 @@ class User extends Component
                 ],
                 $condition
             )->execute();
-
         }
-
     }
 
     /************************************************************
@@ -325,7 +309,6 @@ class User extends Component
 
         // Restrictions
         if (OrganizationPlugin::getInstance()->getSettings()->hasAssociationRestriction()) {
-
             if (OrganizationPlugin::getInstance()->getSettings()->memberAssociationRestriction()) {
                 $criteria = ['member' => $userElement->id];
             } else {
@@ -334,10 +317,11 @@ class User extends Component
 
             // Ignore the current organization
             $query = OrganizationPlugin::getInstance()->getOrganization()->getQuery(
-                array_merge([
+                array_merge(
+                    [
                     'id' => 'not ' . $organizationElement->id,
                     'status' => null
-                ],
+                    ],
                     $criteria
                 )
             );
@@ -345,14 +329,12 @@ class User extends Component
             if ($query->count()) {
                 return false;
             }
-
         }
 
         // Db transaction
         $transaction = RecordHelper::beginTransaction();
 
         try {
-
             // New record
             $organizationUserRecord = new OrganizationUserRecord();
 
@@ -364,12 +346,10 @@ class User extends Component
 
             // Save record
             if (!$organizationUserRecord->save()) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
 
             // Trigger event
@@ -380,31 +360,25 @@ class User extends Component
 
             // Green light?
             if (!$event->isValid) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
 
             // Apply the sort order
             $this->applySortOrder($userElement, $organizationElement, $siteId, $sortOrder);
-
         } catch (Exception $e) {
-
             // Roll back on failures
             $transaction->rollBack();
 
             throw $e;
-
         }
 
         // Commit db transaction
         $transaction->commit();
 
         return true;
-
     }
 
 
@@ -450,7 +424,6 @@ class User extends Component
         $transaction = Craft::$app->getDb()->beginTransaction();
 
         try {
-
             // Delete
             Craft::$app->getDb()->createCommand()->delete(
                 OrganizationUserRecord::tableName(),
@@ -468,28 +441,22 @@ class User extends Component
 
             // Green light?
             if (!$event->isValid) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
-
         } catch (Exception $e) {
-
             // Roll back on failures
             $transaction->rollBack();
 
             throw $e;
-
         }
 
         // Commit db transaction
         $transaction->commit();
 
         return true;
-
     }
 
     /**
@@ -515,7 +482,6 @@ class User extends Component
             ])
             ->limit(null)
             ->all();
-
     }
 
     /*******************************************
@@ -536,5 +502,4 @@ class User extends Component
                 'siteId' => $siteId
             ]);
     }
-
 }

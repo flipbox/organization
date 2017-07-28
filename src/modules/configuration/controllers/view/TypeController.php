@@ -47,7 +47,6 @@ class TypeController extends AbstractViewController
         $variables['types'] = $this->module->module->getType()->findAll();
 
         return $this->renderTemplate(static::TEMPLATE_INDEX, $variables);
-
     }
 
     /**
@@ -68,20 +67,14 @@ class TypeController extends AbstractViewController
 
         // Check if type is already set (failures, etc).
         if (is_null($organizationType)) {
-
             // Look for type id
             if (!empty($typeIdentifier)) {
-
                 $organizationType = $this->module->module->getType()->get($typeIdentifier);
-
             } else {
-
                 $organizationType = $this->module->module->getType()->create();
 
                 $variables['brandNew'] = true;
-
             }
-
         }
 
         // Set type model
@@ -89,7 +82,6 @@ class TypeController extends AbstractViewController
 
         // If new model
         if (!$organizationType->getId()) {
-
             // Append title
             $variables['title'] .= " - " . Craft::t('organization', 'New');
 
@@ -101,9 +93,7 @@ class TypeController extends AbstractViewController
 
             // Set the "Continue Editing" URL
             $variables['continueEditingUrl'] .= '/{id}';
-
         } else {
-
             // Append title
             $variables['title'] .= " - " . $organizationType->name;
 
@@ -115,14 +105,12 @@ class TypeController extends AbstractViewController
 
             // Set the "Continue Editing" URL
             $variables['continueEditingUrl'] .= '/' . $variables['type']->id;
-
         }
 
         // Full page form in the CP
         $variables['fullPageForm'] = true;
 
         return $this->renderTemplate(static::TEMPLATE_UPSERT, $variables);
-
     }
 
     /*******************************************
@@ -155,7 +143,5 @@ class TypeController extends AbstractViewController
             'label' => Craft::t('organization', 'Types'),
             'url' => UrlHelper::url($variables['baseCpPath'])
         ];
-
     }
-
 }

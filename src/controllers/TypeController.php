@@ -41,18 +41,15 @@ class TypeController extends AbstractController
 
         // Dissociate
         if (OrganizationPlugin::getInstance()->getType()->dissociate($typeModel, $organizationElement)) {
-
             // Success message
             $message = Craft::t('organization', 'Type was successfully dissociated from organization.');
 
             // Ajax request
             if (Craft::$app->getRequest()->isAjax) {
-
                 return $this->asJson([
                     'success' => true,
                     'message' => $message
                 ]);
-
             }
 
             // Flash success message
@@ -60,7 +57,6 @@ class TypeController extends AbstractController
 
             // Redirect
             return $this->redirectToPostedUrl();
-
         }
 
         // Fail message
@@ -68,9 +64,7 @@ class TypeController extends AbstractController
 
         // Ajax request
         if (Craft::$app->getRequest()->isAjax) {
-
             return $this->asErrorJson($message);
-
         }
 
         // Flash fail message
@@ -83,7 +77,6 @@ class TypeController extends AbstractController
         ]);
 
         return null;
-
     }
 
     /**
@@ -134,18 +127,15 @@ class TypeController extends AbstractController
 
         // Associate
         if (OrganizationPlugin::getInstance()->getType()->associate($typeModel, $organizationElement, $isPrimary)) {
-
             // Success message
             $message = Craft::t('organization', 'Type was successfully associated to organization.');
 
             // Ajax request
             if (Craft::$app->getRequest()->isAjax) {
-
                 return $this->asJson([
                     'success' => true,
                     'message' => $message
                 ]);
-
             }
 
             // Flash success message
@@ -153,7 +143,6 @@ class TypeController extends AbstractController
 
             // Redirect
             return $this->redirectToPostedUrl();
-
         }
 
         // Fail message
@@ -161,9 +150,7 @@ class TypeController extends AbstractController
 
         // Ajax request
         if (Craft::$app->getRequest()->isAjax) {
-
             return $this->asErrorJson($message);
-
         }
 
         // Flash fail message
@@ -176,7 +163,5 @@ class TypeController extends AbstractController
         ]);
 
         return null;
-
     }
-
 }

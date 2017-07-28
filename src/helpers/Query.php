@@ -50,7 +50,6 @@ class Query extends QueryHelper
         }
 
         return;
-
     }
 
     /**
@@ -65,13 +64,10 @@ class Query extends QueryHelper
 
         // Parse as single param?
         if (false === static::parseBaseParam($value, $join)) {
-
             // Add one by one
             foreach ($value as $operator => &$v) {
-
                 // attempt to assemble value (return false if it's a handle)
                 if (false === static::findParamValue($v, $operator)) {
-
                     // get element by string
                     if (is_string($v)) {
                         if ($element = Craft::$app->getUsers()->getUserByUsernameOrEmail($v)) {
@@ -86,16 +82,12 @@ class Query extends QueryHelper
                     if ($v) {
                         $v = static::assembleParamValue($v, $operator);
                     }
-
                 }
-
             }
-
         }
 
         // parse param to allow for mixed variables
         return array_merge([$join], ArrayHelper::filterEmptyStringsFromArray($value));
-
     }
 
     /**
@@ -121,13 +113,10 @@ class Query extends QueryHelper
 
         // Check for object array (via 'id' key)
         if ($id = static::_findIdFromObjectArray($value)) {
-
             $value = [$id];
-
         }
 
         return false;
-
     }
 
     /**
@@ -142,19 +131,14 @@ class Query extends QueryHelper
 
         // Handle arrays as values
         if (is_array($value) || is_object($value)) {
-
             // Look for an 'id' key in an array
             if ($id = static::_findIdFromObjectArray($value, $operator)) {
-
                 // Prepend the operator
                 return static::_prependOperator($id, $operator);
-
             }
-
         }
 
         return static::_prependOperator($value, $operator);
-
     }
 
     /**
@@ -168,38 +152,27 @@ class Query extends QueryHelper
     {
 
         if (is_array($value) || is_object($value)) {
-
             $value = static::assembleParamValue($value, $operator);
-
         } else {
-
             static::_normalizeEmptyValue($value);
 
             $operator = static::_parseParamOperator($value);
 
             if (is_numeric($value)) {
-
                 $value = static::assembleParamValue($value, $operator);
-
             } else {
-
                 $value = StringHelper::toLowerCase($value);
 
                 if ($value !== ':empty:' || $value !== 'not :empty:') {
-
                     // Trim any whitespace from the value
                     $value = StringHelper::trim($value);
 
                     return false;
-
                 }
-
             }
-
         }
 
         return true;
-
     }
 
     /**
@@ -213,37 +186,26 @@ class Query extends QueryHelper
     {
 
         if (is_array($value)) {
-
             return true;
-
         } else {
-
             static::_normalizeEmptyValue($value);
             $operator = static::_parseParamOperator($value);
 
             if (is_numeric($value)) {
-
                 return true;
-
             } else {
-
                 $value = StringHelper::toLowerCase($value);
 
                 if ($value !== ':empty:' || $value !== 'not :empty:') {
-
                     // Trim any whitespace from the value
                     $value = StringHelper::trim($value);
 
                     return false;
-
                 }
-
             }
-
         }
 
         return true;
-
     }
 
     /**
@@ -267,7 +229,6 @@ class Query extends QueryHelper
         }
 
         return $join;
-
     }
 
     /**
@@ -280,13 +241,10 @@ class Query extends QueryHelper
     {
 
         if ($id = ArrayHelper::getValue($value, 'id', '')) {
-
             return static::_prependOperator($id, $operator);
-
         }
 
         return $id;
-
     }
 
     /**
@@ -300,13 +258,10 @@ class Query extends QueryHelper
     {
 
         if ($operator) {
-
             $operator = StringHelper::toLowerCase($operator);
 
             if (in_array($operator, static::$_operators) || $operator === 'not') {
-
                 if (is_array($value)) {
-
                     $values = [];
 
                     foreach ($value as $v) {
@@ -314,16 +269,13 @@ class Query extends QueryHelper
                     }
 
                     return $values;
-
                 }
 
                 return $operator . ($operator === 'not' ? ' ' : '') . $value;
             }
-
         }
 
         return $value;
-
     }
 
     /**
@@ -355,8 +307,11 @@ class Query extends QueryHelper
             // Does the value start with this operator?
             $operatorLength = strlen($testOperator);
 
-            if (strncmp(StringHelper::toLowerCase($value), $testOperator,
-                    $operatorLength) == 0
+            if (strncmp(
+                StringHelper::toLowerCase($value),
+                $testOperator,
+                $operatorLength
+            ) == 0
             ) {
                 $value = mb_substr($value, $operatorLength);
 
@@ -394,7 +349,6 @@ class Query extends QueryHelper
         $query->subQuery->andWhere(Db::parseParam($alias . '.id', $value));
 
         return;
-
     }
 
     /**
@@ -419,7 +373,6 @@ class Query extends QueryHelper
         $query->subQuery->andWhere(Db::parseParam($alias . '.organizationId', $value));
 
         return;
-
     }
 
     /**
@@ -459,7 +412,5 @@ class Query extends QueryHelper
         ]);
 
         return;
-
     }
-
 }

@@ -52,7 +52,6 @@ class Install extends Migration
         $this->dropTableIfExists(OrganizationRecord::tableName());
 
         return true;
-
     }
 
     /**
@@ -118,7 +117,6 @@ class Install extends Migration
             'dateUpdated' => $this->dateTime()->notNull(),
             'uid' => $this->uid()
         ]);
-
     }
 
     /**
@@ -131,63 +129,91 @@ class Install extends Migration
 
         $this->createIndex(
             $this->db->getIndexName(OrganizationRecord::tableName(), 'ownerId', false, true),
-            OrganizationRecord::tableName(), 'ownerId', false
+            OrganizationRecord::tableName(),
+            'ownerId',
+            false
         );
 
         $this->createIndex(
             $this->db->getIndexName(OrganizationTypeRecord::tableName(), 'handle', true),
-            OrganizationTypeRecord::tableName(), 'handle', true
+            OrganizationTypeRecord::tableName(),
+            'handle',
+            true
         );
 
         $this->createIndex(
             $this->db->getIndexName(OrganizationTypeSettingsRecord::tableName(), 'typeId', false, true),
-            OrganizationTypeSettingsRecord::tableName(), 'typeId', false
+            OrganizationTypeSettingsRecord::tableName(),
+            'typeId',
+            false
         );
         $this->createIndex(
             $this->db->getIndexName(OrganizationTypeSettingsRecord::tableName(), 'fieldLayoutId', false, true),
-            OrganizationTypeSettingsRecord::tableName(), 'fieldLayoutId', false
+            OrganizationTypeSettingsRecord::tableName(),
+            'fieldLayoutId',
+            false
         );
         $this->createIndex(
             $this->db->getIndexName(OrganizationTypeSettingsRecord::tableName(), 'typeId,siteId', true),
-            OrganizationTypeSettingsRecord::tableName(), 'typeId,siteId', true
+            OrganizationTypeSettingsRecord::tableName(),
+            'typeId,siteId',
+            true
         );
         $this->createIndex(
             $this->db->getIndexName(OrganizationTypeSettingsRecord::tableName(), 'siteId', false, true),
-            OrganizationTypeSettingsRecord::tableName(), 'siteId', false
+            OrganizationTypeSettingsRecord::tableName(),
+            'siteId',
+            false
         );
 
         $this->createIndex(
             $this->db->getIndexName(OrganizationTypeOrganizationRecord::tableName(), 'typeId', false, true),
-            OrganizationTypeOrganizationRecord::tableName(), 'typeId', false
+            OrganizationTypeOrganizationRecord::tableName(),
+            'typeId',
+            false
         );
         $this->createIndex(
             $this->db->getIndexName(OrganizationTypeOrganizationRecord::tableName(), 'organizationId', false, true),
-            OrganizationTypeOrganizationRecord::tableName(), 'organizationId', false
+            OrganizationTypeOrganizationRecord::tableName(),
+            'organizationId',
+            false
         );
         $this->createIndex(
             $this->db->getIndexName(OrganizationTypeOrganizationRecord::tableName(), 'typeId,organizationId', true),
-            OrganizationTypeOrganizationRecord::tableName(), 'typeId,organizationId', true
+            OrganizationTypeOrganizationRecord::tableName(),
+            'typeId,organizationId',
+            true
         );
         $this->createIndex(
             $this->db->getIndexName(OrganizationTypeOrganizationRecord::tableName(), 'primary', false),
-            OrganizationTypeOrganizationRecord::tableName(), 'primary', false
+            OrganizationTypeOrganizationRecord::tableName(),
+            'primary',
+            false
         );
 
         $this->createIndex(
             $this->db->getIndexName(OrganizationUserRecord::tableName(), 'userId', false, true),
-            OrganizationUserRecord::tableName(), 'userId', false
+            OrganizationUserRecord::tableName(),
+            'userId',
+            false
         );
         $this->createIndex(
             $this->db->getIndexName(OrganizationUserRecord::tableName(), 'siteId', false, true),
-            OrganizationUserRecord::tableName(), 'siteId', false
+            OrganizationUserRecord::tableName(),
+            'siteId',
+            false
         );
         $this->createIndex(
             $this->db->getIndexName(OrganizationUserRecord::tableName(), 'organizationId', false, true),
-            OrganizationUserRecord::tableName(), 'organizationId', false
+            OrganizationUserRecord::tableName(),
+            'organizationId',
+            false
         );
         $this->createIndex(
             $this->db->getIndexName(OrganizationUserRecord::tableName(), 'userId,organizationId,siteId', true),
-            OrganizationUserRecord::tableName(), 'userId,organizationId,siteId', true
+            OrganizationUserRecord::tableName(),
+            'userId,organizationId,siteId',
+            true
         );
     }
 
@@ -201,48 +227,96 @@ class Install extends Migration
 
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationRecord::tableName(), 'id'),
-            OrganizationRecord::tableName(), 'id', ElementRecord::tableName(), 'id', 'CASCADE', null
+            OrganizationRecord::tableName(),
+            'id',
+            ElementRecord::tableName(),
+            'id',
+            'CASCADE',
+            null
         );
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationRecord::tableName(), 'ownerId'),
-            OrganizationRecord::tableName(), 'ownerId', UserRecord::tableName(), 'id', 'CASCADE', null
+            OrganizationRecord::tableName(),
+            'ownerId',
+            UserRecord::tableName(),
+            'id',
+            'CASCADE',
+            null
         );
 
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationTypeSettingsRecord::tableName(), 'typeId'),
-            OrganizationTypeSettingsRecord::tableName(), 'typeId', OrganizationTypeRecord::tableName(), 'id', 'CASCADE', 'CASCADE'
+            OrganizationTypeSettingsRecord::tableName(),
+            'typeId',
+            OrganizationTypeRecord::tableName(),
+            'id',
+            'CASCADE',
+            'CASCADE'
         );
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationTypeSettingsRecord::tableName(), 'siteId'),
-            OrganizationTypeSettingsRecord::tableName(), 'siteId', SiteRecord::tableName(), 'id', 'CASCADE', 'CASCADE'
+            OrganizationTypeSettingsRecord::tableName(),
+            'siteId',
+            SiteRecord::tableName(),
+            'id',
+            'CASCADE',
+            'CASCADE'
         );
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationTypeSettingsRecord::tableName(), 'fieldLayoutId'),
-            OrganizationTypeSettingsRecord::tableName(), 'fieldLayoutId', FieldLayoutRecord::tableName(), 'id', 'SET NULL', null
+            OrganizationTypeSettingsRecord::tableName(),
+            'fieldLayoutId',
+            FieldLayoutRecord::tableName(),
+            'id',
+            'SET NULL',
+            null
         );
 
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationTypeOrganizationRecord::tableName(), 'typeId'),
-            OrganizationTypeOrganizationRecord::tableName(), 'typeId', OrganizationTypeRecord::tableName(), 'id', 'CASCADE', 'CASCADE'
+            OrganizationTypeOrganizationRecord::tableName(),
+            'typeId',
+            OrganizationTypeRecord::tableName(),
+            'id',
+            'CASCADE',
+            'CASCADE'
         );
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationTypeOrganizationRecord::tableName(), 'organizationId'),
-            OrganizationTypeOrganizationRecord::tableName(), 'organizationId', OrganizationRecord::tableName(), 'id', 'CASCADE', 'CASCADE'
+            OrganizationTypeOrganizationRecord::tableName(),
+            'organizationId',
+            OrganizationRecord::tableName(),
+            'id',
+            'CASCADE',
+            'CASCADE'
         );
 
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationUserRecord::tableName(), 'userId'),
-            OrganizationUserRecord::tableName(), 'userId', UserRecord::tableName(), 'id', 'CASCADE', 'CASCADE'
+            OrganizationUserRecord::tableName(),
+            'userId',
+            UserRecord::tableName(),
+            'id',
+            'CASCADE',
+            'CASCADE'
         );
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationUserRecord::tableName(), 'siteId'),
-            OrganizationUserRecord::tableName(), 'siteId', SiteRecord::tableName(), 'id', 'CASCADE', 'CASCADE'
+            OrganizationUserRecord::tableName(),
+            'siteId',
+            SiteRecord::tableName(),
+            'id',
+            'CASCADE',
+            'CASCADE'
         );
         $this->addForeignKey(
             $this->db->getForeignKeyName(OrganizationUserRecord::tableName(), 'organizationId'),
-            OrganizationUserRecord::tableName(), 'organizationId', OrganizationRecord::tableName(), 'id', 'CASCADE', 'CASCADE'
+            OrganizationUserRecord::tableName(),
+            'organizationId',
+            OrganizationRecord::tableName(),
+            'id',
+            'CASCADE',
+            'CASCADE'
         );
-
     }
-
 }

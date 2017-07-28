@@ -12,7 +12,6 @@ use craft\elements\db\ElementQueryInterface;
 use craft\elements\User as BaseUserElement;
 use flipbox\organization\elements\db\User as UserQuery;
 
-
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
@@ -33,5 +32,4 @@ class User extends BaseUserElement
     {
         return new UserQuery(BaseUserElement::class);
     }
-
 }

@@ -32,5 +32,4 @@ class RegisterOrganizationActions extends Event
      * @var array
      */
     public $miscActions = [];
-
 }

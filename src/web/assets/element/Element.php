@@ -33,7 +33,6 @@ class Element extends AssetBundle
         ];
 
         parent::init();
-
     }
 
     /**
@@ -47,5 +46,4 @@ class Element extends AssetBundle
     public $depends = [
         CpAsset::class,
     ];
-
 }

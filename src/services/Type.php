@@ -96,8 +96,8 @@ class Type extends AbstractType
         TypeModel $typeModel,
         OrganizationElement $organizationElement,
         $primary = false
-    )
-    {
+    ) {
+    
 
         // Set the first association as the primary
         if (!$this->hasPrimaryAssociation($organizationElement)) {
@@ -133,9 +133,7 @@ class Type extends AbstractType
 
         // Existing association?
         if (!$this->associationExists($typeModel, $organizationElement)) {
-
             try {
-
                 // Ensure record
                 $organizationTypeRecord = new OrganizationTypeRecord();
 
@@ -145,12 +143,10 @@ class Type extends AbstractType
 
                 // Save record
                 if (!$result = $organizationTypeRecord->save()) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
 
                 // Todo - do we need this here -- or just on the primary ??
@@ -164,44 +160,33 @@ class Type extends AbstractType
 
                 // Green light?
                 if (!$event->isValid) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
-
             } catch (\Exception $e) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 throw $e;
-
             }
-
         }
 
         // Set as primary
         if ($primary) {
-
             if (!$this->_associateAsPrimary($typeModel, $organizationElement)) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
-
         }
 
         // Commit db transaction
         $transaction->commit();
 
         return true;
-
     }
 
 
@@ -218,8 +203,8 @@ class Type extends AbstractType
     public function dissociate(
         TypeModel $typeModel,
         OrganizationElement $organizationElement
-    )
-    {
+    ) {
+    
 
         // The event
         $event = new ManageOrganizationType([
@@ -246,19 +231,14 @@ class Type extends AbstractType
         $transaction = RecordHelper::beginTransaction();
 
         try {
-
             if ($isPrimary = $this->isPrimaryAssociation($typeModel, $organizationElement)) {
-
                 // Remove primary association first
                 if (!$this->_dissociateAsPrimary($typeModel, $organizationElement)) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
-
             }
 
             // Delete record
@@ -278,47 +258,35 @@ class Type extends AbstractType
 
             // Green light?
             if (!$event->isValid) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
 
             // Did we just delete the primary association (caution ... an event might have created a new one)
             if ($isPrimary && !$this->hasPrimaryAssociation($organizationElement)) {
-
                 // Assign new primary
                 if ($primaryType = $this->findByOrganization($organizationElement)) {
-
                     if (!$this->_associateAsPrimary($primaryType, $organizationElement)) {
-
                         // Roll back on failures
                         $transaction->rollBack();
 
                         return false;
-
                     }
-
                 }
-
             }
-
         } catch (\Exception $e) {
-
             // Roll back on failures
             $transaction->rollBack();
 
             throw $e;
-
         }
 
         // Commit db transaction
         $transaction->commit();
 
         return true;
-
     }
 
 
@@ -335,40 +303,33 @@ class Type extends AbstractType
     private function _associateAsPrimary(
         TypeModel $typeModel,
         OrganizationElement $organizationElement
-    )
-    {
+    ) {
+    
 
         // Already set as the primary?
         if ($primaryTypeModel = $this->findPrimaryByOrganization($organizationElement)) {
-
             // Existing primary?
             if ($primaryTypeModel->getId() === $typeModel->getId()) {
                 return true;
             }
-
         }
 
         // Db transaction
         $transaction = RecordHelper::beginTransaction();
 
         try {
-
             // Make sure association is made prior to making it primary
             if (!$this->associationExists(
                 $typeModel,
                 $organizationElement
             )
             ) {
-
                 if (!$this->associate($typeModel, $organizationElement)) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
-
             }
 
             // The event
@@ -385,22 +346,18 @@ class Type extends AbstractType
 
             // Green light?
             if (!$event->isValid) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
 
             // Remove existing association
             if ($primaryTypeModel && !$this->_dissociateAsPrimary($primaryTypeModel, $organizationElement)) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
 
             // Update
@@ -423,28 +380,22 @@ class Type extends AbstractType
 
             // Green light?
             if (!$event->isValid) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
-
         } catch (\Exception $e) {
-
             // Roll back on failures
             $transaction->rollBack();
 
             throw $e;
-
         }
 
         // Commit db transaction
         $transaction->commit();
 
         return true;
-
     }
 
 
@@ -461,16 +412,14 @@ class Type extends AbstractType
     private function _dissociateAsPrimary(
         TypeModel $typeModel,
         OrganizationElement $organizationElement
-    )
-    {
+    ) {
+    
 
         // Already not the primary?
         if ($primaryTypeModel = $this->findPrimaryByOrganization($organizationElement)) {
-
             if ($primaryTypeModel->getId() !== $typeModel->getId()) {
                 return true;
             }
-
         }
 
         // The event
@@ -494,7 +443,6 @@ class Type extends AbstractType
         $transaction = RecordHelper::beginTransaction();
 
         try {
-
             // Update
             Craft::$app->getDb()->createCommand()->update(
                 OrganizationTypeRecord::tableName(),
@@ -515,44 +463,34 @@ class Type extends AbstractType
 
             // Green light?
             if (!$event->isValid) {
-
                 // Roll back on failures
                 $transaction->rollBack();
 
                 return false;
-
             }
 
             // Assign new primary
             if (!$this->hasPrimaryAssociation($organizationElement) &&
                 $primaryType = $this->findByOrganization($organizationElement)
             ) {
-
                 if (!$this->_associateAsPrimary($primaryType, $organizationElement)) {
-
                     // Roll back on failures
                     $transaction->rollBack();
 
                     return false;
-
                 }
-
             }
-
         } catch (\Exception $e) {
-
             // Roll back on failures
             $transaction->rollBack();
 
             throw $e;
-
         }
 
         // Commit db transaction
         $transaction->commit();
 
         return true;
-
     }
 
 
@@ -598,5 +536,4 @@ class Type extends AbstractType
                 'primary' => true
             ]);
     }
-
 }
