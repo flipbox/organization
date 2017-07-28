@@ -49,7 +49,10 @@ class OrganizationController extends AbstractController
                 throw new ForbiddenHttpException("You do not have permission to create an organization.");
             }
         } else {
-            if (!OrganizationPlugin::getInstance()->getPermission()->canUpdateOrganization($userElement, $organizationElement)) {
+            if (!OrganizationPlugin::getInstance()->getPermission()->canUpdateOrganization(
+                $userElement,
+                $organizationElement
+            )) {
                 throw new ForbiddenHttpException("You do not have permission to update an organization.");
             }
         }

@@ -37,7 +37,7 @@ class General extends Component
         )
         ) {
             // Alter table
-            return $this->_alterStatusColumn();
+            return $this->alterStatusColumn();
         }
 
         return false;
@@ -47,7 +47,7 @@ class General extends Component
      * @return bool
      * @throws \yii\db\Exception
      */
-    private function _alterStatusColumn()
+    private function alterStatusColumn()
     {
 
         $migration = new AlterOrganizationStatus([

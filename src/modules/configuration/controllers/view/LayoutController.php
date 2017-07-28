@@ -15,13 +15,13 @@ use craft\helpers\UrlHelper as UrlHelper;
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class LayoutController extends AbstractViewController
+class LayoutController extends AbstractController
 {
 
     /**
      * The index view template path
      */
-    const TEMPLATE_INDEX = AbstractViewController::TEMPLATE_BASE . DIRECTORY_SEPARATOR . 'layout';
+    const TEMPLATE_INDEX = AbstractController::TEMPLATE_BASE . DIRECTORY_SEPARATOR . 'layout';
 
     /**
      * @return string

@@ -9,14 +9,14 @@
 namespace flipbox\organization\controllers\view;
 
 use Craft;
-use flipbox\organization\controllers\AbstractController;
+use flipbox\organization\controllers\AbstractController as BaseViewController;
 use flipbox\organization\Organization as OrganizationPlugin;
 
 /**
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-abstract class AbstractViewController extends AbstractController
+abstract class AbstractController extends BaseViewController
 {
 
     /**

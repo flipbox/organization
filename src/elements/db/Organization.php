@@ -422,11 +422,13 @@ class Organization extends ElementQuery
 
         if ($this->typeId) {
             $this->subQuery->innerJoin(
-                OrganizationTypeOrganizationRecord::tableName() . ' ' . OrganizationTypeOrganizationRecord::tableAlias(),
+                $this->organizationDbTableReference(),
                 'elements.id = ' . OrganizationTypeOrganizationRecord::tableAlias() . '.organizationId'
             );
 
-            $this->subQuery->andWhere(Db::parseParam(OrganizationTypeOrganizationRecord::tableAlias() . '.typeId', $this->typeId));
+            $this->subQuery->andWhere(Db::parseParam(
+                OrganizationTypeOrganizationRecord::tableAlias() . '.typeId', $this->typeId)
+            );
         }
 
         // Owner only
@@ -436,7 +438,10 @@ class Organization extends ElementQuery
 
         if ($this->ownerGroupId) {
             $this->subQuery
-                ->innerJoin(UserGroupUsersRecord::tableName() . ' usergroups_users', '[[usergroups_users.userId]] = [[' . $alias . '.ownerId]]')
+                ->innerJoin(
+                    UserGroupUsersRecord::tableName() . ' usergroups_users',
+                    '[[usergroups_users.userId]] = [[' . $alias . '.ownerId]]'
+                )
                 ->andWhere(Db::parseParam('usergroups_users.groupId', $this->ownerGroupId));
         }
 
@@ -451,7 +456,9 @@ class Organization extends ElementQuery
 
         // User only
         if ($this->userId) {
-            $this->subQuery->andWhere(Db::parseParam(OrganizationUserRecord::tableAlias() . '.userId', $this->userId));
+            $this->subQuery->andWhere(
+                Db::parseParam(OrganizationUserRecord::tableAlias() . '.userId', $this->userId)
+            );
         }
 
         // User or Owner
@@ -465,6 +472,14 @@ class Organization extends ElementQuery
         }
 
         return parent::beforePrepare();
+    }
+
+    /**
+     * @return string
+     */
+    private function organizationDbTableReference(): string
+    {
+        return OrganizationTypeOrganizationRecord::tableName() . ' ' . OrganizationTypeOrganizationRecord::tableAlias();
     }
 
     /**

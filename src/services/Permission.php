@@ -41,16 +41,23 @@ class Permission extends Component
     public function canUpdateOrganization(UserElement $userElement, OrganizationElement $organizationElement)
     {
 
-        return $userElement->admin || $organizationElement->isOwner($userElement) || ($organizationElement->isUser($userElement) && Craft::$app->getUserPermissions()->doesUserHavePermission(
-            $userElement->id,
-            'updateMyOrganization'
-        )) || Craft::$app->getUserPermissions()->doesUserHavePermission(
-            $userElement->id,
-            'updateAnyOrganization'
-        ) || Craft::$app->getUserPermissions()->doesUserHavePermission(
-            $userElement->id,
-            'updateOrganization:' . $organizationElement->id
-        );
+        return $userElement->admin ||
+            $organizationElement->isOwner($userElement) ||
+            (
+                $organizationElement->isUser($userElement) &&
+                    Craft::$app->getUserPermissions()->doesUserHavePermission(
+                        $userElement->id,
+                        'updateMyOrganization'
+                    )
+            ) ||
+            Craft::$app->getUserPermissions()->doesUserHavePermission(
+                $userElement->id,
+                'updateAnyOrganization'
+            ) ||
+            Craft::$app->getUserPermissions()->doesUserHavePermission(
+                $userElement->id,
+                'updateOrganization:' . $organizationElement->id
+            );
     }
 
     /**
@@ -64,10 +71,14 @@ class Permission extends Component
     {
 
         // Admin -or- Owner -or- [User and Permission]
-        return $userElement->admin || $organizationElement->isOwner($userElement) || ($organizationElement->isUser($userElement) && Craft::$app->getUserPermissions()->doesUserHavePermission(
-            $userElement->id,
-            'manageTypeAssociations'
-        ));
+        return $userElement->admin ||
+            $organizationElement->isOwner($userElement) ||
+            ($organizationElement->isUser($userElement) &&
+                Craft::$app->getUserPermissions()->doesUserHavePermission(
+                    $userElement->id,
+                    'manageTypeAssociations'
+                )
+            );
     }
 
     /**
@@ -81,9 +92,13 @@ class Permission extends Component
     {
 
         // Admin -or- Owner -or- [User and Permission]
-        return $userElement->admin || $organizationElement->isOwner($userElement) || ($organizationElement->isUser($userElement) && Craft::$app->getUserPermissions()->doesUserHavePermission(
-            $userElement->id,
-            'manageUserAssociations'
-        ));
+        return $userElement->admin ||
+            $organizationElement->isOwner($userElement) ||
+            ($organizationElement->isUser($userElement) &&
+                Craft::$app->getUserPermissions()->doesUserHavePermission(
+                    $userElement->id,
+                    'manageUserAssociations'
+                )
+            );
     }
 }

@@ -26,56 +26,64 @@ class Type extends AbstractType
 {
 
     /**
-     * @event ManageOrganizationTypeEvent The event that is triggered before an organization type is associated to an organization.
+     * @event ManageOrganizationTypeEvent The event that is triggered before an
+     * organization type is associated to an organization.
      *
      * You may set [[ManageOrganizationTypeEvent::isValid]] to `false` to prevent the associate action.
      */
     const EVENT_BEFORE_ASSOCIATE = 'beforeAssociate';
 
     /**
-     * @event ManageOrganizationTypeEvent The event that is triggered after an organization type is associated to an organization.
+     * @event ManageOrganizationTypeEvent The event that is triggered after an
+     * organization type is associated to an organization.
      *
      * * You may set [[ManageOrganizationTypeEvent::isValid]] to `false` to prevent the associate action.
      */
     const EVENT_AFTER_ASSOCIATE = 'afterAssociate';
 
     /**
-     * @event ManageOrganizationTypeEvent The event that is triggered before an organization type is dissociated to an organization.
+     * @event ManageOrganizationTypeEvent The event that is triggered before an
+     * organization type is dissociated to an organization.
      *
      * You may set [[ManageOrganizationTypeEvent::isValid]] to `false` to prevent the dissociate action.
      */
     const EVENT_BEFORE_DISSOCIATE = 'beforeDissociate';
 
     /**
-     * @event ManageOrganizationTypeEvent The event that is triggered after an organization type is dissociated to an organization.
+     * @event ManageOrganizationTypeEvent The event that is triggered after an
+     * organization type is dissociated to an organization.
      *
      * * You may set [[ManageOrganizationTypeEvent::isValid]] to `false` to prevent the dissociate action.
      */
     const EVENT_AFTER_DISSOCIATE = 'afterDissociate';
 
     /**
-     * @event ManageOrganizationTypeEvent The event that is triggered before an organization type is associated to an organization.
+     * @event ManageOrganizationTypeEvent The event that is triggered before an
+     * organization type is associated to an organization.
      *
      * You may set [[ManageOrganizationTypeEvent::isValid]] to `false` to prevent the associate action.
      */
     const EVENT_BEFORE_ASSOCIATE_PRIMARY = 'beforeAssociatePrimary';
 
     /**
-     * @event ManageOrganizationTypeEvent The event that is triggered after an organization type is associated to an organization.
+     * @event ManageOrganizationTypeEvent The event that is triggered after an
+     * organization type is associated to an organization.
      *
      * * You may set [[ManageOrganizationTypeEvent::isValid]] to `false` to prevent the associate action.
      */
     const EVENT_AFTER_ASSOCIATE_PRIMARY = 'afterAssociatePrimary';
 
     /**
-     * @event ManageOrganizationTypeEvent The event that is triggered before an organization type is dissociated to an organization.
+     * @event ManageOrganizationTypeEvent The event that is triggered before an
+     * organization type is dissociated to an organization.
      *
      * You may set [[ManageOrganizationTypeEvent::isValid]] to `false` to prevent the dissociate action.
      */
     const EVENT_BEFORE_DISSOCIATE_PRIMARY = 'beforeDissociatePrimary';
 
     /**
-     * @event ManageOrganizationTypeEvent The event that is triggered after an organization type is dissociated to an organization.
+     * @event ManageOrganizationTypeEvent The event that is triggered after an
+     * organization type is dissociated to an organization.
      *
      * * You may set [[ManageOrganizationTypeEvent::isValid]] to `false` to prevent the dissociate action.
      */
@@ -150,7 +158,11 @@ class Type extends AbstractType
                 }
 
                 // Todo - do we need this here -- or just on the primary ??
-                Craft::$app->getElements()->updateElementSlugAndUri($organizationElement, false, false);
+                Craft::$app->getElements()->updateElementSlugAndUri(
+                    $organizationElement,
+                    false,
+                    false
+                );
 
                 // Trigger event
                 $this->trigger(

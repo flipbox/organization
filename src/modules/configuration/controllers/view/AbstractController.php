@@ -10,7 +10,7 @@ namespace flipbox\organization\modules\configuration\controllers\view;
 
 use Craft;
 use craft\helpers\UrlHelper;
-use flipbox\organization\controllers\view\AbstractViewController as BaseViewController;
+use flipbox\organization\controllers\view\AbstractController as BaseViewController;
 use flipbox\organization\modules\configuration\Module;
 use flipbox\organization\modules\configuration\web\assets\Configuration as ConfigurationAssetBundle;
 
@@ -18,7 +18,7 @@ use flipbox\organization\modules\configuration\web\assets\Configuration as Confi
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-abstract class AbstractViewController extends BaseViewController
+abstract class AbstractController extends BaseViewController
 {
 
     /** The template base path */
@@ -55,7 +55,7 @@ abstract class AbstractViewController extends BaseViewController
         parent::baseVariables($variables);
 
         // Page title
-        $variables['title'] = Craft::t('organization', "Organization") . ' ' . Craft::t('organization', "Configuration");
+        $variables['title'] .= ' ' . Craft::t('organization', "Configuration");
 
         // Selected tab
         $variables['selectedTab'] = 'configuration';

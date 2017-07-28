@@ -25,7 +25,14 @@ class Settings extends Model
      */
     const STATUS_PENDING = 'pending';
 
+    /**
+     * Association key for user
+     */
     const UNIQUE_ASSOCIATION_USER = 'user';
+
+    /**
+     * Association key for member
+     */
     const UNIQUE_ASSOCIATION_MEMBER = 'member';
 
     /**
@@ -54,7 +61,7 @@ class Settings extends Model
      *
      * @var string
      */
-    private $_uniqueAssociation = self::UNIQUE_ASSOCIATION_USER;
+    private $uniqueAssociation = self::UNIQUE_ASSOCIATION_USER;
 
     /**
      * Enable public registration
@@ -66,7 +73,7 @@ class Settings extends Model
     /**
      * @var SiteSettings[]
      */
-    private $_sites = [];
+    private $sites = [];
 
     /**
      * @inheritdoc
@@ -145,10 +152,10 @@ class Settings extends Model
                 'siteId' => $siteId
             ]);
 
-            $this->_sites[$siteId] = $settings;
+            $this->sites[$siteId] = $settings;
         }
 
-        return $this->_sites[$siteId];
+        return $this->sites[$siteId];
     }
 
     /**
@@ -157,7 +164,7 @@ class Settings extends Model
      */
     public function addSite(SiteSettings $settings)
     {
-        $this->_sites[$settings->siteId] = $settings;
+        $this->sites[$settings->siteId] = $settings;
         return $this;
     }
 
@@ -168,7 +175,7 @@ class Settings extends Model
      */
     public function getUniqueAssociation()
     {
-        return $this->_uniqueAssociation;
+        return $this->uniqueAssociation;
     }
 
     /**
@@ -181,7 +188,7 @@ class Settings extends Model
     public function setUniqueAssociation(string $uniqueAssociation = null)
     {
 
-        $this->_uniqueAssociation = null;
+        $this->uniqueAssociation = null;
 
         if (in_array(
             $uniqueAssociation,
@@ -192,7 +199,7 @@ class Settings extends Model
             true
         )
         ) {
-            $this->_uniqueAssociation = $uniqueAssociation;
+            $this->uniqueAssociation = $uniqueAssociation;
         }
 
         return $this;
@@ -235,7 +242,7 @@ class Settings extends Model
      */
     public function getSites(): array
     {
-        return $this->_sites;
+        return $this->sites;
     }
 
     /**
@@ -248,7 +255,7 @@ class Settings extends Model
     public function setSites(array $siteSettings)
     {
 
-        $this->_sites = [];
+        $this->sites = [];
 
         foreach ($siteSettings as $settings) {
             if (!$settings instanceof SiteSettings) {

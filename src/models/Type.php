@@ -37,7 +37,7 @@ class Type extends ModelWithIdAndHandle
     /**
      * @var TypeSettingsModel[]
      */
-    private $_settings;
+    private $settings;
 
     /**
      * @inheritdoc
@@ -120,10 +120,10 @@ class Type extends ModelWithIdAndHandle
             ]))
                 ->setType($this);
 
-            $this->_settings[$siteId] = $settings;
+            $this->settings[$siteId] = $settings;
         }
 
-        return $this->_settings[$siteId];
+        return $this->settings[$siteId];
     }
 
     /**
@@ -133,7 +133,7 @@ class Type extends ModelWithIdAndHandle
     public function addSite(TypeSettingsModel $settings)
     {
         $settings->setType($this);
-        $this->_settings[$settings->siteId] = $settings;
+        $this->settings[$settings->siteId] = $settings;
         return $this;
     }
 
@@ -148,7 +148,7 @@ class Type extends ModelWithIdAndHandle
 
         $this->ensureSites();
 
-        return $this->_settings;
+        return $this->settings;
     }
 
     /**
@@ -157,7 +157,7 @@ class Type extends ModelWithIdAndHandle
     private function ensureSites()
     {
 
-        if (is_null($this->_settings)) {
+        if (is_null($this->settings)) {
             $this->setSites(
                 OrganizationPlugin::getInstance()->getType()->findAllSettings($this)
             );
@@ -174,7 +174,7 @@ class Type extends ModelWithIdAndHandle
     public function setSites(array $siteSettings)
     {
 
-        $this->_settings = [];
+        $this->settings = [];
 
         foreach ($siteSettings as $settings) {
             if (!$settings instanceof TypeSettingsModel) {

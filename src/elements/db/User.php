@@ -22,7 +22,7 @@ class User extends UserQuery
     /**
      * @var array
      */
-    private $_organization;
+    private $organization;
 
     /**
      * @inheritdoc
@@ -30,10 +30,10 @@ class User extends UserQuery
     public function afterPrepare(): bool
     {
 
-        if (null !== $this->_organization) {
+        if (null !== $this->organization) {
             QueryHelper::applyOrganizationParam(
                 $this,
-                $this->_organization
+                $this->organization
             );
         }
 
@@ -48,7 +48,7 @@ class User extends UserQuery
     {
 
         // Default
-        $this->_organization = [];
+        $this->organization = [];
 
         if (null === $organization) {
             return $this;
@@ -56,12 +56,12 @@ class User extends UserQuery
 
         // String = members
         if (is_string($organization) || is_numeric($organization)) {
-            $this->_organization['member'] = $organization;
+            $this->organization['member'] = $organization;
             return $this;
         }
 
-        $this->_organization = ArrayHelper::merge(
-            $this->_organization,
+        $this->organization = ArrayHelper::merge(
+            $this->organization,
             ArrayHelper::toArray($organization)
         );
 

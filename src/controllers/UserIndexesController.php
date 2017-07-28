@@ -38,37 +38,37 @@ class UserIndexesController extends BaseElementsController
     /**
      * @var string|null
      */
-    private $_elementType;
+    private $elementType;
 
     /**
      * @var string|null
      */
-    private $_context;
+    private $context;
 
     /**
      * @var string|null
      */
-    private $_sourceKey;
+    private $sourceKey;
 
     /**
      * @var array|null
      */
-    private $_source;
+    private $source;
 
     /**
      * @var array|null
      */
-    private $_viewState;
+    private $viewState;
 
     /**
      * @var ElementQueryInterface|null
      */
-    private $_elementQuery;
+    private $elementQuery;
 
     /**
      * @var ElementActionInterface[]|null
      */
-    private $_actions;
+    private $actions;
 
     public function init()
     {
@@ -88,7 +88,7 @@ class UserIndexesController extends BaseElementsController
                 }
             },
             [
-                'organization' => $this->_getOrganizationIdFromRequest()
+                'organization' => $this->getOrganizationIdFromRequest()
             ]
         );
 
@@ -112,22 +112,22 @@ class UserIndexesController extends BaseElementsController
 
         parent::init();
 
-        $this->_elementType = $this->elementType();
-        $this->_context = $this->context();
-        $this->_sourceKey = Craft::$app->getRequest()->getParam('source');
-        $this->_source = $this->_source();
-        $this->_viewState = $this->_viewState();
-        $this->_elementQuery = $this->_elementQuery();
+        $this->elementType = $this->elementType();
+        $this->context = $this->context();
+        $this->sourceKey = Craft::$app->getRequest()->getParam('source');
+        $this->source = $this->_source();
+        $this->viewState = $this->_viewState();
+        $this->elementQuery = $this->_elementQuery();
 
-        if ($this->_context === 'index' && $this->_sourceKey !== null) {
-            $this->_actions = $this->_availableActions();
+        if ($this->context === 'index' && $this->sourceKey !== null) {
+            $this->actions = $this->_availableActions();
         }
     }
 
     /**
      * @return mixed
      */
-    private function _getOrganizationIdFromRequest()
+    private function getOrganizationIdFromRequest()
     {
         return Craft::$app->getRequest()->getParam('organization');
     }
@@ -151,7 +151,7 @@ class UserIndexesController extends BaseElementsController
      */
     public function getElementQuery(): ElementQueryInterface
     {
-        return $this->_elementQuery;
+        return $this->elementQuery;
     }
 
     /**
@@ -161,7 +161,7 @@ class UserIndexesController extends BaseElementsController
      */
     public function actionGetElements(): Response
     {
-        $includeActions = ($this->_context === 'index');
+        $includeActions = ($this->context === 'index');
         $responseData = $this->_elementResponseData(true, $includeActions);
 
         return $this->asJson($responseData);
@@ -183,7 +183,8 @@ class UserIndexesController extends BaseElementsController
      * Performs an action on one or more selected elements.
      *
      * @return Response
-     * @throws BadRequestHttpException if the requested element action is not supported by the element type, or its parameters didn’t validate
+     * @throws BadRequestHttpException if the requested element action is not supported by the element type,
+     * or its parameters didn’t validate
      */
     public function actionPerformAction(): Response
     {
@@ -196,9 +197,9 @@ class UserIndexesController extends BaseElementsController
         $elementIds = $requestService->getRequiredBodyParam('elementIds');
 
         // Find that action from the list of available actions for the source
-        if (!empty($this->_actions)) {
+        if (!empty($this->actions)) {
             /** @var ElementAction $availableAction */
-            foreach ($this->_actions as $availableAction) {
+            foreach ($this->actions as $availableAction) {
                 if ($actionClass === get_class($availableAction)) {
                     $action = $availableAction;
                     break;
@@ -227,7 +228,7 @@ class UserIndexesController extends BaseElementsController
 
         // Perform the action
         /** @var ElementQuery $actionCriteria */
-        $actionCriteria = clone $this->_elementQuery;
+        $actionCriteria = clone $this->elementQuery;
         $actionCriteria->offset = 0;
         $actionCriteria->limit = null;
         $actionCriteria->orderBy = null;
@@ -280,7 +281,7 @@ class UserIndexesController extends BaseElementsController
     {
         $this->requireAcceptsJson();
 
-        $sources = Craft::$app->getElementIndexes()->getSources($this->_elementType, $this->_context);
+        $sources = Craft::$app->getElementIndexes()->getSources($this->elementType, $this->context);
 
         return $this->asJson([
             'html' => $this->getView()->renderTemplate('_elements/sources', [
@@ -300,11 +301,11 @@ class UserIndexesController extends BaseElementsController
      */
     private function _source()
     {
-        if ($this->_sourceKey === null) {
+        if ($this->sourceKey === null) {
             return null;
         }
 
-        $source = ElementHelper::findSource($this->_elementType, $this->_sourceKey, $this->_context);
+        $source = ElementHelper::findSource($this->elementType, $this->sourceKey, $this->context);
 
         if ($source === null) {
             // That wasn't a valid source, or the user doesn't have access to it in this context
@@ -343,8 +344,8 @@ class UserIndexesController extends BaseElementsController
         $request = Craft::$app->getRequest();
 
         // Does the source specify any criteria attributes?
-        if (isset($this->_source['criteria'])) {
-            Craft::configure($query, $this->_source['criteria']);
+        if (isset($this->source['criteria'])) {
+            Craft::configure($query, $this->source['criteria']);
         }
 
         // Override with the request's params
@@ -422,16 +423,16 @@ class UserIndexesController extends BaseElementsController
         }
 
         $disabledElementIds = Craft::$app->getRequest()->getParam('disabledElementIds', []);
-        $showCheckboxes = !empty($this->_actions);
+        $showCheckboxes = !empty($this->actions);
         /** @var string|ElementInterface $elementType */
-        $elementType = $this->_elementType;
+        $elementType = $this->elementType;
 
         $responseData['html'] = $elementType::indexHtml(
-            $this->_elementQuery,
+            $this->elementQuery,
             $disabledElementIds,
-            $this->_viewState,
-            $this->_sourceKey,
-            $this->_context,
+            $this->viewState,
+            $this->sourceKey,
+            $this->context,
             $includeContainer,
             $showCheckboxes
         );
@@ -454,8 +455,8 @@ class UserIndexesController extends BaseElementsController
         }
 
         /** @var string|ElementInterface $elementType */
-        $elementType = $this->_elementType;
-        $actions = $elementType::actions($this->_sourceKey);
+        $elementType = $this->elementType;
+        $actions = $elementType::actions($this->sourceKey);
 
         foreach ($actions as $i => $action) {
             // $action could be a string or config array
@@ -478,14 +479,14 @@ class UserIndexesController extends BaseElementsController
      */
     private function _actionData()
     {
-        if (empty($this->_actions)) {
+        if (empty($this->actions)) {
             return null;
         }
 
         $actionData = [];
 
         /** @var ElementAction $action */
-        foreach ($this->_actions as $action) {
+        foreach ($this->actions as $action) {
             $actionData[] = [
                 'type' => get_class($action),
                 'destructive' => $action->isDestructive(),

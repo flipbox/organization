@@ -56,12 +56,12 @@ class TypeSettings extends ModelWithId
     /**
      * @var int|null
      */
-    private $_typeId;
+    private $typeId;
 
     /**
      * @var Type|null
      */
-    private $_type;
+    private $type;
 
 
     // Public Methods
@@ -100,10 +100,10 @@ class TypeSettings extends ModelWithId
      */
     public function setTypeId(int $id)
     {
-        $this->_typeId = $id;
+        $this->typeId = $id;
 
-        if ($this->_type && $this->_type->getId() != $id) {
-            $this->_type = null;
+        if ($this->type && $this->type->getId() != $id) {
+            $this->type = null;
         }
 
         return $this;
@@ -114,11 +114,11 @@ class TypeSettings extends ModelWithId
      */
     public function getTypeId()
     {
-        if (null === $this->_typeId && $this->_type) {
-            $this->_typeId = $this->_type->getId();
+        if (null === $this->typeId && $this->type) {
+            $this->typeId = $this->type->getId();
         }
 
-        return $this->_typeId;
+        return $this->typeId;
     }
 
     /**
@@ -130,15 +130,15 @@ class TypeSettings extends ModelWithId
     public function getType(): Type
     {
 
-        if ($this->_type === null) {
-            if (!$this->_typeId) {
+        if ($this->type === null) {
+            if (!$this->typeId) {
                 throw new InvalidConfigException('Type Id is missing');
             }
 
-            $this->_type = OrganizationPlugin::getInstance()->getType()->getById($this->_typeId);
+            $this->type = OrganizationPlugin::getInstance()->getType()->getById($this->typeId);
         }
 
-        return $this->_type;
+        return $this->type;
     }
 
     /**
@@ -147,10 +147,10 @@ class TypeSettings extends ModelWithId
      */
     public function setType(Type $type)
     {
-        $this->_type = $type;
+        $this->type = $type;
 
-        if ($this->_typeId != $type->id) {
-            $this->_typeId = $type->id;
+        if ($this->typeId != $type->id) {
+            $this->typeId = $type->id;
         }
         return $this;
     }

@@ -86,12 +86,14 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
     // =========================================================================
 
     /**
-     * @var string|string[]|null The source keys that this field can relate elements from (used if [[allowMultipleSources]] is set to true)
+     * @var string|string[]|null The source keys that this field can
+     * relate elements from (used if [[allowMultipleSources]] is set to true)
      */
     public $sources = '*';
 
     /**
-     * @var string|null The source key that this field can relate elements from (used if [[allowMultipleSources]] is set to false)
+     * @var string|null The source key that this field can
+     * relate elements from (used if [[allowMultipleSources]] is set to false)
      */
     public $source;
 
@@ -217,8 +219,16 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
                 ArrayValidator::class,
                 'min' => $this->required ? 1 : null,
                 'max' => $this->allowLimit && $this->limit ? $this->limit : null,
-                'tooFew' => Craft::t('app', '{attribute} should contain at least {min, number} {min, plural, one{selection} other{selections}}.'),
-                'tooMany' => Craft::t('app', '{attribute} should contain at most {max, number} {max, plural, one{selection} other{selections}}.'),
+                'tooFew' => Craft::t(
+                    'app',
+                    '{attribute} should contain at least {min, number} '.
+                    '{min, plural, one{selection} other{selections}}.'
+                ),
+                'tooMany' => Craft::t(
+                    'app',
+                    '{attribute} should contain at most {max, number} '.
+                    '{max, plural, one{selection} other{selections}}.'
+                ),
             ],
             [
                 UserValidator::class
@@ -567,7 +577,13 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
                 [
                     [
                         'label' => Craft::t('app', 'Target Site'),
-                        'instructions' => Craft::t('app', 'Which site do you want to select {type} in?', ['type' => StringHelper::toLowerCase(static::displayName())]),
+                        'instructions' => Craft::t(
+                            'app',
+                            'Which site do you want to select {type} in?',
+                                [
+                                    'type' => StringHelper::toLowerCase(static::displayName())
+                                ]
+                        ),
                         'id' => 'targetSiteId',
                         'name' => 'targetSiteId',
                         'options' => $siteOptions,
@@ -652,7 +668,9 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
             'sourceElementId' => !empty($element->id) ? $element->id : null,
             'limit' => $this->allowLimit ? $this->limit : null,
             'viewMode' => $this->viewMode(),
-            'selectionLabel' => $this->selectionLabel ? Craft::t('site', $this->selectionLabel) : static::defaultSelectionLabel(),
+            'selectionLabel' => $this->selectionLabel ?
+                Craft::t('site', $this->selectionLabel) :
+                static::defaultSelectionLabel()
         ];
     }
 

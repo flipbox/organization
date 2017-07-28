@@ -24,11 +24,11 @@ use yii\web\Response;
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class OrganizationController extends AbstractViewController
+class OrganizationController extends AbstractController
 {
 
     /** The template base path */
-    const TEMPLATE_BASE = AbstractViewController::TEMPLATE_BASE . DIRECTORY_SEPARATOR . 'organization';
+    const TEMPLATE_BASE = AbstractController::TEMPLATE_BASE . DIRECTORY_SEPARATOR . 'organization';
 
     /**
      * @event RegisterOrganizationActionsEvent
@@ -344,7 +344,12 @@ class OrganizationController extends AbstractViewController
         }
 
         // Disable everyone already associated
-        $disabledIds = OrganizationPlugin::getInstance()->getOrganization()->getMemberQuery($organization, ['status' => null])->ids();
+        $disabledIds = OrganizationPlugin::getInstance()->getOrganization()->getMemberQuery(
+            $organization,
+            [
+                'status' => null
+            ]
+        )->ids();
 
         return [
             'elementType' => UserElement::class,
@@ -406,7 +411,12 @@ class OrganizationController extends AbstractViewController
         }
 
         // Disable everyone already associated
-        $disabledIds = OrganizationPlugin::getInstance()->getOrganization()->getUserQuery($organization, ['status' => null])->ids();
+        $disabledIds = OrganizationPlugin::getInstance()->getOrganization()->getUserQuery(
+            $organization,
+            [
+                'status' => null
+            ]
+        )->ids();
 
         return [
             'label' => Craft::t('organization', "Owner"),

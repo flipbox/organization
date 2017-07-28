@@ -30,17 +30,17 @@ class LocalizeRelations extends Task
     /**
      * @var
      */
-    private $_relations;
+    private $relations;
 
     /**
      * @var
      */
-    private $_allSiteIds;
+    private $allSiteIds;
 
     /**
      * @var
      */
-    private $_workingSiteId;
+    private $workingSiteId;
 
     // Public Methods
     // =========================================================================
@@ -50,7 +50,7 @@ class LocalizeRelations extends Task
      */
     public function getTotalSteps(): int
     {
-        $this->_relations = (new Query())
+        $this->relations = (new Query())
             ->select(['id', 'userId', 'siteId', 'organizationId', 'sortOrder'])
             ->from([User::tableName()])
             ->where([
@@ -59,9 +59,9 @@ class LocalizeRelations extends Task
             ])
             ->all();
 
-        $this->_allSiteIds = Craft::$app->getSites()->getAllSiteIds();
+        $this->allSiteIds = Craft::$app->getSites()->getAllSiteIds();
 
-        return count($this->_relations);
+        return count($this->relations);
     }
 
     /**
@@ -71,29 +71,29 @@ class LocalizeRelations extends Task
     {
         $db = Craft::$app->getDb();
         try {
-            $this->_workingSiteId = $this->_allSiteIds[0];
+            $this->workingSiteId = $this->allSiteIds[0];
 
             // Update the existing one.
             $db->createCommand()
                 ->update(
                     User::tableName(),
-                    ['siteId' => $this->_workingSiteId],
-                    ['id' => $this->_relations[$step]['id']]
+                    ['siteId' => $this->workingSiteId],
+                    ['id' => $this->relations[$step]['id']]
                 )
                 ->execute();
 
-            $totalSiteIds = count($this->_allSiteIds);
+            $totalSiteIds = count($this->allSiteIds);
             for ($counter = 1; $counter < $totalSiteIds; $counter++) {
-                $this->_workingSiteId = $this->_allSiteIds[$counter];
+                $this->workingSiteId = $this->allSiteIds[$counter];
 
                 $db->createCommand()
                     ->insert(
                         User::tableName(),
                         [
                             'userId' => $this->userId,
-                            'siteId' => $this->_workingSiteId,
-                            'organizationId' => $this->_relations[$step]['organizationId'],
-                            'sortOrder' => $this->_relations[$step]['sortOrder'],
+                            'siteId' => $this->workingSiteId,
+                            'organizationId' => $this->relations[$step]['organizationId'],
+                            'sortOrder' => $this->relations[$step]['sortOrder'],
                         ]
                     )
                     ->execute();
@@ -103,7 +103,12 @@ class LocalizeRelations extends Task
         } catch (\Exception $e) {
             Craft::$app->getErrorHandler()->logException($e);
 
-            return 'An exception was thrown while trying to save organization relations for the user with Id ' . $this->_relations[$step]['id'] . ' into the site  “' . $this->_workingSiteId . '”: ' . $e->getMessage();
+            return 'An exception was thrown while trying to save organization relations for the user with Id ' .
+                $this->relations[$step]['id'] .
+                ' into the site  “' .
+                $this->workingSiteId .
+                '”: ' .
+                $e->getMessage();
         }
     }
 

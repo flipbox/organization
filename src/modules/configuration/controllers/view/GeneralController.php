@@ -12,13 +12,13 @@ namespace flipbox\organization\modules\configuration\controllers\view;
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class GeneralController extends AbstractViewController
+class GeneralController extends AbstractController
 {
 
     /**
      * The index view template path
      */
-    const TEMPLATE_INDEX = AbstractViewController::TEMPLATE_BASE . DIRECTORY_SEPARATOR . 'general';
+    const TEMPLATE_INDEX = AbstractController::TEMPLATE_BASE . DIRECTORY_SEPARATOR . 'general';
 
     /**
      * Index

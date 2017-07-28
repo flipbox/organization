@@ -45,7 +45,7 @@ abstract class AbstractType extends ModelByIdOrHandle
     /**
      * @var [TypeSettingsModel[]]
      */
-    protected $_cacheSettingsById = [];
+    protected $cacheSettingsById = [];
 
 
     /*******************************************
@@ -58,8 +58,11 @@ abstract class AbstractType extends ModelByIdOrHandle
      * @param string $scenario
      * @return TypeModel|null
      */
-    public function findPrimaryByOrganization(OrganizationElement $organization, $criteria = [], $scenario = ModelHelper::DEFAULT_SCENARIO)
-    {
+    public function findPrimaryByOrganization(
+        OrganizationElement $organization,
+        $criteria = [],
+        $scenario = ModelHelper::DEFAULT_SCENARIO
+    ) {
 
         $query = $this->getByOrganizationQuery($organization, $criteria)
             ->andWhere([
@@ -88,8 +91,11 @@ abstract class AbstractType extends ModelByIdOrHandle
      * @param string $scenario
      * @return TypeModel[]
      */
-    public function findAllByOrganization(OrganizationElement $organization, $criteria = [], $scenario = ModelHelper::DEFAULT_SCENARIO)
-    {
+    public function findAllByOrganization(
+        OrganizationElement $organization,
+        $criteria = [],
+        $scenario = ModelHelper::DEFAULT_SCENARIO
+    ) {
 
         /** @var ActiveQuery $query */
         $query = $this->getByOrganizationQuery($organization, $criteria);
@@ -123,8 +129,11 @@ abstract class AbstractType extends ModelByIdOrHandle
      * @param string $scenario
      * @return TypeModel
      */
-    public function findByOrganization(OrganizationElement $organization, $criteria = [], $scenario = ModelHelper::DEFAULT_SCENARIO)
-    {
+    public function findByOrganization(
+        OrganizationElement $organization,
+        $criteria = [],
+        $scenario = ModelHelper::DEFAULT_SCENARIO
+    ) {
 
         /** @var ActiveQuery $query */
         $query = $this->getByOrganizationQuery($organization, $criteria);
@@ -185,8 +194,8 @@ abstract class AbstractType extends ModelByIdOrHandle
             return [];
         }
 
-        if (!array_key_exists($type->id, $this->_cacheSettingsById)) {
-            $this->_cacheSettingsById[$type->id] = [];
+        if (!array_key_exists($type->id, $this->cacheSettingsById)) {
+            $this->cacheSettingsById[$type->id] = [];
 
             /** @var TypeSettingsRecord[] $settings */
             $settings = TypeSettingsRecord::find()
@@ -194,7 +203,7 @@ abstract class AbstractType extends ModelByIdOrHandle
                 ->all();
 
             foreach ($settings as $setting) {
-                $this->_cacheSettingsById[$type->id][$setting->id] = new TypeSettingsModel($setting->toArray([
+                $this->cacheSettingsById[$type->id][$setting->id] = new TypeSettingsModel($setting->toArray([
                     'id',
                     'typeId',
                     'siteId',
@@ -208,6 +217,6 @@ abstract class AbstractType extends ModelByIdOrHandle
             }
         }
 
-        return $this->_cacheSettingsById[$type->id];
+        return $this->cacheSettingsById[$type->id];
     }
 }

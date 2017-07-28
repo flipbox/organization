@@ -28,7 +28,7 @@ class Query extends QueryHelper
     /**
      * @var array
      */
-    private static $_operators = ['not ', '!=', '<=', '>=', '<', '>', '='];
+    private static $operators = ['not ', '!=', '<=', '>=', '<', '>', '='];
 
     /**
      * @param ElementQueryInterface $query
@@ -38,15 +38,15 @@ class Query extends QueryHelper
     {
 
         if (array_key_exists('owner', $params)) {
-            self::_applyOrganizationOwnerParam($query, $params['owner']);
+            self::applyOrganizationOwnerParam($query, $params['owner']);
         }
 
         if (array_key_exists('user', $params)) {
-            self::_applyOrganizationUserParam($query, $params['user']);
+            self::applyOrganizationUserParam($query, $params['user']);
         }
 
         if (array_key_exists('member', $params)) {
-            self::_applyOrganizationMemberParam($query, $params['member']);
+            self::applyOrganizationMemberParam($query, $params['member']);
         }
 
         return;
@@ -109,10 +109,10 @@ class Query extends QueryHelper
         }
 
         // Get join type ('and' , 'or')
-        $join = static::_getJoinType($value, $join);
+        $join = static::getJoinType($value, $join);
 
         // Check for object array (via 'id' key)
-        if ($id = static::_findIdFromObjectArray($value)) {
+        if ($id = static::findIdFromObjectArray($value)) {
             $value = [$id];
         }
 
@@ -132,17 +132,18 @@ class Query extends QueryHelper
         // Handle arrays as values
         if (is_array($value) || is_object($value)) {
             // Look for an 'id' key in an array
-            if ($id = static::_findIdFromObjectArray($value, $operator)) {
+            if ($id = static::findIdFromObjectArray($value, $operator)) {
                 // Prepend the operator
-                return static::_prependOperator($id, $operator);
+                return static::prependOperator($id, $operator);
             }
         }
 
-        return static::_prependOperator($value, $operator);
+        return static::prependOperator($value, $operator);
     }
 
     /**
-     * Attempt to resolve a param value by the value.  Return false if a 'handle' or other string identifier is detected.
+     * Attempt to resolve a param value by the value.
+     * Return false if a 'handle' or other string identifier is detected.
      *
      * @param $value
      * @param $operator
@@ -154,9 +155,9 @@ class Query extends QueryHelper
         if (is_array($value) || is_object($value)) {
             $value = static::assembleParamValue($value, $operator);
         } else {
-            static::_normalizeEmptyValue($value);
+            static::normalizeEmptyValue($value);
 
-            $operator = static::_parseParamOperator($value);
+            $operator = static::parseParamOperator($value);
 
             if (is_numeric($value)) {
                 $value = static::assembleParamValue($value, $operator);
@@ -176,7 +177,8 @@ class Query extends QueryHelper
     }
 
     /**
-     * Attempt to resolve a param value by the value.  Return false if a 'handle' or other string identifier is detected.
+     * Attempt to resolve a param value by the value.
+     * Return false if a 'handle' or other string identifier is detected.
      *
      * @param $value
      * @param $operator
@@ -188,8 +190,8 @@ class Query extends QueryHelper
         if (is_array($value)) {
             return true;
         } else {
-            static::_normalizeEmptyValue($value);
-            $operator = static::_parseParamOperator($value);
+            static::normalizeEmptyValue($value);
+            $operator = static::parseParamOperator($value);
 
             if (is_numeric($value)) {
                 return true;
@@ -213,7 +215,7 @@ class Query extends QueryHelper
      * @param string $default
      * @return mixed|string
      */
-    private static function _getJoinType(&$value, $default = 'or')
+    private static function getJoinType(&$value, $default = 'or')
     {
 
         // Get first value in array
@@ -237,11 +239,11 @@ class Query extends QueryHelper
      * @param null $operator
      * @return mixed|string
      */
-    private static function _findIdFromObjectArray($value, $operator = null)
+    private static function findIdFromObjectArray($value, $operator = null)
     {
 
         if ($id = ArrayHelper::getValue($value, 'id', '')) {
-            return static::_prependOperator($id, $operator);
+            return static::prependOperator($id, $operator);
         }
 
         return $id;
@@ -254,13 +256,13 @@ class Query extends QueryHelper
      * @param null $operator
      * @return string
      */
-    private static function _prependOperator($value, $operator = null)
+    private static function prependOperator($value, $operator = null)
     {
 
         if ($operator) {
             $operator = StringHelper::toLowerCase($operator);
 
-            if (in_array($operator, static::$_operators) || $operator === 'not') {
+            if (in_array($operator, static::$operators) || $operator === 'not') {
                 if (is_array($value)) {
                     $values = [];
 
@@ -283,7 +285,7 @@ class Query extends QueryHelper
      *
      * @param string &$value The param value.
      */
-    private static function _normalizeEmptyValue(&$value)
+    private static function normalizeEmptyValue(&$value)
     {
         if ($value === null) {
             $value = ':empty:';
@@ -301,9 +303,9 @@ class Query extends QueryHelper
      *
      * @return string The operator.
      */
-    private static function _parseParamOperator(&$value)
+    private static function parseParamOperator(&$value)
     {
-        foreach (static::$_operators as $testOperator) {
+        foreach (static::$operators as $testOperator) {
             // Does the value start with this operator?
             $operatorLength = strlen($testOperator);
 
@@ -333,7 +335,7 @@ class Query extends QueryHelper
      *
      * @return void
      */
-    private static function _applyOrganizationOwnerParam(ElementQueryInterface $query, $owner)
+    private static function applyOrganizationOwnerParam(ElementQueryInterface $query, $owner)
     {
 
         /** @var ElementQuery $query */
@@ -357,7 +359,7 @@ class Query extends QueryHelper
      *
      * @return void
      */
-    private static function _applyOrganizationUserParam(ElementQueryInterface $query, $user)
+    private static function applyOrganizationUserParam(ElementQueryInterface $query, $user)
     {
 
         /** @var ElementQuery $query */
@@ -381,7 +383,7 @@ class Query extends QueryHelper
      *
      * @return void
      */
-    private static function _applyOrganizationMemberParam(ElementQueryInterface $query, $member)
+    private static function applyOrganizationMemberParam(ElementQueryInterface $query, $member)
     {
 
         /** @var ElementQuery $query */

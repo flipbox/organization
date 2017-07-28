@@ -69,21 +69,23 @@ class Organization extends ElementService
     /**
      * @event ChangeStatusEvent The event that is triggered after a organization has a custom status change.
      *
-     * * You may set [[ChangeStatusEvent::isValid]] to `false` to prevent the organization changing the status.
+     * You may set [[ChangeStatusEvent::isValid]] to `false` to prevent the organization changing the status.
      */
     const EVENT_AFTER_STATUS_CHANGE = 'afterStatusChange';
 
     /**
      * @event ChangeOwnerEvent The event that is triggered before an organization ownership is transferred.
      *
-     * You may set [[ChangeOwnerEvent::isValid]] to `false` to prevent the organization ownership from getting transferred.
+     * You may set [[ChangeOwnerEvent::isValid]] to `false` to prevent the organization ownership
+     * from getting transferred.
      */
     const EVENT_BEFORE_TRANSFER_OWNERSHIP = 'beforeOwnerChange';
 
     /**
      * @event ChangeOwnerEvent The event that is triggered after an organization ownership is transferred.
      *
-     * * You may set [[ChangeOwnerEvent::isValid]] to `false` to prevent the organization ownership from getting transferred.
+     * You may set [[ChangeOwnerEvent::isValid]] to `false` to prevent the organization ownership
+     * from getting transferred.
      */
     const EVENT_AFTER_TRANSFER_OWNERSHIP = 'afterOwnerChange';
 
@@ -320,7 +322,10 @@ class Organization extends ElementService
      */
     public function getMemberQuery(OrganizationElement $organization, $criteria = [], bool $match = true)
     {
-        return OrganizationPlugin::getInstance()->getUser()->getMemberQuery(($match ? '' : 'not ') . $organization->id ?: 'x', $criteria);
+        return OrganizationPlugin::getInstance()->getUser()->getMemberQuery(
+            ($match ? '' : 'not ') .
+            $organization->id ?: 'x', $criteria
+        );
     }
 
     /**
@@ -331,7 +336,10 @@ class Organization extends ElementService
      */
     public function getUserQuery(OrganizationElement $organization, $criteria = [], bool $match = true)
     {
-        return OrganizationPlugin::getInstance()->getUser()->getUserQuery(($match ? '' : 'not ') . $organization->id ?: 'x', $criteria);
+        return OrganizationPlugin::getInstance()->getUser()->getUserQuery(
+            ($match ? '' : 'not ') .
+            $organization->id ?: 'x', $criteria
+        );
     }
 
     /**
@@ -342,7 +350,10 @@ class Organization extends ElementService
      */
     public function getOwnerQuery(OrganizationElement $organization, $criteria = [], bool $match = true)
     {
-        return OrganizationPlugin::getInstance()->getUser()->getOwnerQuery(($match ? '' : 'not ') . $organization->id ?: 'x', $criteria);
+        return OrganizationPlugin::getInstance()->getUser()->getOwnerQuery(
+            ($match ? '' : 'not ') .
+            $organization->id ?: 'x', $criteria
+        );
     }
 
 
@@ -433,8 +444,14 @@ class Organization extends ElementService
 
         // Set the entry attributes, defaulting to the existing values for whatever is missing from the post data
         $organization->slug = $request->getBodyParam('slug', $organization->slug);
-        $organization->dateJoined = (($dateJoined = $request->getBodyParam('dateJoined')) !== false ? (DateTimeHelper::toDateTime($dateJoined) ?: null) : $organization->dateJoined);
-        $organization->enabledForSite = (bool)$request->getBodyParam('enabledForSite', $organization->enabledForSite);
+        $organization->dateJoined = (($dateJoined = $request->getBodyParam('dateJoined')) !== false ?
+            (DateTimeHelper::toDateTime($dateJoined) ?: null) :
+            $organization->dateJoined
+        );
+        $organization->enabledForSite = (bool)$request->getBodyParam(
+            'enabledForSite',
+            $organization->enabledForSite
+        );
         $organization->title = $request->getBodyParam('title', $organization->title);
 
         // Status
@@ -450,7 +467,10 @@ class Organization extends ElementService
         $organization->setActiveType($type);
 
         // Owner
-        $ownerId = $request->getBodyParam('owner', ($organization->ownerId ?: Craft::$app->getUser()->getIdentity()->id));
+        $ownerId = $request->getBodyParam(
+            'owner',
+            ($organization->ownerId ?: Craft::$app->getUser()->getIdentity()->id)
+        );
         if (is_array($ownerId)) {
             $ownerId = $ownerId[0] ?? null;
         }

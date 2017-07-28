@@ -59,32 +59,32 @@ class Organization extends Element
     /**
      * @var User
      */
-    private $_owner;
+    private $owner;
 
     /**
      * @var TypeModel[]
      */
-    private $_types;
+    private $types;
 
     /**
      * @var TypeModel
      */
-    private $_activeType;
+    private $activeType;
 
     /**
      * @var TypeModel
      */
-    private $_primaryType;
+    private $primaryType;
 
     /**
      * @var UserQuery
      */
-    private $_users;
+    private $users;
 
     /**
      * @var UserQuery
      */
-    private $_members;
+    private $members;
 
     /**
      * @inheritdoc
@@ -313,7 +313,7 @@ class Organization extends Element
             $this->addType($type);
         }
 
-        $this->_activeType = (null === $type) ? false : $type;
+        $this->activeType = (null === $type) ? false : $type;
         return $this;
     }
 
@@ -323,17 +323,17 @@ class Organization extends Element
     public function getActiveType()
     {
 
-        if (null === $this->_activeType) {
+        if (null === $this->activeType) {
             // Default to the primary type
             if (!$activeType = $this->getPrimaryType()) {
                 // Set false vs null to indicate population has taken place
                 $activeType = false;
             }
 
-            $this->_activeType = $activeType;
+            $this->activeType = $activeType;
         }
 
-        return (false === $this->_activeType) ? null : $this->_activeType;
+        return (false === $this->activeType) ? null : $this->activeType;
     }
 
 
@@ -347,14 +347,14 @@ class Organization extends Element
     protected function ensurePrimaryType()
     {
 
-        if (null === $this->_primaryType) {
+        if (null === $this->primaryType) {
             if (!$primaryType = OrganizationPlugin::getInstance()->getType()->findPrimaryByOrganization($this)) {
                 // Set false vs null to indicate population has taken place
                 $primaryType = false;
             }
 
             // Set cache
-            $this->_primaryType = $primaryType;
+            $this->primaryType = $primaryType;
         }
     }
 
@@ -368,7 +368,7 @@ class Organization extends Element
 
         $this->ensurePrimaryType();
 
-        return $this->_primaryType instanceof TypeModel;
+        return $this->primaryType instanceof TypeModel;
     }
 
     /**
@@ -394,11 +394,11 @@ class Organization extends Element
     public function setPrimaryType(TypeModel $type)
     {
 
-        $this->_primaryType = $type;
+        $this->primaryType = $type;
 
         // Remove active type cache
-        if (false === $this->_activeType) {
-            $this->_activeType = null;
+        if (false === $this->activeType) {
+            $this->activeType = null;
         }
 
         return $this;
@@ -416,7 +416,7 @@ class Organization extends Element
             return null;
         }
 
-        return $this->_primaryType;
+        return $this->primaryType;
     }
 
     /************************************************************
@@ -435,8 +435,8 @@ class Organization extends Element
         $this->ensureTypes();
 
         // Already set?
-        if (!array_key_exists($type->id, $this->_types)) {
-            $this->_types[$type->id] = $type;
+        if (!array_key_exists($type->id, $this->types)) {
+            $this->types[$type->id] = $type;
         }
 
         return $this;
@@ -451,7 +451,7 @@ class Organization extends Element
     public function setTypes($types = null)
     {
 
-        $this->_types = [];
+        $this->types = [];
 
         // In case a type config is directly passed
         if (!is_array($types) || ArrayHelper::isAssociative($types)) {
@@ -477,7 +477,7 @@ class Organization extends Element
 
         $this->ensureTypes();
 
-        return $this->_types;
+        return $this->types;
     }
 
     /**
@@ -488,8 +488,8 @@ class Organization extends Element
     private function ensureTypes()
     {
 
-        if (null === $this->_types) {
-            $this->_types = ArrayHelper::index(
+        if (null === $this->types) {
+            $this->types = ArrayHelper::index(
                 OrganizationPlugin::getInstance()->getType()->findAllByOrganization($this),
                 'id'
             );
@@ -565,18 +565,18 @@ class Organization extends Element
     public function getMembers($criteria = [])
     {
 
-        if (null === $this->_members) {
-            $this->_members = OrganizationPlugin::getInstance()->getOrganization()->getMemberQuery($this);
+        if (null === $this->members) {
+            $this->members = OrganizationPlugin::getInstance()->getOrganization()->getMemberQuery($this);
         }
 
         if (!empty($criteria)) {
             QueryHelper::configure(
-                $this->_members,
+                $this->members,
                 $criteria
             );
         }
 
-        return $this->_members;
+        return $this->members;
     }
 
     /**
@@ -589,10 +589,10 @@ class Organization extends Element
     {
 
         // Reset the query
-        $this->_members = OrganizationPlugin::getInstance()->getOrganization()->getMemberQuery($this);
+        $this->members = OrganizationPlugin::getInstance()->getOrganization()->getMemberQuery($this);
 
         // Remove all users
-        $this->_members->setCachedResult([]);
+        $this->members->setCachedResult([]);
 
         $this->addMembers($members);
 
@@ -670,18 +670,18 @@ class Organization extends Element
     public function getUsers($criteria = [])
     {
 
-        if (null === $this->_users) {
-            $this->_users = OrganizationPlugin::getInstance()->getOrganization()->getUserQuery($this);
+        if (null === $this->users) {
+            $this->users = OrganizationPlugin::getInstance()->getOrganization()->getUserQuery($this);
         }
 
         if (!empty($criteria)) {
             QueryHelper::configure(
-                $this->_users,
+                $this->users,
                 $criteria
             );
         }
 
-        return $this->_users;
+        return $this->users;
     }
 
     /**
@@ -710,10 +710,10 @@ class Organization extends Element
     {
 
         // Reset the query
-        $this->_users = OrganizationPlugin::getInstance()->getOrganization()->getUserQuery($this);
+        $this->users = OrganizationPlugin::getInstance()->getOrganization()->getUserQuery($this);
 
         // Remove all users
-        $this->_users->setCachedResult([]);
+        $this->users->setCachedResult([]);
 
         $this->addUsers($users);
 
@@ -1181,7 +1181,8 @@ class Organization extends Element
 
             case 'owner':
                 if ($this->hasOwner()) {
-                    return '<span class="status ' . $this->getOwner()->getStatus() . '"></span>' . $this->getOwner()->getFullName();
+                    return '<span class="status ' . $this->getOwner()->getStatus() . '"></span>' .
+                        $this->getOwner()->getFullName();
                 }
 
                 return '';
@@ -1191,7 +1192,11 @@ class Organization extends Element
                 $types = $this->getTypes();
 
                 foreach ($types as $type) {
-                    $typeHtmlParts[] = '<a href="' . UrlHelper::cpUrl('/organization/' . $this->id . '/' . $type->handle) . '">' . $type->name . '</a>';
+                    $typeHtmlParts[] = '<a href="' .
+                        UrlHelper::cpUrl('/organization/' . $this->id . '/' . $type->handle) .
+                        '">' .
+                        $type->name .
+                        '</a>';
                 }
 
                 return !empty($typeHtmlParts) ? StringHelper::toString($typeHtmlParts, ', ') : '';
@@ -1270,11 +1275,11 @@ class Organization extends Element
     public function hasOwner()
     {
         // Get owner if it already isn't set
-        if (is_null($this->_owner)) {
+        if (is_null($this->owner)) {
             $this->getOwner();
         }
 
-        return $this->_owner instanceof User;
+        return $this->owner instanceof User;
     }
 
     /**
@@ -1284,7 +1289,7 @@ class Organization extends Element
     {
 
         // Check cache
-        if (is_null($this->_owner)) {
+        if (is_null($this->owner)) {
             // Check property
             if (!empty($this->ownerId)) {
                 // Find element
@@ -1296,24 +1301,24 @@ class Organization extends Element
                     $this->ownerId = null;
 
                     // Prevent subsequent look-ups
-                    $this->_owner = false;
+                    $this->owner = false;
                 }
             } else {
                 // Prevent subsequent look-ups
-                $this->_owner = false;
+                $this->owner = false;
             }
         } else {
             // Cache changed?
-            if ($this->ownerId && (($this->_owner === false) || ($this->ownerId !== $this->_owner->getId()))) {
+            if ($this->ownerId && (($this->owner === false) || ($this->ownerId !== $this->owner->getId()))) {
                 // Clear cache
-                $this->_owner = null;
+                $this->owner = null;
 
                 // Again
                 return $this->getOwner();
             }
         }
 
-        return $this->hasOwner() ? $this->_owner : null;
+        return $this->hasOwner() ? $this->owner : null;
     }
 
     /**
@@ -1326,18 +1331,18 @@ class Organization extends Element
     {
 
         // Clear cache
-        $this->_owner = null;
+        $this->owner = null;
 
         // Find element
         if (!$owner = $this->findUserElement($owner)) {
             // Clear property / cache
-            $this->ownerId = $this->_owner = null;
+            $this->ownerId = $this->owner = null;
         } else {
             // Set property
             $this->ownerId = $owner->getId();
 
             // Set cache
-            $this->_owner = $owner;
+            $this->owner = $owner;
         }
 
         return $this;

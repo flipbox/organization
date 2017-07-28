@@ -16,13 +16,13 @@ use flipbox\organization\models\Type as OrganizationType;
  * @author Flipbox Factory <hello@flipboxfactory.com>
  * @since 1.0.0
  */
-class TypeController extends AbstractViewController
+class TypeController extends AbstractController
 {
 
     /**
      * The index view template path
      */
-    const TEMPLATE_INDEX = AbstractViewController::TEMPLATE_BASE . DIRECTORY_SEPARATOR . 'type';
+    const TEMPLATE_INDEX = AbstractController::TEMPLATE_BASE . DIRECTORY_SEPARATOR . 'type';
 
     /**
      * The insert/update view template path

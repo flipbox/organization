@@ -33,8 +33,11 @@ class Field extends Component
      * @param OrganizationQuery $target
      * @return bool
      */
-    public function beforeSaveUserRelations(OrganizationUserField $field, UserElement $source, OrganizationQuery $target)
-    {
+    public function beforeSaveUserRelations(
+        OrganizationUserField $field,
+        UserElement $source,
+        OrganizationQuery $target
+    ) {
 
         // Check cache for explicitly set (and possibly not saved) organizations
         if (null !== ($targets = $target->getCachedResult())) {
@@ -65,8 +68,11 @@ class Field extends Component
      * @throws \Exception
      * @return void
      */
-    public function afterSaveUserRelations(OrganizationUserField $field, UserElement $user, OrganizationQuery $organizationQuery)
-    {
+    public function afterSaveUserRelations(
+        OrganizationUserField $field,
+        UserElement $user,
+        OrganizationQuery $organizationQuery
+    ) {
 
         /** @var OrganizationElement[]|null $targets */
         if (null === ($targets = $organizationQuery->getCachedResult())) {
@@ -131,7 +137,12 @@ class Field extends Component
                 }
 
                 foreach ($targets as $organizationQuery) {
-                    if (!OrganizationPlugin::getInstance()->getUser()->associate($user, $organizationQuery, $siteId, 0)) {
+                    if (!OrganizationPlugin::getInstance()->getUser()->associate(
+                        $user,
+                        $organizationQuery,
+                        $siteId,
+                        0
+                    )) {
                         throw new Exception('Unable to associate user to organization');
                     }
                 }

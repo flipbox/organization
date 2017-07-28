@@ -103,7 +103,12 @@ class UserController extends AbstractController
         $organizationElement = OrganizationPlugin::getInstance()->getOrganization()->get($organizationIdentifier);
 
         // Action successful
-        if (OrganizationPlugin::getInstance()->getUser()->associate($userElement, $organizationElement, $siteId, $sortOrder)) {
+        if (OrganizationPlugin::getInstance()->getUser()->associate(
+            $userElement,
+            $organizationElement,
+            $siteId,
+            $sortOrder
+        )) {
             // Success message
             $message = Craft::t('organization', 'Successfully associated user to organization.');
 

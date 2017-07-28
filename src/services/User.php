@@ -30,30 +30,38 @@ class User extends Component
 {
 
     /**
-     * @event ManageOrganizationUserEvent The event that is triggered before a user is associated to an organization.
+     * @event ManageOrganizationUserEvent The event that is triggered before a
+     * user is associated to an organization.
      *
-     * You may set [[ManageOrganizationUserEvent::isValid]] to `false` to prevent the user from being associated to the organization.
+     * You may set [[ManageOrganizationUserEvent::isValid]] to `false` to prevent the
+     * user from being associated to the organization.
      */
     const EVENT_BEFORE_ASSOCIATE = 'beforeAssociate';
 
     /**
-     * @event ManageOrganizationUserEvent The event that is triggered after a user is associated to an organization.
+     * @event ManageOrganizationUserEvent The event that is triggered after a
+     * user is associated to an organization.
      *
-     * * You may set [[ManageOrganizationUserEvent::isValid]] to `false` to prevent the user from being associated to the organization.
+     * * You may set [[ManageOrganizationUserEvent::isValid]] to `false` to prevent the
+     * user from being associated to the organization.
      */
     const EVENT_AFTER_ASSOCIATE = 'afterAssociate';
 
     /**
-     * @event ManageOrganizationUserEvent The event that is triggered before a user is remove from an organization.
+     * @event ManageOrganizationUserEvent The event that is triggered before a
+     * user is remove from an organization.
      *
-     * You may set [[ManageOrganizationUserEvent::isValid]] to `false` to prevent the user from being removed from the organization.
+     * You may set [[ManageOrganizationUserEvent::isValid]] to `false` to prevent the
+     * user from being removed from the organization.
      */
     const EVENT_BEFORE_DISSOCIATE = 'beforeDissociate';
 
     /**
-     * @event ManageOrganizationUserEvent The event that is triggered after a user is remove from an organization.
+     * @event ManageOrganizationUserEvent The event that is triggered after a
+     * user is remove from an organization.
      *
-     * * You may set [[ManageOrganizationUserEvent::isValid]] to `false` to prevent the user from being removed from the organization.
+     * * You may set [[ManageOrganizationUserEvent::isValid]] to `false` to prevent the
+     * user from being removed from the organization.
      */
     const EVENT_AFTER_DISSOCIATE = 'afterDissociate';
 
@@ -199,8 +207,12 @@ class User extends Component
      * @param int|null $siteId
      * @param int|null $sortOrder The order which the user should be positioned.  If the value is zero (0) we position them last.
      */
-    protected function applySortOrder(UserElement $userElement, OrganizationElement $organizationElement, int $siteId = null, int $sortOrder = null)
-    {
+    protected function applySortOrder(
+        UserElement $userElement,
+        OrganizationElement $organizationElement,
+        int $siteId = null,
+        int $sortOrder = null
+    ) {
 
         // No order
         if (null === $sortOrder) {
@@ -281,8 +293,12 @@ class User extends Component
      * @throws Exception
      * @throws \yii\db\Exception
      */
-    public function associate(UserElement $userElement, OrganizationElement $organizationElement, int $siteId = null, int $sortOrder = null)
-    {
+    public function associate(
+        UserElement $userElement,
+        OrganizationElement $organizationElement,
+        int $siteId = null,
+        int $sortOrder = null
+    ) {
 
         // Already associated
         if ($this->_associationExists($userElement, $organizationElement, $siteId)) {
@@ -494,8 +510,11 @@ class User extends Component
      * @param int|null $siteId
      * @return bool
      */
-    private function _associationExists(UserElement $userElement, OrganizationElement $organizationElement, int $siteId = null)
-    {
+    private function _associationExists(
+        UserElement $userElement,
+        OrganizationElement $organizationElement,
+        int $siteId = null
+    ) {
         return null !== OrganizationUserRecord::findOne([
                 'organizationId' => $organizationElement->id,
                 'userId' => $userElement->id,

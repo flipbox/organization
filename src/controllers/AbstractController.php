@@ -30,7 +30,10 @@ abstract class AbstractController extends Controller
      */
     public function requirePostPutPatchRequest()
     {
-        if (!(Craft::$app->getRequest()->getIsPost() || !Craft::$app->getRequest()->getIsPatch() || !Craft::$app->getRequest()->getIsPut())) {
+        if (!(Craft::$app->getRequest()->getIsPost() ||
+            !Craft::$app->getRequest()->getIsPatch() ||
+            !Craft::$app->getRequest()->getIsPut())
+        ) {
             throw new HttpException(400);
         }
     }
