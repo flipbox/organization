@@ -580,7 +580,7 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
                         'instructions' => Craft::t(
                             'app',
                             'Which site do you want to select {type} in?',
-                                [
+                            [
                                     'type' => StringHelper::toLowerCase(static::displayName())
                                 ]
                         ),

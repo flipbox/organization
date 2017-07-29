@@ -79,9 +79,11 @@ class RemoveUsers extends ElementAction
             }
         }
 
-        $this->setMessage(Craft::t(
-            'organization',
-            'User' . ($query->count() != 1 ? 's' : '') . ' removed.')
+        $this->setMessage(
+            Craft::t(
+                'organization',
+                'User' . ($query->count() != 1 ? 's' : '') . ' removed.'
+            )
         );
 
         return true;

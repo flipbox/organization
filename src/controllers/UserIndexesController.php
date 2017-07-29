@@ -70,6 +70,9 @@ class UserIndexesController extends BaseElementsController
      */
     private $actions;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
 

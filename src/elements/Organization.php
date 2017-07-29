@@ -44,7 +44,7 @@ class Organization extends Element
     /**
      * @var string
      */
-    private $_status;
+    private $status;
 
     /**
      * @var DateTime|null
@@ -256,7 +256,7 @@ class Organization extends Element
     public function setStatus($status)
     {
 
-        $this->_status = null;
+        $this->status = null;
 
         // A custom organization status
         if (OrganizationPlugin::getInstance()->getOrganization()->isCustomStatus($status)) {
@@ -264,7 +264,7 @@ class Organization extends Element
             $this->enabled = 1;
             $this->enabledForSite = 1;
 
-            $this->_status = $status;
+            $this->status = $status;
         } else {
             switch ($status) {
                 case Element::STATUS_ENABLED:
@@ -291,11 +291,11 @@ class Organization extends Element
     public function getStatus()
     {
 
-        if (null === $this->_status) {
+        if (null === $this->status) {
             return parent::getStatus();
         }
 
-        return $this->_status;
+        return $this->status;
     }
 
     /************************************************************

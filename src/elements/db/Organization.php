@@ -427,8 +427,9 @@ class Organization extends ElementQuery
             );
 
             $this->subQuery->andWhere(Db::parseParam(
-                OrganizationTypeOrganizationRecord::tableAlias() . '.typeId', $this->typeId)
-            );
+                OrganizationTypeOrganizationRecord::tableAlias() . '.typeId',
+                $this->typeId
+            ));
         }
 
         // Owner only

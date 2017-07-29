@@ -324,7 +324,8 @@ class Organization extends ElementService
     {
         return OrganizationPlugin::getInstance()->getUser()->getMemberQuery(
             ($match ? '' : 'not ') .
-            $organization->id ?: 'x', $criteria
+            $organization->id ?: 'x',
+            $criteria
         );
     }
 
@@ -338,7 +339,8 @@ class Organization extends ElementService
     {
         return OrganizationPlugin::getInstance()->getUser()->getUserQuery(
             ($match ? '' : 'not ') .
-            $organization->id ?: 'x', $criteria
+            $organization->id ?: 'x',
+            $criteria
         );
     }
 
@@ -352,7 +354,8 @@ class Organization extends ElementService
     {
         return OrganizationPlugin::getInstance()->getUser()->getOwnerQuery(
             ($match ? '' : 'not ') .
-            $organization->id ?: 'x', $criteria
+            $organization->id ?: 'x',
+            $criteria
         );
     }
 
