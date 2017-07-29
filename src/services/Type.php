@@ -187,7 +187,7 @@ class Type extends AbstractType
 
         // Set as primary
         if ($primary) {
-            if (!$this->_associateAsPrimary($typeModel, $organizationElement)) {
+            if (!$this->associateAsPrimary($typeModel, $organizationElement)) {
                 // Roll back on failures
                 $transaction->rollBack();
 
@@ -245,7 +245,7 @@ class Type extends AbstractType
         try {
             if ($isPrimary = $this->isPrimaryAssociation($typeModel, $organizationElement)) {
                 // Remove primary association first
-                if (!$this->_dissociateAsPrimary($typeModel, $organizationElement)) {
+                if (!$this->dissociateAsPrimary($typeModel, $organizationElement)) {
                     // Roll back on failures
                     $transaction->rollBack();
 
@@ -280,7 +280,7 @@ class Type extends AbstractType
             if ($isPrimary && !$this->hasPrimaryAssociation($organizationElement)) {
                 // Assign new primary
                 if ($primaryType = $this->findByOrganization($organizationElement)) {
-                    if (!$this->_associateAsPrimary($primaryType, $organizationElement)) {
+                    if (!$this->associateAsPrimary($primaryType, $organizationElement)) {
                         // Roll back on failures
                         $transaction->rollBack();
 
@@ -312,7 +312,7 @@ class Type extends AbstractType
      * @return bool
      * @throws \Exception
      */
-    private function _associateAsPrimary(
+    private function associateAsPrimary(
         TypeModel $typeModel,
         OrganizationElement $organizationElement
     ) {
@@ -365,7 +365,7 @@ class Type extends AbstractType
             }
 
             // Remove existing association
-            if ($primaryTypeModel && !$this->_dissociateAsPrimary($primaryTypeModel, $organizationElement)) {
+            if ($primaryTypeModel && !$this->dissociateAsPrimary($primaryTypeModel, $organizationElement)) {
                 // Roll back on failures
                 $transaction->rollBack();
 
@@ -421,7 +421,7 @@ class Type extends AbstractType
      * @return bool
      * @throws \Exception
      */
-    private function _dissociateAsPrimary(
+    private function dissociateAsPrimary(
         TypeModel $typeModel,
         OrganizationElement $organizationElement
     ) {
@@ -485,7 +485,7 @@ class Type extends AbstractType
             if (!$this->hasPrimaryAssociation($organizationElement) &&
                 $primaryType = $this->findByOrganization($organizationElement)
             ) {
-                if (!$this->_associateAsPrimary($primaryType, $organizationElement)) {
+                if (!$this->associateAsPrimary($primaryType, $organizationElement)) {
                     // Roll back on failures
                     $transaction->rollBack();
 

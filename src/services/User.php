@@ -220,7 +220,7 @@ class User extends Component
         }
 
         /** @var array $currentOrder */
-        $currentOrder = $this->_getCurrentSortOrder($organizationElement, $siteId);
+        $currentOrder = $this->getCurrentSortOrder($organizationElement, $siteId);
 
         // The target record to position
         if (!$target = ArrayHelper::remove($currentOrder, $userElement->id)) {
@@ -301,7 +301,7 @@ class User extends Component
     ) {
 
         // Already associated
-        if ($this->_associationExists($userElement, $organizationElement, $siteId)) {
+        if ($this->associationExists($userElement, $organizationElement, $siteId)) {
             $this->applySortOrder($userElement, $organizationElement, $siteId, $sortOrder);
             return true;
         }
@@ -415,7 +415,7 @@ class User extends Component
     {
 
         // Already not associated
-        if (!$this->_associationExists($userElement, $organizationElement)) {
+        if (!$this->associationExists($userElement, $organizationElement)) {
             return true;
         }
 
@@ -480,7 +480,7 @@ class User extends Component
      * @param int|null $siteId
      * @return array
      */
-    private function _getCurrentSortOrder(OrganizationElement $organizationElement, int $siteId = null): array
+    private function getCurrentSortOrder(OrganizationElement $organizationElement, int $siteId = null): array
     {
 
         return (new Query())
@@ -510,7 +510,7 @@ class User extends Component
      * @param int|null $siteId
      * @return bool
      */
-    private function _associationExists(
+    private function associationExists(
         UserElement $userElement,
         OrganizationElement $organizationElement,
         int $siteId = null

@@ -118,12 +118,12 @@ class UserIndexesController extends BaseElementsController
         $this->elementType = $this->elementType();
         $this->context = $this->context();
         $this->sourceKey = Craft::$app->getRequest()->getParam('source');
-        $this->source = $this->_source();
-        $this->viewState = $this->_viewState();
-        $this->elementQuery = $this->_elementQuery();
+        $this->source = $this->source();
+        $this->viewState = $this->viewState();
+        $this->elementQuery = $this->elementQuery();
 
         if ($this->context === 'index' && $this->sourceKey !== null) {
-            $this->actions = $this->_availableActions();
+            $this->actions = $this->availableActions();
         }
     }
 
@@ -165,7 +165,7 @@ class UserIndexesController extends BaseElementsController
     public function actionGetElements(): Response
     {
         $includeActions = ($this->context === 'index');
-        $responseData = $this->_elementResponseData(true, $includeActions);
+        $responseData = $this->elementResponseData(true, $includeActions);
 
         return $this->asJson($responseData);
     }
@@ -177,7 +177,7 @@ class UserIndexesController extends BaseElementsController
      */
     public function actionGetMoreElements(): Response
     {
-        $responseData = $this->_elementResponseData(false, false);
+        $responseData = $this->elementResponseData(false, false);
 
         return $this->asJson($responseData);
     }
@@ -271,7 +271,7 @@ class UserIndexesController extends BaseElementsController
 
         if ($success) {
             // Send a new set of elements
-            $responseData = array_merge($responseData, $this->_elementResponseData(true, true));
+            $responseData = array_merge($responseData, $this->elementResponseData(true, true));
         }
 
         return $this->asJson($responseData);
@@ -302,7 +302,7 @@ class UserIndexesController extends BaseElementsController
      * @return array|null
      * @throws ForbiddenHttpException if the user is not permitted to access the requested source
      */
-    private function _source()
+    private function source()
     {
         if ($this->sourceKey === null) {
             return null;
@@ -323,7 +323,7 @@ class UserIndexesController extends BaseElementsController
      *
      * @return array
      */
-    private function _viewState(): array
+    private function viewState(): array
     {
         $viewState = Craft::$app->getRequest()->getParam('viewState', []);
 
@@ -339,7 +339,7 @@ class UserIndexesController extends BaseElementsController
      *
      * @return ElementQueryInterface
      */
-    private function _elementQuery(): ElementQueryInterface
+    private function elementQuery(): ElementQueryInterface
     {
         /** @var UserQuery $query */
         $query = new UserQuery(User::class);
@@ -412,7 +412,7 @@ class UserIndexesController extends BaseElementsController
      *
      * @return array
      */
-    private function _elementResponseData(bool $includeContainer, bool $includeActions): array
+    private function elementResponseData(bool $includeContainer, bool $includeActions): array
     {
         $responseData = [];
 
@@ -420,7 +420,7 @@ class UserIndexesController extends BaseElementsController
 
         // Get the action head/foot HTML before any more is added to it from the element HTML
         if ($includeActions) {
-            $responseData['actions'] = $this->_actionData();
+            $responseData['actions'] = $this->actionData();
             $responseData['actionsHeadHtml'] = $view->getHeadHtml();
             $responseData['actionsFootHtml'] = $view->getBodyHtml();
         }
@@ -451,7 +451,7 @@ class UserIndexesController extends BaseElementsController
      *
      * @return ElementActionInterface[]|null
      */
-    private function _availableActions()
+    private function availableActions()
     {
         if (Craft::$app->getRequest()->isMobileBrowser()) {
             return null;
@@ -480,7 +480,7 @@ class UserIndexesController extends BaseElementsController
      *
      * @return array|null
      */
-    private function _actionData()
+    private function actionData()
     {
         if (empty($this->actions)) {
             return null;

@@ -160,7 +160,7 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
     /**
      * @var bool Whether existing relations should be made translatable after the field is saved
      */
-    private $_makeExistingRelationsTranslatable = false;
+    private $makeExistingRelationsTranslatable = false;
 
     /**
      * @inheritdoc
@@ -445,14 +445,14 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
      */
     public function beforeSave(bool $isNew): bool
     {
-        $this->_makeExistingRelationsTranslatable = false;
+        $this->makeExistingRelationsTranslatable = false;
 
         if ($this->id && $this->localizeRelations) {
             /** @var Field $existingField */
             $existingField = Craft::$app->getFields()->getFieldById($this->id);
 
             if ($existingField && $existingField instanceof User && !$existingField->localizeRelations) {
-                $this->_makeExistingRelationsTranslatable = true;
+                $this->makeExistingRelationsTranslatable = true;
             }
         }
 
@@ -464,7 +464,7 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
      */
     public function afterSave(bool $isNew)
     {
-        if ($this->_makeExistingRelationsTranslatable) {
+        if ($this->makeExistingRelationsTranslatable) {
             Craft::$app->getTasks()->queueTask([
                 'type' => LocalizeRelations::class,
                 'fieldId' => $this->id,

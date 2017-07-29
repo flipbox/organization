@@ -74,7 +74,14 @@ class RemoveUsers extends ElementAction
         foreach ($query->all() as $user) {
             if (!OrganizationPlugin::getInstance()->getUser()->dissociate($user, $organization)) {
                 throw new Exception(
-                    "Unable to disassociate user “{$user->getId()}” from organization “{$organization->getId()}”"
+                    Craft::t(
+                        'organization',
+                        "Unable to disassociate user “{user}” from organization “{organization}”",
+                        [
+                            '{user}' => $user->getId(),
+                            '{organization}' => $organization->getId()
+                        ]
+                    )
                 );
             }
         }
