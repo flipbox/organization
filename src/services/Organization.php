@@ -92,7 +92,7 @@ class Organization extends ElementService
     /**
      * @var array
      */
-    private $_statusesByOrganization = [];
+    private $statusesByOrganization = [];
 
 
     /*******************************************
@@ -182,7 +182,7 @@ class Organization extends ElementService
             // If they don't match, store it and set the original.
             //  We'll handle changing the status on the after event.
             if ($currentStatus !== $existingStatus) {
-                $this->_statusesByOrganization[$organization->getId()] = $currentStatus;
+                $this->statusesByOrganization[$organization->getId()] = $currentStatus;
                 $organization->setStatus($existingStatus);
             }
         }
@@ -249,7 +249,7 @@ class Organization extends ElementService
             $status = $organization->getStatus();
 
             $toStatus = ArrayHelper::remove(
-                $this->_statusesByOrganization,
+                $this->statusesByOrganization,
                 $organization->getId(),
                 $status
             );
@@ -447,10 +447,8 @@ class Organization extends ElementService
 
         // Set the entry attributes, defaulting to the existing values for whatever is missing from the post data
         $organization->slug = $request->getBodyParam('slug', $organization->slug);
-        $organization->dateJoined = (($dateJoined = $request->getBodyParam('dateJoined')) !== false ?
-            (DateTimeHelper::toDateTime($dateJoined) ?: null) :
-            $organization->dateJoined
-        );
+
+        // Enabled
         $organization->enabledForSite = (bool)$request->getBodyParam(
             'enabledForSite',
             $organization->enabledForSite
@@ -462,22 +460,14 @@ class Organization extends ElementService
             $request->getBodyParam('status', $organization->getStatus())
         );
 
-        // Active Type
-        $type = null;
-        if ($typeId = $request->getBodyParam('type', null)) {
-            $type = OrganizationPlugin::getInstance()->getType()->get($typeId);
-        }
-        $organization->setActiveType($type);
+        // Join date
+        $this->populateDateFromRequest($organization, 'dateJoined');
+
+        // Active type
+        $this->populateActiveTypeFromRequest($organization);
 
         // Owner
-        $ownerId = $request->getBodyParam(
-            'owner',
-            ($organization->ownerId ?: Craft::$app->getUser()->getIdentity()->id)
-        );
-        if (is_array($ownerId)) {
-            $ownerId = $ownerId[0] ?? null;
-        }
-        $organization->ownerId = $ownerId;
+        $this->populateOwnerFromRequest($organization);
 
         // Set types
         $organization->setTypesFromRequest(
@@ -493,6 +483,47 @@ class Organization extends ElementService
         $organization->setFieldValuesFromRequest(
             $request->getParam('fieldsLocation', 'fields')
         );
+    }
+
+    /**
+     * @param OrganizationElement $organization
+     * @param string $dateProperty
+     */
+    private function populateDateFromRequest(OrganizationElement $organization, string $dateProperty)
+    {
+        $dateTime = DateTimeHelper::toDateTime(
+            Craft::$app->getRequest()->getBodyParam($dateProperty, $organization->{$dateProperty})
+        );
+        $organization->{$dateProperty} = $dateTime === false ? null : $dateTime;
+    }
+
+    /**
+     * @param OrganizationElement $organization
+     */
+    private function populateActiveTypeFromRequest(OrganizationElement $organization)
+    {
+
+        $type = null;
+        if ($typeId = Craft::$app->getRequest()->getBodyParam('type', null)) {
+            $type = OrganizationPlugin::getInstance()->getType()->get($typeId);
+        }
+        $organization->setActiveType($type);
+    }
+
+    /**
+     * @param OrganizationElement $organization
+     */
+    private function populateOwnerFromRequest(OrganizationElement $organization)
+    {
+
+        $ownerId = Craft::$app->getRequest()->getBodyParam(
+            'owner',
+            $organization->ownerId
+        );
+        if (is_array($ownerId)) {
+            $ownerId = ArrayHelper::firstValue($ownerId);
+        }
+        $organization->ownerId = $ownerId;
     }
 
 

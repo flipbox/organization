@@ -205,7 +205,8 @@ class User extends Component
      * @param UserElement $userElement
      * @param OrganizationElement $organizationElement
      * @param int|null $siteId
-     * @param int|null $sortOrder The order which the user should be positioned.  If the value is zero (0) we position them last.
+     * @param int|null $sortOrder The order which the user should be positioned.
+     * If the value is zero (0) we position them last.
      */
     protected function applySortOrder(
         UserElement $userElement,
