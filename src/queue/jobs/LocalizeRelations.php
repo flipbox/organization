@@ -58,7 +58,8 @@ class LocalizeRelations extends BaseJob
                 ->update(
                     User::tableName(),
                     ['siteId' => $primarySiteId],
-                    ['id' => $relation['id']])
+                    ['id' => $relation['id']]
+                )
                 ->execute();
 
             // Duplicate it for the other sites
@@ -71,11 +72,11 @@ class LocalizeRelations extends BaseJob
                             'siteId' => $siteId,
                             'organizationId' => $relation['organizationId'],
                             'sortOrder' => $relation['sortOrder'],
-                        ])
+                        ]
+                    )
                     ->execute();
             }
         }
-
     }
 
     // Protected Methods
