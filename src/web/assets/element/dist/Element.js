@@ -65,8 +65,7 @@
 
                 if (textStatus == 'success') {
                     this._updateView(params, response);
-                }
-                else {
+                } else {
                     Craft.cp.displayError(Craft.t('app', 'An unknown error occurred.'));
                 }
 
@@ -123,9 +122,7 @@
 
                         // TODO - suggest to craft to implement
                         this.afterAction(action, params);
-
-                    }
-                    else {
+                    } else {
                         Craft.cp.displayError(response.message);
                     }
                 }
@@ -184,10 +181,8 @@
 
             // Check if we're dealing w/ an object
             if (typeof $element == 'object') {
-
                 // Get id from element
                 id = $($element).data('id');
-
             }
 
             return id;
@@ -206,13 +201,11 @@
 
             // Iterate over array
             for (var i = 0; i < $elements.length; i++) {
-
                 // Get id
                 var id = this._getIdFromElement($elements[i]);
 
                 // Add ID to our array of Id's
                 this.$elements.push(id);
-
             }
 
         },
@@ -228,7 +221,6 @@
 
             // Iterate over array
             for (var i = 0; i < $elements.length; i++) {
-
                 var id = $elements[i];
 
                 if (!isNaN(id)) {
@@ -240,15 +232,12 @@
 
                 // push to array for modal
                 ids.push(id);
-
             }
 
             // Allow the selection of these users (again)
             if (this.modal) {
-
                 // Enable users
                 this.modal.elementIndex.enableElementsById(ids);
-
             }
 
             // Hook
@@ -271,7 +260,6 @@
 
             // Iterate over each selected element (to add/save)
             for (var i = 0; i < elements.length; i++) {
-
                 // Set element variables
                 var element = elements[i],
                     $element = this.createNewElement(element),
@@ -291,22 +279,17 @@
 
                     // Check response status
                     if (textStatus == 'success') {
-
                         // Update element index
                         Craft.elementIndex.updateElements();
-
                     } else {
-
                         // Remove element
                         this.removeElements($element);
 
                         // Update modal disable status
                         this.updateDisabledElementsInModal();
-
                     }
 
                 }, this));
-
             }
 
         },
@@ -409,16 +392,11 @@
                 // Show/Hide divider
                 var $hr = this.activeBtn.menu.$menuList.find('hr');
                 if ($hr.length) {
-
                     if (this.activeBtn.menu.$menuList.children('li').length == 1) {
-
                         $hr.hide();
-
                     } else {
-
                         $hr.show();
                     }
-
                 }
 
                 // Listener
@@ -656,7 +634,6 @@
                     this.$spinner.addClass('hidden');
 
                     if (textStatus == 'success') {
-
                         // Get the field pane
                         var fieldsPane = this.$fields.data('pane');
 
@@ -695,14 +672,16 @@
                 }, this));
             }
 
-        });
+        }
+    );
 
     /** global: Craft */
     /** global: Garnish */
     /**
      * Delete Organization Modal
      */
-    Craft.DeleteOrganizationModal = Garnish.Modal.extend({
+    Craft.DeleteOrganizationModal = Garnish.Modal.extend(
+        {
             id: null,
             organizationId: null,
 
@@ -712,36 +691,36 @@
             organizationSelect: null,
             _deleting: false,
 
-            init: function(organizationId, settings) {
+            init: function (organizationId, settings) {
                 this.id = Math.floor(Math.random() * 1000000000);
                 this.organizationId = organizationId;
                 settings = $.extend(Craft.DeleteOrganizationModal.defaults, settings);
 
                 var $form = $(
-                        '<form class="modal fitted deleteorganizationmodal" method="post" accept-charset="UTF-8">' +
-                        Craft.getCsrfInput() +
-                        '<input type="hidden" name="action" value="organization/delete"/>' +
-                        (!Garnish.isArray(this.organizationId) ? '<input type="hidden" name="organizationId" value="' + this.organizationId + '"/>' : '') +
-                        (settings.redirect ? '<input type="hidden" name="redirect" value="' + settings.redirect + '"/>' : '') +
-                        '</form>'
-                    ).appendTo(Garnish.$bod),
-                    $body = $(
-                        '<div class="body">' +
-                        '<p>' + Craft.t('app', 'What do you want to do with their users?') + '</p>' +
-                        '<div class="options">' +
-                        '<label><input type="radio" name="contentAction" value="transfer"/> ' + Craft.t('app', 'Transfer it to:') + '</label>' +
-                        '<div id="transferselect' + this.id + '" class="elementselect">' +
-                        '<div class="elements"></div>' +
-                        '<div class="btn add icon dashed">' + Craft.t('app', 'Choose an organization') + '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '<div>' +
-                        '<label><input type="radio" name="contentAction" value="delete"/> ' + Craft.t('app', 'Delete it') + '</label>' +
-                        '</div>' +
-                        '</div>'
-                    ).appendTo($form),
-                    $buttons = $('<div class="buttons right"/>').appendTo($body),
-                    $cancelBtn = $('<div class="btn">' + Craft.t('app', 'Cancel') + '</div>').appendTo($buttons);
+                    '<form class="modal fitted deleteorganizationmodal" method="post" accept-charset="UTF-8">' +
+                    Craft.getCsrfInput() +
+                    '<input type="hidden" name="action" value="organization/delete"/>' +
+                    (!Garnish.isArray(this.organizationId) ? '<input type="hidden" name="organizationId" value="' + this.organizationId + '"/>' : '') +
+                    (settings.redirect ? '<input type="hidden" name="redirect" value="' + settings.redirect + '"/>' : '') +
+                    '</form>'
+                ).appendTo(Garnish.$bod),
+                $body = $(
+                    '<div class="body">' +
+                    '<p>' + Craft.t('app', 'What do you want to do with their users?') + '</p>' +
+                    '<div class="options">' +
+                    '<label><input type="radio" name="contentAction" value="transfer"/> ' + Craft.t('app', 'Transfer it to:') + '</label>' +
+                    '<div id="transferselect' + this.id + '" class="elementselect">' +
+                    '<div class="elements"></div>' +
+                    '<div class="btn add icon dashed">' + Craft.t('app', 'Choose an organization') + '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div>' +
+                    '<label><input type="radio" name="contentAction" value="delete"/> ' + Craft.t('app', 'Delete it') + '</label>' +
+                    '</div>' +
+                    '</div>'
+                ).appendTo($form),
+                $buttons = $('<div class="buttons right"/>').appendTo($body),
+                $cancelBtn = $('<div class="btn">' + Craft.t('app', 'Cancel') + '</div>').appendTo($buttons);
 
                 this.$deleteActionRadios = $body.find('input[type=radio]');
                 this.$deleteSubmitBtn = $('<input type="submit" class="btn submit disabled" value="' + Craft.t('organization', 'Delete') + '" />').appendTo($buttons);
@@ -755,8 +734,7 @@
                     for (var i = 0; i < this.organizationId.length; i++) {
                         idParam.push('not ' + this.organizationId[i]);
                     }
-                }
-                else {
+                } else {
                     idParam = 'not ' + this.organizationId;
                 }
 
@@ -771,19 +749,18 @@
                     modalSettings: {
                         closeOtherModals: false
                     },
-                    onSelectElements: $.proxy(function() {
+                    onSelectElements: $.proxy(function () {
                         this.updateSizeAndPosition();
 
                         if (!this.$deleteActionRadios.first().prop('checked')) {
                             this.$deleteActionRadios.first().click();
-                        }
-                        else {
+                        } else {
                             this.validateDeleteInputs();
                         }
                     }, this),
-                    onRemoveElements: $.proxy(this, 'validateDeleteInputs'),
-                    selectable: false,
-                    editable: false
+                onRemoveElements: $.proxy(this, 'validateDeleteInputs'),
+                selectable: false,
+                editable: false
                 });
 
                 this.addListener($cancelBtn, 'click', 'hide');
@@ -794,27 +771,25 @@
                 this.base($form, settings);
             },
 
-            validateDeleteInputs: function() {
+            validateDeleteInputs: function () {
                 var validates = false;
 
                 if (this.$deleteActionRadios.eq(0).prop('checked')) {
                     validates = !!this.organizationSelect.totalSelected;
-                }
-                else if (this.$deleteActionRadios.eq(1).prop('checked')) {
+                } else if (this.$deleteActionRadios.eq(1).prop('checked')) {
                     validates = true;
                 }
 
                 if (validates) {
                     this.$deleteSubmitBtn.removeClass('disabled');
-                }
-                else {
+                } else {
                     this.$deleteSubmitBtn.addClass('disabled');
                 }
 
                 return validates;
             },
 
-            handleSubmit: function(ev) {
+            handleSubmit: function (ev) {
                 if (this._deleting || !this.validateDeleteInputs()) {
                     ev.preventDefault();
                     return;
@@ -832,7 +807,7 @@
                 }
             },
 
-            onFadeIn: function() {
+            onFadeIn: function () {
                 // Auto-focus the first radio
                 if (!Garnish.isMobileBrowser(true)) {
                     this.$deleteActionRadios.first().focus();
@@ -847,14 +822,16 @@
                 redirect: null,
                 elementType: null
             }
-        });
+        }
+    );
 
     /** global: Craft */
     /** global: Garnish */
     /**
      * Change Organization Status Modal
      */
-    Craft.ChangeOrganizationStatusModal = Garnish.Modal.extend({
+    Craft.ChangeOrganizationStatusModal = Garnish.Modal.extend(
+        {
             id: null,
             organizationId: null,
             $spinner: null,
@@ -863,7 +840,7 @@
             statusSelect: null,
             _updating: false,
         
-            init: function(organizationId, settings) {
+            init: function (organizationId, settings) {
                 this.id = Math.floor(Math.random() * 1000000000);
                 this.organizationId = organizationId;
                 settings = $.extend(Craft.ChangeOrganizationStatusModal.defaults, settings);
@@ -874,23 +851,23 @@
                     statusOptions += '<option value="'+key+'">'+settings.statuses[key]+'</option>';
                 }
                 var $form = $(
-                        '<form class="modal fitted changeorganizationstatusmodal" method="post" accept-charset="UTF-8">' +
-                        Craft.getCsrfInput() +
-                        '<input type="hidden" name="action" value="organization/status"/>' +
-                        (!Garnish.isArray(this.organizationId) ? '<input type="hidden" name="organizationId" value="' + this.organizationId + '"/>' : '') +
-                        (settings.redirect ? '<input type="hidden" name="redirect" value="' + settings.redirect + '"/>' : '') +
-                        '</form>'
-                    ).appendTo(Garnish.$bod),
-                    $body = $(
-                        '<div class="body">' +
-                        '<p>' + Craft.t('app', 'Select status:') + '</p>' +
-                        '<div class="options">' +
-                        '<select name="status">' + statusOptions + '</select>' +
-                        '</div>' +
-                        '</div>'
-                    ).appendTo($form),
-                    $buttons = $('<div class="buttons right"/>').appendTo($body),
-                    $cancelBtn = $('<div class="btn">' + Craft.t('app', 'Cancel') + '</div>').appendTo($buttons);
+                    '<form class="modal fitted changeorganizationstatusmodal" method="post" accept-charset="UTF-8">' +
+                    Craft.getCsrfInput() +
+                    '<input type="hidden" name="action" value="organization/status"/>' +
+                    (!Garnish.isArray(this.organizationId) ? '<input type="hidden" name="organizationId" value="' + this.organizationId + '"/>' : '') +
+                    (settings.redirect ? '<input type="hidden" name="redirect" value="' + settings.redirect + '"/>' : '') +
+                    '</form>'
+                ).appendTo(Garnish.$bod),
+                $body = $(
+                    '<div class="body">' +
+                    '<p>' + Craft.t('app', 'Select status:') + '</p>' +
+                    '<div class="options">' +
+                    '<select name="status">' + statusOptions + '</select>' +
+                    '</div>' +
+                    '</div>'
+                ).appendTo($form),
+                $buttons = $('<div class="buttons right"/>').appendTo($body),
+                $cancelBtn = $('<div class="btn">' + Craft.t('app', 'Cancel') + '</div>').appendTo($buttons);
 
                 this.$submitBtn = $('<input type="submit" class="btn submit" value="' + Craft.t('organiation', 'Update') + '" />').appendTo($buttons);
                 this.$spinner = $('<div class="spinner hidden"/>').appendTo($buttons);
@@ -900,7 +877,7 @@
                 this.base($form, settings);
             },
 
-            handleSubmit: function(ev) {
+            handleSubmit: function (ev) {
                 if (this._updating) {
                     ev.preventDefault();
                     return;
@@ -923,6 +900,7 @@
                 redirect: null,
                 statuses: []
             }
-        });
+        }
+    );
 
 })(jQuery);
