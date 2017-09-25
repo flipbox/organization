@@ -1,5 +1,10 @@
 Changelog
 =========
+## Unreleased
+### Changed
+- Registering twig variables using latest Craft event.
+- Explicitly calling `->all()` on Query objects
+- Removed task in favor of queueing job for localization relationships
 
 ## 1.0.0-beta.9 - 2017-7-27
 ### Fixed

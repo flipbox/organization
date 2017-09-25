@@ -26,7 +26,7 @@ use flipbox\organization\elements\Organization as OrganizationElement;
 use flipbox\organization\helpers\Query as QueryHelper;
 use flipbox\organization\Organization as OrganizationPlugin;
 use flipbox\organization\records\User as OrganizationUserRecord;
-use flipbox\organization\tasks\LocalizeRelations;
+use flipbox\organization\queue\jobs\LocalizeRelations;
 use flipbox\organization\validators\User as UserValidator;
 use yii\base\Exception;
 
@@ -355,7 +355,7 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
         if (count($value)) {
             $html = '<div class="elementselect"><div class="elements">';
 
-            foreach ($value as $relatedElement) {
+            foreach ($value->all() as $relatedElement) {
                 $html .= Craft::$app->getView()->renderTemplate(
                     '_elements/element',
                     [
@@ -465,10 +465,9 @@ class User extends Field implements PreviewableFieldInterface, EagerLoadingField
     public function afterSave(bool $isNew)
     {
         if ($this->makeExistingRelationsTranslatable) {
-            Craft::$app->getTasks()->queueTask([
-                'type' => LocalizeRelations::class,
-                'fieldId' => $this->id,
-            ]);
+            Craft::$app->getQueue()->push(new LocalizeRelations([
+                'userId' => $this->id,
+            ]));
         }
 
         parent::afterSave($isNew);

@@ -16,6 +16,7 @@ use craft\helpers\UrlHelper;
 use craft\models\FieldLayout as FieldLayoutModel;
 use craft\services\Elements;
 use craft\services\Fields;
+use craft\web\twig\variables\CraftVariable;
 use craft\web\UrlManager;
 use flipbox\organization\controllers\OrganizationController;
 use flipbox\organization\elements\Organization as OrganizationElement;
@@ -81,6 +82,17 @@ class Organization extends BasePlugin
             UrlManager::EVENT_REGISTER_CP_URL_RULES,
             [self::class, 'onRegisterCpUrlRules']
         );
+
+        // Twig variables
+        Event::on(
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function (Event $event) {
+                /** @var CraftVariable $variable */
+                $variable = $event->sender;
+                $variable->set('organization', OrganizationVariable::class);
+            }
+        );
     }
 
 
@@ -113,18 +125,6 @@ class Organization extends BasePlugin
 
             ]
         );
-    }
-
-    /**
-     * Returns the component definition that should be registered on the
-     * [[\craft\web\twig\variables\CraftVariable]] instance for this plugin’s handle.
-     *
-     * @return mixed|null The component definition to be registered.
-     * It can be any of the formats supported by [[\yii\di\ServiceLocator::set()]].
-     */
-    public function defineTemplateComponent()
-    {
-        return OrganizationVariable::class;
     }
 
     /**
