@@ -1,25 +1,25 @@
 Changelog
 =========
-## Unreleased
+## 1.0.0-beta.10 - 2017-09-25
 ### Changed
 - Registering twig variables using latest Craft event.
 - Explicitly calling `->all()` on Query objects
 - Removed task in favor of queueing job for localization relationships
 
-## 1.0.0-beta.9 - 2017-7-27
+## 1.0.0-beta.9 - 2017-07-27
 ### Fixed
 - Issue where field layout would get deleted without saving a new one.
 - Issue where type specific field layout was not getting saved.
 
-## 1.0.0-beta.8 - 2017-7-25
+## 1.0.0-beta.8 - 2017-07-25
 ### Fixed
 - Bug with User validator not returning a proper response.
 
-## 1.0.0-beta.7 - 2017-7-13
+## 1.0.0-beta.7 - 2017-07-13
 ### Added
 - Logging when unable to save Organization
 
-## 1.0.0-beta.6 - 2017-7-5
+## 1.0.0-beta.6 - 2017-07-5
 ### Fixed
 - Issues where an organization could not be deleted via the element index action
 - Issues where an organization could not be deleted via the element action
@@ -28,7 +28,7 @@ Changelog
 ### Added
 - Prompt to transfer organization user to new organization upon deletion via element index action
 
-## 1.0.0-beta.5 - 2017-6-5
+## 1.0.0-beta.5 - 2017-06-5
 ### Changed
 - Changed icons
 - Required owner is determined via settings
