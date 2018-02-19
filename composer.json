@@ -1,7 +1,7 @@
 {
 	"name": "flipboxdigital/organization",
 	"description": "Simple parent + child management",
-	"version": "1.0.0-beta.10",
+	"version": "1.0.0-beta.11",
 	"type": "craft-plugin",
 	"minimum-stability": "beta",
 	"prefer-stable": true,
