@@ -5,7 +5,7 @@
 
 {% hook "cp.organization.edit" %}
 
-{% block saveButton %}
+{% block actionButton %}
     <div class="btngroup">
         <input type="submit" class="btn submit"
                value="{{ 'Save'|t('app') }}">
@@ -22,39 +22,38 @@
         </div>
     </div>
 {% endblock %}
-
-{% block main %}
+{% block tabs %}
+    {% include "organization/_cp/organization/_tabs" with {
+        tabs: tabs
+    } only %}
+{% endblock %}
+{% block content %}
 
     {{ csrfInput() }}
     <input type="hidden" name="action" value="{{ baseActionPath~'/save' }}">
     <input type="hidden" name="redirect" value="{{ baseCpPath|hash }}">
     {% if element.id %}<input type="hidden" name="identifier" value="{{ element.id }}">{% endif %}
 
-    <div class="grid first" data-max-cols="3">
-        <div class="item" data-position="left" data-colspan="2">
-            <div id="fields" class="pane">
-                {% include "organization/_cp/organization/_tabs" with {
-                tabs: tabs
-                } only %}
+        <div id="fields">
 
-                {% include "organization/_cp/organization/_fields" with {
+            {% include "organization/_cp/organization/_fields" with {
                 element: element,
                 fieldLayout: element.getFieldLayout()
+            } only %}
+
+            {% if element.id %}
+                {% include "organization/_cp/organization/_users" with {
+                element: element,
+                usersInputConfiguration: usersInputConfiguration,
+                usersIndexConfiguration: usersIndexConfiguration
                 } only %}
+            {% endif %}
 
-                {% if element.id %}
-                    {% include "organization/_cp/organization/_users" with {
-                    element: element,
-                    usersInputConfiguration: usersInputConfiguration,
-                    usersIndexConfiguration: usersIndexConfiguration
-                    } only %}
-                {% endif %}
-
-            </div>
         </div>
+{% endblock %}
 
-        <div class="item" data-position="right">
-            <div id="settings" class="pane meta">
+{% block details %}
+            <div id="settings" class=" meta">
 
                 {% if element.id %}
                     {% if actions|length %}
@@ -181,14 +180,7 @@
                 elementSelect
                 ) }}
 
-            </div>
 
-            {#Give plugins a chance to add other panes here#}
-            {#{% hook "cp.organization.edit.right-pane" %}#}
-
-            <hr>
-
-        </div>
     </div>
 {% endblock %}
 

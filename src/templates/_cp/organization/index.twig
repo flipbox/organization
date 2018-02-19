@@ -9,7 +9,7 @@
     {% endjs %}
 {% endif %}
 
-{% set extraPageHeaderHtml %}
+{% block actionButton %}
 
     <div class="buttons">
         {% if types|length > 1 %}
@@ -33,4 +33,4 @@
         {% endif %}
     </div>
 
-{% endset %}
+{% endblock %}
